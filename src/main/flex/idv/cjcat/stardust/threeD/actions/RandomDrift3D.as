@@ -77,7 +77,7 @@
 			_randomZ = value;
 		}
 		
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var p3D:Particle3D = Particle3D(particle);
 			
 			randomX.setRange( -maxX, maxX);
@@ -94,9 +94,9 @@
 				rz *= factor;
 			}
 			
-			p3D.vx += rx * time;
-			p3D.vy += ry * time;
-			p3D.vz += rz * time;
+			p3D.vx += rx * timeDelta;
+			p3D.vy += ry * timeDelta;
+			p3D.vz += rz * timeDelta;
 		}
 		
 		//XML

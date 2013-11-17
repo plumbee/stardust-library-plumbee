@@ -45,9 +45,9 @@
 		private var p:Particle3D;
 		private var iter:ParticleIterator;
 		private var v:Vec3D;
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			p3D = Particle3D(particle);
-			particles = _factory.createParticles(StardustMath.randomFloor(_countRandom.random()));
+			particles = _factory.createParticles(StardustMath.randomFloor(_countRandom.random()), currentTime);
 			iter = particles.getIterator();
 			while (p = Particle3D(iter.particle())) {
 				p.x += p3D.x;

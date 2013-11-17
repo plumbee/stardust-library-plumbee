@@ -65,7 +65,7 @@
 		private var p3D:Particle3D;
 		private var deflector:Deflector3D;
 		private var md6D:MotionData6D;
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			p3D = Particle3D(particle);
 			for each (deflector in deflectors) {
 				md6D = deflector.getMotionData6D(p3D);

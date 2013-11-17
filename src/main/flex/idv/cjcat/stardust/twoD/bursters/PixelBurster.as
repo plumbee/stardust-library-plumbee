@@ -27,7 +27,7 @@
 			
 			var rows:int = bitmapData.height;
 			var columns:int = bitmapData.width;
-			var particles:ParticleCollection = factory.createParticles(rows * columns);
+			var particles:ParticleCollection = factory.createParticles(rows * columns, 0);
 			
 			var index:int = 0;
 			var p:Particle2D;

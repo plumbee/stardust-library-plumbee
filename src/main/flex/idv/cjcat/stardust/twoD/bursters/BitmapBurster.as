@@ -54,7 +54,7 @@
 			
 			var rows:int = Math.ceil(bitmapData.height / cellHeight);
 			var columns:int = Math.ceil(bitmapData.width / cellWidth);
-			var particles:ParticleCollection = factory.createParticles(rows * columns);
+			var particles:ParticleCollection = factory.createParticles(rows * columns, 0);
 			
 			var index:int = 0;
 			var matrix:Matrix = new Matrix();

@@ -56,7 +56,7 @@
 		}
 		
 		override public function createParticles():ParticleCollection {
-			var particles:ParticleCollection = factory.createParticles(count);
+			var particles:ParticleCollection = factory.createParticles(count, 0);
 			var len:int = particles.size;
 			var len_inv:Number = 1 / len;
 			var angleOffset_rad:Number = angleOffset * StardustMath.DEGREE_TO_RADIAN;

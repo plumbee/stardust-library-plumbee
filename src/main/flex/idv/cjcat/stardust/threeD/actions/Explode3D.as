@@ -68,7 +68,7 @@
 			_currentOuterRadius = growSpeed;
 		}
 		
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			if (_discharged) return;
 			
 			var p3D:Particle3D = Particle3D(particle);
@@ -77,9 +77,9 @@
 			if (len < epsilon) len = epsilon;
 			if ((len >= _currentInnerRadius) && (len < _currentOuterRadius)) {
 				r.length = strength * Math.pow(len, -attenuationPower);
-				p3D.vx += r.x * time;
-				p3D.vy += r.y * time;
-				p3D.vz += r.z * time;
+				p3D.vx += r.x * timeDelta;
+				p3D.vy += r.y * timeDelta;
+				p3D.vz += r.z * timeDelta;
 			}
 			
 			Vec3DPool.recycle(r);

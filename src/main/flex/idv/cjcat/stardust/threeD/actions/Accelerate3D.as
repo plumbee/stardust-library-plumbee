@@ -20,11 +20,11 @@
 			this.acceleration = acceleration;
 		}
 		
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var p3D:Particle3D = Particle3D(particle);
 			var v:Vec3D = Vec3DPool.get(p3D.vx, p3D.vy, p3D.vz);
 			if (v.length > 0) {
-				v.length += acceleration * time;
+				v.length += acceleration * timeDelta;
 				p3D.vx = v.x;
 				p3D.vy = v.y;
 				p3D.vz = v.z;

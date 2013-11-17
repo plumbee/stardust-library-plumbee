@@ -11,9 +11,9 @@
 			
 		}
 		
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var target:IStardustSprite = particle.dictionary[ZBDisplayObjectClass] as IStardustSprite;
-			if (target) target.update(emitter, particle, time);
+			if (target) target.update(emitter, particle, timeDelta);
 		}
 		
 		

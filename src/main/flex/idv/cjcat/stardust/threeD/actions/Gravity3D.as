@@ -55,14 +55,14 @@
 		private var p3D:Particle3D;
 		private var field:Field3D;
 		private var md3D:MotionData3D;
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			p3D = Particle3D(particle);
 			for each (field in fields) {
 				md3D = field.getMotionData3D(p3D);
 				if (md3D) {
-					p3D.vx += md3D.x * time;
-					p3D.vy += md3D.y * time;
-					p3D.vz += md3D.z * time;
+					p3D.vx += md3D.x * timeDelta;
+					p3D.vy += md3D.y * timeDelta;
+					p3D.vz += md3D.z * timeDelta;
 					MotionData3DPool.recycle(md3D);
 					md3D = null;
 				}
