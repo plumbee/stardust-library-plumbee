@@ -105,7 +105,7 @@
 		 * 
 		 * <p>
 		 * For example, if you register the <code>MyAction</code> class with XML tag name "HelloWorld", 
-		 * <code>XMLBuilder</code> knows you are refering to the <code>MyAction</code> class when a <HelloWorld> tag appears in the XML representation.
+		 * <code>XMLBuilder</code> knows you are refering to the <code>MyAction</code> class when a &ltHelloWorld&gt tag appears in the XML representation.
 		 * All default classes in the Stardust engine are already registered, 
 		 * </p>
 		 * @param	elementClass
@@ -164,7 +164,17 @@
 			}
 			return elements[name];
 		}
-		
+
+		public function getElementsByClass( cl : Class ):Vector.<StardustElement> {
+			var ret : Vector.<StardustElement> = new Vector.<StardustElement>();
+			for (var key:* in elements) {
+				if ( elements[key] is cl) {
+					ret.push( elements[key] );
+				}
+			}
+			return ret;
+		}
+
 		/**
 		 * Reconstructs elements from XML representations.
 		 * 

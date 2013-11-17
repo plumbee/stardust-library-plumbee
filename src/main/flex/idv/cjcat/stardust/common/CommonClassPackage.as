@@ -16,6 +16,7 @@
 	import idv.cjcat.stardust.common.initializers.Alpha;
 	import idv.cjcat.stardust.common.initializers.CollisionRadius;
 	import idv.cjcat.stardust.common.initializers.Color;
+	import idv.cjcat.stardust.common.handlers.ParticleHandler;
 	import idv.cjcat.stardust.common.initializers.CompositeInitializer;
 	import idv.cjcat.stardust.common.initializers.Life;
 	import idv.cjcat.stardust.common.initializers.Mask;
@@ -84,6 +85,8 @@
 			//common randoms
 			classes.push(AveragedRandom);
 			classes.push(UniformRandom);
+			
+			classes.push(ParticleHandler);
 		}
 	}
 }

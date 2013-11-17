@@ -12,6 +12,7 @@
 		private var _position:int = 0;
 		
 		public function reset(c:Class, params:Array):void {
+			_position = 0;
 			_vec = new Array(DEFAULT_SIZE);
 			_class = c;
 			_params = params;

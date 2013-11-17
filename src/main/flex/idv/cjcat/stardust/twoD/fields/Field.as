@@ -59,9 +59,8 @@
 		
 		override public function parseXML(xml:XML, builder:XMLBuilder = null):void {
 			super.parseXML(xml, builder);
-			
-			if (xml.@active.length()) active = (xml.@active == "action");
-			if (xml.@massless.length()) massless = (xml.@active == "massless");
+            if (xml.@active.length()) active = (xml.@active == "true");
+            if (xml.@massless.length()) massless = (xml.@massless == "true");
 		}
 		
 		//------------------------------------------------------------------------------------------------

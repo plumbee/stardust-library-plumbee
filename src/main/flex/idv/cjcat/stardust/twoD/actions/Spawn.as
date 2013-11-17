@@ -45,9 +45,9 @@
 		private var p:Particle2D;
 		private var iter:ParticleIterator;
 		private var v:Vec2D;
-		override public function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			p2D = Particle2D(particle);
-			particles = _factory.createParticles(StardustMath.randomFloor(_countRandom.random()));
+			particles = _factory.createParticles( StardustMath.randomFloor(_countRandom.random()), currentTime);
 			iter = particles.getIterator();
 			while (p = Particle2D(iter.particle())) {
 				p.x += p2D.x;

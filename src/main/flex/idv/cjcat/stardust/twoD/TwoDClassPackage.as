@@ -6,6 +6,7 @@
 	import idv.cjcat.stardust.twoD.actions.DeathZone;
 	import idv.cjcat.stardust.twoD.actions.Deflect;
 	import idv.cjcat.stardust.twoD.actions.Explode;
+	import idv.cjcat.stardust.twoD.actions.FollowWaypoints;
 	import idv.cjcat.stardust.twoD.actions.Gravity;
 	import idv.cjcat.stardust.twoD.actions.Impulse;
 	import idv.cjcat.stardust.twoD.actions.LazyAction;
@@ -146,6 +147,8 @@
 			classes.push(RectZone);
 			classes.push(SectorZone);
 			classes.push(SinglePoint);
+
+			classes.push(FollowWaypoints);
 		}
 	}
 }

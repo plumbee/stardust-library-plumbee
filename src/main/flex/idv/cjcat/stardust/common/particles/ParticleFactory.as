@@ -25,7 +25,7 @@
 		 * @param	count
 		 * @return
 		 */
-		public final function createParticles(count:int):ParticleCollection {
+		public final function createParticles(count:int, currentTime : Number):ParticleCollection {
 			var i:int, len:int;
 			var particles:ParticleCollection = new ParticleFastArray();
 			for (i = 0; i < count; i++) {
@@ -36,7 +36,7 @@
 			
 			var initializers:Array = initializerCollection.initializers;
 			for (i = 0, len = initializers.length; i < len; ++i) {
-				Initializer(initializers[i]).doInitialize(particles);
+				Initializer(initializers[i]).doInitialize(particles, currentTime);
 			}
 			
 			return particles;

@@ -42,13 +42,13 @@
 		 * @param	particle
 		 * @param	time
 		 */
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var aa:Array = actionCollection.actions;
-			var testResult:Boolean = testTrigger(emitter, particle, time);
+			var testResult:Boolean = testTrigger(emitter, particle, timeDelta);
 			if (inverted) testResult = !testResult;
 			if (testResult) {
 				for each (var action:Action in aa) {
-					action.update(emitter, particle, time);
+					action.update(emitter, particle, timeDelta, currentTime);
 				}
 			}
 		}

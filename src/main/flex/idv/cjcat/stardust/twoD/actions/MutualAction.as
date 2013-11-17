@@ -25,25 +25,28 @@
 		}
 		
 		private var j:ParticleIterator;
-		override public function update(emitter:Emitter, particle:Particle, time:Number):void {
-			var p1:Particle2D = Particle2D(particle);
-			var p2:Particle2D;
-			var i:ParticleIterator = particle.sortedIndexIterator;
-			j = i.clone();
-			while (p1 = Particle2D(i.particle())) {
-				p1.sortedIndexIterator.dump(j);
-				j.next();
-				while (p2 = Particle2D(j.particle())) {
-					if ((p2.x - p1.x) <= maxDistance) {
-						if (p1.mask & p2.mask) doMutualAction(p1, p2, time);
-					} else {
-						break;
-					}
-					j.next();
-				}
-				i.next();
-			}
-		}
+        override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
+            var p1:Particle2D = Particle2D(particle);
+            var p2:Particle2D;
+            var yDist:Number;
+            var i:ParticleIterator = particle.sortedIndexIterator;
+            j = i.clone();
+            while (p1 = Particle2D(i.particle())) {
+                p1.sortedIndexIterator.dump(j);
+                j.next();
+                while (p2 = Particle2D(j.particle())) {
+                    yDist = p2.y - p1.y;
+                    if (yDist < 0) yDist = -yDist;
+                    if ( (p2.x - p1.x) <= maxDistance ) {
+                        if ( (p1.mask & p2.mask) && yDist <= maxDistance) doMutualAction(p1, p2, timeDelta);
+                    } else {
+                        break;
+                    }
+                    j.next();
+                }
+                i.next();
+            }
+        }
 		
 		protected function doMutualAction(p1:Particle2D, p2:Particle2D, time:Number):void {
 			

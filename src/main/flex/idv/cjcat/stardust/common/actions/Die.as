@@ -16,7 +16,7 @@
 			
 		}
 		
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			particle.isDead = true;
 		}
 		

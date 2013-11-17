@@ -25,7 +25,7 @@
 		private var speedSQ:Number;
 		private var limitSQ:Number;
 		private var factor:Number;
-		override public function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			p2D = Particle2D(particle);
 			speedSQ = p2D.vx * p2D.vx + p2D.vy * p2D.vy;
 			if (speedSQ > limitSQ) {
