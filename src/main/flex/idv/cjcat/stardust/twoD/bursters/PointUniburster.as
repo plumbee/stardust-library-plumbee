@@ -55,8 +55,8 @@
 			this.orientationOffset = orientationOffset;
 		}
 		
-		override public function createParticles():ParticleCollection {
-			var particles:ParticleCollection = factory.createParticles(count);
+		override public function createParticles(currentTime : Number):ParticleCollection {
+			var particles:ParticleCollection = factory.createParticles(count, currentTime);
 			var len:int = particles.size;
 			var len_inv:Number = 1 / len;
 			var angleOffset_rad:Number = angleOffset * StardustMath.DEGREE_TO_RADIAN;

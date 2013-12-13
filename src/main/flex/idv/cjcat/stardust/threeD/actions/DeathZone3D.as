@@ -30,7 +30,7 @@
 			this.inverted = inverted;
 		}
 		
-		override final public function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override final public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var p3D:Particle3D = Particle3D(particle);
 			var live:Boolean = !zone.contains(p3D.x, p3D.y, p3D.z);
 			if (inverted) live = !live;

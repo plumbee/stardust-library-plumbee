@@ -17,7 +17,7 @@
 		
 		override public function update():void {
 			graphics.clear();
-			if (lineAlpha > 0) graphics.lineStyle(lineThickness, lineColor, lineAlpha, true);
+			if (lineAlpha > 0 && lineThickness > 0) graphics.lineStyle(lineThickness, lineColor, lineAlpha, true);
 			if (fillAlpha > 0) graphics.beginFill(fillColor, fillAlpha);
 			var origin:Number = -_size * 0.5;
 			graphics.drawRect(origin, origin, _size, _size);

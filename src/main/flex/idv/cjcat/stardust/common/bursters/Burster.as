@@ -30,8 +30,8 @@
 		 * Adds particles created by the <code>createParticles()</code> method to an emitter.
 		 * @param	emitter
 		 */
-		public final function burst(emitter:Emitter):void {
-			emitter.addParticles(createParticles());
+		public final function burst(emitter:Emitter, currentTime : Number):void {
+			emitter.addParticles( createParticles(currentTime) );
 		}
 		
 		/**
@@ -39,7 +39,7 @@
 		 * Override this method to alter the particles' properties as you see fit.
 		 * @return
 		 */
-		public function createParticles():ParticleCollection {
+		public function createParticles(currentTime : Number):ParticleCollection {
 			//abstract method
 			return null;
 		}

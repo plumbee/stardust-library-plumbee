@@ -13,9 +13,9 @@
 		 * Calls the <code>IStardustSprite.update()</code> method of a particle's target if the target implements the <code>IStardustSprite</code> interface.
 		 * @see idv.cjcat.stardust.twoD.display.IStardustSprite
 		 */
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var target:IStardustSprite = particle.target as IStardustSprite;
-			if (target) target.update(emitter, particle, time);
+			if (target) target.update(emitter, particle, timeDelta);
 		}
 		
 		//XML

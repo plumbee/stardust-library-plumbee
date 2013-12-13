@@ -17,7 +17,7 @@
 			this.limit = limit;
 		}
 		
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var p3D:Particle3D = Particle3D(particle);
 			var speedSQ:Number = p3D.vx * p3D.vx + p3D.vy * p3D.vy + p3D.vz * p3D.vz;
 			

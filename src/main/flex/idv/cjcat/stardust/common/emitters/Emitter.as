@@ -94,7 +94,9 @@
 		protected var factory:PooledParticleFactory;
 		
 		private var _actionCollection:ActionCollection = new ActionCollection();
-		
+
+        private var _currentTime : Number = 0;
+
 		private var _particleHandler:ParticleHandler;
 		public function get particleHandler():ParticleHandler { return _particleHandler; }
 		public function set particleHandler(value:ParticleHandler):void {
@@ -147,7 +149,7 @@
 			//query clock ticks
 			if (active) {
 				var pCount:int = clock.getTicks(time);
-				var newParticles:ParticleCollection = factory.createParticles(pCount);
+				var newParticles:ParticleCollection = factory.createParticles(pCount, _currentTime);
 				addParticles(newParticles);
 			}
 			
@@ -191,7 +193,7 @@
 					action.preUpdate(this, time);
 					
 					//update particle
-					if (action.mask & p.mask) action.update(this, p, time);
+					if (action.mask & p.mask) action.update(this, p, time, _currentTime);
 				}
 				
 				if (p.isDead) {
@@ -221,7 +223,7 @@
 					action = activeActions[i];
 					
 					//update particle
-					if (p.mask & action.mask) action.update(this, p, time);
+					if (p.mask & action.mask) action.update(this, p, time, _currentTime);
 				}
 				
 				if (p.isDead) {
@@ -248,11 +250,13 @@
 			for (i = 0; i < len; ++i) {
 				action = activeActions[i];
 				action.postUpdate(this, time);
-			};
+			}
 			
 			onStepEnd.dispatch(this, particles, time);
 			_particleHandler.stepEnd(this, particles, time);
 			if (!numParticles) onEmpty.dispatch(this);
+
+            _currentTime = _currentTime + time;
 		}
 		
 		//------------------------------------------------------------------------------------------------

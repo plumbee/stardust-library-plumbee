@@ -25,7 +25,7 @@
 		}
 		
 		private var j:ParticleIterator;
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var p1:Particle3D = Particle3D(particle);
 			var p2:Particle3D;
 			var i:ParticleIterator = particle.sortedIndexIterator;
@@ -35,7 +35,7 @@
 				j.next();
 				while (p2 = Particle3D(j.particle())) {
 					if ((p2.x - p1.x) <= maxDistance) {
-						if (p1.mask & p2.mask) doMutualAction(p1, p2, time);
+						if (p1.mask & p2.mask) doMutualAction(p1, p2, timeDelta);
 					} else {
 						break;
 					}

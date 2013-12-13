@@ -49,7 +49,7 @@
 			this.outFunctionExtraParams = [];
 		}
 		
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			if ((particle.initLife - particle.life) < inLifespan) {
 				particle.alpha = _inFunction.apply(null, [particle.initLife - particle.life, inAlpha, particle.initAlpha - inAlpha, inLifespan].concat(_inFunctionExtraParams));
 			} else if (particle.life < outLifespan) {

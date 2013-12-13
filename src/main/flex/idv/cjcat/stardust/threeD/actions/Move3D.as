@@ -34,7 +34,7 @@
 		
 		private var p3D:Particle3D;
 		private var factor:Number;
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			p3D = Particle3D(particle);
 			p3D.x += p3D.vx * factor;
 			p3D.y += p3D.vy * factor;

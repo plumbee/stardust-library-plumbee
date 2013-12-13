@@ -28,8 +28,8 @@
 			this.multiplier = multiplier;
 		}
 		
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
-			particle.life -= time * multiplier;
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
+			particle.life -= timeDelta * multiplier;
 			if (particle.life < 0) particle.life = 0;
 		}
 		

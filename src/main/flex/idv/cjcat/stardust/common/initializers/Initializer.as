@@ -87,7 +87,7 @@
 		public function get supports3D():Boolean { return _supports3D; }
 		
 		/** @private */
-		public final function doInitialize(particles:ParticleCollection):void {
+		public function doInitialize(particles:ParticleCollection, currentTime : Number):void {
 			if (active) {
 				var particle:Particle;
 				var iter:ParticleIterator = particles.getIterator();

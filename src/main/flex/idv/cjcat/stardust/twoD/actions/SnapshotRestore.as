@@ -82,7 +82,7 @@
 			_counter = StardustMath.clamp(_counter, 0, _maxDuration);
 		}
 		
-		override public function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			if (!_started) {
 				skipThisAction = true;
 				return;

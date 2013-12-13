@@ -21,6 +21,19 @@
             <name>S3 main repo repo</name>
             <url>s3://plumbee-maven-repo/mainrepo</url>
         </repository>
+
+        <!-- this is NOT an official starling repo. It does not even have the latest version -->
+        <repository>
+            <id>starling-repository-trylogic</id>
+            <url>http://repository-trylogic.forge.cloudbees.com/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
     </repositories>
 
     <pluginRepositories>
@@ -111,6 +124,14 @@
             <version>1.1</version>
             <type>swc</type>
         </dependency>
+
+        <dependency>
+            <groupId>com.gamua</groupId>
+            <artifactId>starling-framework</artifactId>
+            <version>1.3-SNAPSHOT</version>
+            <type>swc</type>
+        </dependency>
+
     </dependencies>
 
 </project>

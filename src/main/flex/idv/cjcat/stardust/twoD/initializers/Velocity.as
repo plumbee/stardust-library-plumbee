@@ -25,8 +25,8 @@
 		override public function initialize(particle:Particle):void {
 			var p2D:Particle2D = Particle2D(particle);
 			var md2D:MotionData2D = zone.getPoint();
-			p2D.vx = md2D.x;
-			p2D.vy = md2D.y;
+			p2D.vx += md2D.x;
+			p2D.vy += md2D.y;
 			MotionData2DPool.recycle(md2D);
 		}
 		

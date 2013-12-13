@@ -1,9 +1,15 @@
 ﻿package idv.cjcat.stardust.twoD.initializers {
-	import flash.display.DisplayObject;
-	import idv.cjcat.stardust.common.particles.Particle;
-	import idv.cjcat.stardust.twoD.display.IStardustSprite;
+import flash.display.BitmapData;
+import flash.display.DisplayObject;
+import flash.utils.ByteArray;
+import flash.utils.getDefinitionByName;
+import flash.utils.getQualifiedClassName;
+
+import idv.cjcat.stardust.common.particles.Particle;
+import idv.cjcat.stardust.common.xml.XMLBuilder;
+import idv.cjcat.stardust.twoD.display.IStardustSprite;
 	import idv.cjcat.stardust.twoD.utils.DisplayObjectPool;
-	
+
 	/**
 	 * This is a pooled version of the <code>DisplayObjectClass</code> initializer, 
 	 * which makes use of an object pool to reuse display objects, 
@@ -25,8 +31,9 @@
 			priority = 1;
 			_pool = new DisplayObjectPool();
 			
-			this.displayObjectClass = displayObjectClass;
-			this.constructorParams = constructorParams;
+			_displayObjectClass = displayObjectClass;
+			_constructorParams = constructorParams;
+			if (_displayObjectClass) _pool.reset(_displayObjectClass, _constructorParams);
 		}
 		
 		override public function initialize(p:Particle):void {
@@ -53,7 +60,7 @@
 				if (obj is _displayObjectClass) _pool.recycle(obj);
 			}
 		}
-		
+
 		override public function get needsRecycle():Boolean {
 			return true;
 		}
@@ -65,6 +72,33 @@
 		override public function getXMLTagName():String {
 			return "PooledDisplayObjectClass";
 		}
+
+        override public function toXML():XML {
+            var xml:XML = super.toXML();
+            if (_displayObjectClass) {
+                xml.@displayObjectClass = getQualifiedClassName( _displayObjectClass );
+            }
+            if (_constructorParams && _constructorParams.length > 0)
+            {
+                var paramStr : String = "";
+                for (var i:int=0; i<_constructorParams.length; i++) {
+                    paramStr += _constructorParams[i] + ",";
+                }
+                paramStr = paramStr.substr(0, paramStr.length-1);
+                xml.@constructorParameters = paramStr;
+            }
+            return xml;
+        }
+
+        override public function parseXML(xml:XML, builder:XMLBuilder = null):void {
+            super.parseXML(xml, builder);
+            if (xml.@constructorParameters.length()) {
+                constructorParams = String(xml.@constructorParameters ).split(",");
+            }
+            if (xml.@displayObjectClass.length()) {
+                displayObjectClass = getDefinitionByName(  xml.@displayObjectClass ) as Class;
+            }
+        }
 		
 		//------------------------------------------------------------------------------------------------
 		//end of XML

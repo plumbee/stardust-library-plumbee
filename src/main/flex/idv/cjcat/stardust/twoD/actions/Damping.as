@@ -35,7 +35,7 @@
 		}
 		
 		private var damp:Number;
-		override public function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var p2D:Particle2D = Particle2D(particle);
 			p2D.vx *= damp;
 			p2D.vy *= damp;

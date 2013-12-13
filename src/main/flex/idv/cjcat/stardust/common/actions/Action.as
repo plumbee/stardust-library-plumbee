@@ -96,14 +96,14 @@
 		public function get supports3D():Boolean { return _supports3D; }
 		
 		/** @private */
-		public final function doUpdate(emitter:Emitter, particles:ParticleCollection, time:Number):void {
+		public final function doUpdate(emitter:Emitter, particles:ParticleCollection, timeDelta:Number, currentTime:Number):void {
 			skipThisAction = false;
 			
 			if (active) {
 				var particle:Particle;
 				var iter:ParticleIterator = particles.getIterator();
 				while (particle = iter.particle()) {
-					if (mask & particle.mask) update(emitter, particle, time);
+					if (mask & particle.mask) update(emitter, particle, timeDelta, currentTime);
 					if (skipThisAction) return;
 					iter.next();
 				}
@@ -149,9 +149,10 @@
 		 * </p>
 		 * @param	emitter		The associated emitter.
 		 * @param	particle	The associated particle.
-		 * @param	time		The timespan of each emitter's step.
+		 * @param	timeDelta   The timespan of each emitter's step.
+         * @param	currentTime The total time from the first emitter.step() call.
 		 */
-		public function update(emitter:Emitter, particle:Particle, time:Number):void {
+		public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			//abstract method
 		}
 		

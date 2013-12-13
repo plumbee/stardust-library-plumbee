@@ -67,7 +67,7 @@
 			_currentOuterRadius = growSpeed;
 		}
 		
-		override public function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			if (_discharged) return;
 			
 			var p2D:Particle2D = Particle2D(particle);
@@ -76,8 +76,8 @@
 			if (len < epsilon) len = epsilon;
 			if ((len >= _currentInnerRadius) && (len < _currentOuterRadius)) {
 				r.length = strength * Math.pow(len, -attenuationPower);
-				p2D.vx += r.x * time;
-				p2D.vy += r.y * time;
+				p2D.vx += r.x * timeDelta;
+				p2D.vy += r.y * timeDelta;
 			}
 			
 			Vec2DPool.recycle(r);

@@ -40,15 +40,15 @@
 			}
 		}
 		
-		override public function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var action:Action;
 			if (checkComponentMasks) {
 				for each (action in activeActions) {
-					if (action.mask & particle.mask) action.update(emitter, particle, time);
+					if (action.mask & particle.mask) action.update(emitter, particle, timeDelta, currentTime);
 				}
 			} else {
 				for each (action in activeActions) {
-					action.update(emitter, particle, time);
+					action.update(emitter, particle, timeDelta, currentTime);
 				}
 			}
 		}

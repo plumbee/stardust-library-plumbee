@@ -57,13 +57,13 @@
 		private var p2D:Particle2D;
 		private var md2D:MotionData2D;
 		private var field:Field;
-		override public function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			p2D = Particle2D(particle);
 			for each (field in fields) {
 				md2D = field.getMotionData2D(p2D);
 				if (md2D) {
-					p2D.vx += md2D.x * time;
-					p2D.vy += md2D.y * time;
+					p2D.vx += md2D.x * timeDelta;
+					p2D.vy += md2D.y * timeDelta;
 					MotionData2DPool.recycle(md2D);
 				}
 			}

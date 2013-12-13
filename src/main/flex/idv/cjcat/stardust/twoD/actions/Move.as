@@ -34,7 +34,7 @@
 			factor = time * multiplier;
 		}
 		
-		override public function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			p2D = Particle2D(particle);
 			p2D.x += p2D.vx * factor;
 			p2D.y += p2D.vy * factor;

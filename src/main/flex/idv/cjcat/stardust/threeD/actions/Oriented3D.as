@@ -43,7 +43,7 @@
 			this.offsetZ = offsetZ;
 		}
 		
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var p3D:Particle3D = Particle3D(particle);
 			var displacementX:Number = (Math.atan2(Math.sqrt(p3D.vx * p3D.vx + p3D.vz * p3D.vz), p3D.vy) * StardustMath.RADIAN_TO_DEGREE + offsetX) - p3D.rotationX;
 			var displacementY:Number = (Math.atan2(-p3D.vz, p3D.vx) * StardustMath.RADIAN_TO_DEGREE + offsetY) - p3D.rotationY;

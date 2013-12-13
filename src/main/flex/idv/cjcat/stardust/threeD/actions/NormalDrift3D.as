@@ -39,7 +39,7 @@
 			_random = value;
 		}
 		
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var p3D:Particle3D = Particle3D(particle);
 			var v:Vec3D = Vec3DPool.get(p3D.vx, p3D.vy, p3D.vz);
 			var temp:Vec3D = Vec3DPool.get(Math.random(), Math.random(), Math.random());
@@ -48,9 +48,9 @@
 			temp.length = random.random();
 			temp.rotateThis(v, 360 * Math.random());
 			if (!massless) v.length /= p3D.mass;
-			p3D.vx += temp.x * time;
-			p3D.vy += temp.y * time;
-			p3D.vz += temp.z * time;
+			p3D.vx += temp.x * timeDelta;
+			p3D.vy += temp.y * timeDelta;
+			p3D.vz += temp.z * timeDelta;
 			
 			Vec3DPool.recycle(v);
 			Vec3DPool.recycle(temp);

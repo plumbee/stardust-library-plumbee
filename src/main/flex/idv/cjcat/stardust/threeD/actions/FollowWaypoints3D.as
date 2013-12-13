@@ -55,7 +55,7 @@
 			_waypoints = [];
 		}
 		
-		override public final function update(emitter:Emitter, particle:Particle, time:Number):void {
+		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			if (!_waypoints.length) return;
 			
 			var p3D:Particle3D = Particle3D(particle);
