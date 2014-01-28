@@ -44,7 +44,7 @@
         <flash.player.version>11.4</flash.player.version>
 	</properties>
 
-    <!-- Change this part to your own S3 repository details -->
+    <!-- Change this part to your own S3 repository details 
     <distributionManagement>
         <repository>
             <id>s3account</id>
@@ -57,7 +57,7 @@
             <url>s3://plumbee-maven-repo/mainrepo</url>
         </snapshotRepository>
     </distributionManagement>
-
+-->
 	<build>
 
         <extensions>
