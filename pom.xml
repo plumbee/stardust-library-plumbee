@@ -44,20 +44,18 @@
         <flash.player.version>11.4</flash.player.version>
 	</properties>
 
-    <!-- Change this part to your own S3 repository details 
+    <!-- Change this part to your own repository details -->
     <distributionManagement>
         <repository>
-            <id>s3account</id>
-            <name>S3 Release repo</name>
-            <url>s3://plumbee-maven-repo/mainrepo</url>
+            <id>nexus</id>
+            <url>http://nexus.plumbee.co.uk:8081/nexus/content/repositories/plumbeerel/</url>
         </repository>
         <snapshotRepository>
-            <id>s3account</id>
-            <name>S3 Snapshot repo</name>
-            <url>s3://plumbee-maven-repo/mainrepo</url>
+            <id>nexus</id>
+            <url>http://nexus.plumbee.co.uk:8081/nexus/content/repositories/plumbee/</url>
         </snapshotRepository>
     </distributionManagement>
--->
+
 	<build>
 
         <extensions>
@@ -94,6 +92,12 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.2.1</version>
+            </plugin>
 		</plugins>
 	</build>
 
