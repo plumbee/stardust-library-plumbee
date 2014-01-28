@@ -16,12 +16,6 @@
             <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
         </repository>
 
-        <repository>
-            <id>plumbee-maven-repo</id>
-            <name>S3 main repo repo</name>
-            <url>s3://plumbee-maven-repo/mainrepo</url>
-        </repository>
-
         <!-- this is NOT an official starling repo. It does not even have the latest version -->
         <repository>
             <id>starling-repository-trylogic</id>
