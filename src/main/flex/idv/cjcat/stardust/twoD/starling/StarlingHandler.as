@@ -7,29 +7,24 @@ import idv.cjcat.stardust.common.xml.XMLBuilder;
 import idv.cjcat.stardust.twoD.display.AddChildMode;
 import idv.cjcat.stardust.twoD.particles.Particle2D;
 
-import starling.display.BlendMode;
-import starling.display.DisplayObject;
-import starling.display.DisplayObjectContainer;
-
 public class StarlingHandler extends ParticleHandler
 {
-    public var addChildMode:int;
-    public var container:DisplayObjectContainer;
-    public var blendMode:String = BlendMode.NORMAL;
+    public var addChildMode : int;
+    public var container : Object; // starling.display.DisplayObjectContainer
+    public var blendMode : String;
+    private var p2D : Particle2D;
+    private var displayObj : Object; // starling.display.DisplayObject
 
-    public function StarlingHandler(container:DisplayObjectContainer = null, blendMode:String = "normal", addChildMode:int = 0)
+    public function StarlingHandler(container:* = null, blendMode:String = "normal", addChildMode:int = 0)
     {
         this.container = container;
         this.blendMode = blendMode;
         this.addChildMode = addChildMode;
     }
 
-    private var p2D:Particle2D;
-    private var displayObj:DisplayObject;
-
     override public function particleAdded(particle:Particle):void
     {
-        displayObj = DisplayObject(particle.target);
+        displayObj = particle.target;
         displayObj.blendMode = blendMode;
 
         if (!container) return;
@@ -51,13 +46,13 @@ public class StarlingHandler extends ParticleHandler
 
     override public function particleRemoved(particle:Particle):void
     {
-        DisplayObject(particle.target).removeFromParent();
+        particle.target.removeFromParent();
     }
 
     override public function readParticle(particle:Particle):void
     {
         p2D = Particle2D(particle);
-        displayObj = DisplayObject(particle.target);
+        displayObj = particle.target;
 
         displayObj.x = p2D.x;
         displayObj.y = p2D.y;

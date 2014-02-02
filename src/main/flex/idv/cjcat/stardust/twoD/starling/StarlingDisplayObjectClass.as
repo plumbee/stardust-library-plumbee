@@ -1,5 +1,6 @@
 package idv.cjcat.stardust.twoD.starling
 {
+
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 
@@ -7,8 +8,6 @@ import idv.cjcat.stardust.common.particles.Particle;
 import idv.cjcat.stardust.common.utils.construct;
 import idv.cjcat.stardust.common.xml.XMLBuilder;
 import idv.cjcat.stardust.twoD.initializers.Initializer2D;
-
-import starling.display.DisplayObject;
 
 public class StarlingDisplayObjectClass extends Initializer2D
 {
@@ -23,10 +22,11 @@ public class StarlingDisplayObjectClass extends Initializer2D
 
     override public function initialize(particle:Particle):void
     {
-        var target:DisplayObject = construct(displayObjectClass, constructorParams);
-        target.pivotX = 0.5 * target.width;
-        target.pivotY = 0.5 * target.height;
-        particle.target = target;
+        // starling.display.DisplayObject
+        var displayObject : * = construct(displayObjectClass, constructorParams);
+        displayObject.pivotX = 0.5 * displayObject.width;
+        displayObject.pivotY = 0.5 * displayObject.height;
+        particle.target = displayObject;
     }
 
     //XML
