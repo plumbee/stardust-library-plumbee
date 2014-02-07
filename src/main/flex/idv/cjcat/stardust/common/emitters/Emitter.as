@@ -96,6 +96,7 @@
 		private var _actionCollection:ActionCollection = new ActionCollection();
 
         private var _currentTime : Number = 0;
+        public function get currentTime():Number { return _currentTime; }
 
 		private var _particleHandler:ParticleHandler;
 		public function get particleHandler():ParticleHandler { return _particleHandler; }
@@ -261,7 +262,7 @@
 		
 		//------------------------------------------------------------------------------------------------
 		//end of main loop
-		
+
 		
 		//actions & initializers
 		//------------------------------------------------------------------------------------------------
