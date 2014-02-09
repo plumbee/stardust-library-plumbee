@@ -6,11 +6,10 @@ import flash.geom.Rectangle;
 
 public class SpriteSheetBitmapSlicedCache
 {
-    public var bds : Vector.<BitmapData> = new Vector.<BitmapData>();
+    public const bds : Vector.<BitmapData> = new Vector.<BitmapData>();
     /** chops up the sprite sheet to small images */
-    public function init( bd : BitmapData, imgWidth : int, imgHeight : int ) : void
+    public function SpriteSheetBitmapSlicedCache( bd : BitmapData, imgWidth : int, imgHeight : int ) : void
     {
-        bds = new Vector.<BitmapData>();
         const xIter : int = Math.floor( bd.width / imgWidth );
         const yIter : int = Math.floor( bd.height / imgHeight );
         for ( var j : int = 0; j < yIter; j ++ )

@@ -10,5 +10,8 @@ public interface IBitmapParticle
 
     function initWithSpriteSheet( imgWidth : int, imgHeight : int, _animSpeed : uint,
                                   startAtRandomFrame : Boolean, bitmapData : BitmapData ) : void;
+
+
+    function stepSpriteSheet(stepTime : uint) : void;
 }
 }
