@@ -25,6 +25,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
     public function initWithSingleBitmap(bitmapData : BitmapData) : void
     {
         bmp.bitmapData = bitmapData;
+        bmp.smoothing = true;
         bmp.x = - bmp.width * 0.5;
         bmp.y = - bmp.height * 0.5;
         isSpriteSheet = false;
@@ -47,7 +48,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
         {
             slicedSpriteCache[bitmapData] = new Dictionary();
         }
-        const sizeKey : String = imgWidth.toString() + "_" + imgHeight.toString();
+        const sizeKey : Number = imgWidth * 10000000 + imgHeight;
         if ( ! slicedSpriteCache[bitmapData][sizeKey])
         {
             slicedSpriteCache[bitmapData][sizeKey] = new SpriteSheetBitmapSlicedCache( bitmapData, imgWidth, imgHeight );
@@ -59,10 +60,12 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
         totalFrames = animSpeed * spriteCache.bds.length;
         currFrame = 0;
         if ( startAtRandomFrame )
+
         {
             currFrame = Math.random() * totalFrames;
         }
         bmp.bitmapData = spriteCache.bds[Math.floor(currFrame / animSpeed)];
+        bmp.smoothing = true;
     }
 
     public function stepSpriteSheet( stepTime : uint ) : void
@@ -75,6 +78,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
             if ( nextImageIndex != currImageIndex )
             {
                 bmp.bitmapData = spriteCache.bds[nextImageIndex];
+                bmp.smoothing = true;
             }
             currFrame = nextFrame;
         }

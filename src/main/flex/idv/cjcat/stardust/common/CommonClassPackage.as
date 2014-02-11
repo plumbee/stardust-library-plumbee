@@ -11,7 +11,6 @@
 	import idv.cjcat.stardust.common.clocks.ImpulseClock;
 	import idv.cjcat.stardust.common.clocks.RandomClock;
 	import idv.cjcat.stardust.common.clocks.SteadyClock;
-	import idv.cjcat.stardust.common.errors.DuplicateElementNameError;
 	import idv.cjcat.stardust.common.handlers.PollingStation;
 	import idv.cjcat.stardust.common.initializers.Alpha;
 	import idv.cjcat.stardust.common.initializers.CollisionRadius;
@@ -23,7 +22,6 @@
 	import idv.cjcat.stardust.common.initializers.Mass;
 	import idv.cjcat.stardust.common.initializers.Scale;
 	import idv.cjcat.stardust.common.initializers.SwitchInitializer;
-	import idv.cjcat.stardust.common.StardustElement;
 	import idv.cjcat.stardust.common.emitters.Emitter;
 	import idv.cjcat.stardust.common.math.AveragedRandom;
 	import idv.cjcat.stardust.common.math.UniformRandom;
