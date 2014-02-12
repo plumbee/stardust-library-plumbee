@@ -2,7 +2,7 @@
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="stardust-library">
     <configurations>
-      <configuration name="stardust-library" output-type="Library" output-file="stardust-library-2.1.swc" output-folder="$MODULE_DIR$/target">
+      <configuration name="stardust-library" output-type="Library" output-file="stardust-library-2.9.swc" output-folder="$MODULE_DIR$/target">
         <dependencies>
           <entries>
             <entry library-name="Maven: com.adobe.flex.framework:advancedgrids:swc:4.6.0.23201" library-level="project">
@@ -83,9 +83,6 @@
             <entry library-name="Maven: idv.cjcat.zedbox:zedbox-fp9:swc:1.1" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-name="Maven: com.gamua:starling-framework:swc:1.2" library-level="project">
-              <dependency linkage="Merged" />
-            </entry>
           </entries>
           <sdk name="Flexmojos SDK 4.6.0.23201" />
         </dependencies>
@@ -93,7 +90,7 @@
           <map>
             <entry key="compiler.locale" value="" />
           </map>
-          <option name="additionalConfigFilePath" value="$MODULE_DIR$/../stardustproject/.idea/flexmojos/stardust-library-com.plumbee.xml" />
+          <option name="additionalConfigFilePath" value="$MODULE_DIR$/../stardust-sim-editor/.idea/flexmojos/stardust-library-com.plumbee.xml" />
         </compiler-options>
         <packaging-air-desktop />
         <packaging-android />
@@ -137,7 +134,6 @@
     <orderEntry type="library" exported="" name="Maven: com.adobe.flash.framework:playerglobal:rb.swc:11.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: idv.cjcat.signals:cjsignals:swc:1.0.32" level="project" />
     <orderEntry type="library" exported="" name="Maven: idv.cjcat.zedbox:zedbox-fp9:swc:1.1" level="project" />
-    <orderEntry type="library" exported="" name="Maven: com.gamua:starling-framework:swc:1.2" level="project" />
   </component>
 </module>
 
