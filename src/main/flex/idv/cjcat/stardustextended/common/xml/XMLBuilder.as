@@ -5,10 +5,6 @@
 	import idv.cjcat.stardustextended.common.StardustElement;
 	import idv.cjcat.stardustextended.Stardust;
 	
-	//import idv.cjcat.stardust.common.CommonClassPackage;
-	//import idv.cjcat.stardust.threeD.ThreeDClassPackage;
-	//import idv.cjcat.stardust.twoD.TwoDClassPackage;
-	
 	/**
 	 * <code>XMLBuilder</code> can generate Stardust elements' XML representations and reconstruct elements from existing XML data.
 	 * 
@@ -28,19 +24,18 @@
 		 * <p>
 		 * All related elements' would be included in the XML representation.
 		 * </p>
-		 * @param	element
+		 * @param	rootElement
 		 * @return
 		 */
-		public static function buildXML(element:StardustElement):XML {
-			var tempElements:Dictionary = new Dictionary();
-			var root:XML = <StardustParticleSystem/>;
+		public static function buildXML(rootElement:StardustElement):XML {
+			const root:XML = <StardustParticleSystem/>;
 			root.@version = Stardust.VERSION;
 			
-			var relatedElements:Dictionary = new Dictionary();
-			traverseRelatedObjects(element, relatedElements);
+			const relatedElements:Dictionary = new Dictionary();
+			traverseRelatedObjects(rootElement, relatedElements);
 			
-			var relatedElementsArray:Array = [];
-			var element:StardustElement;
+			const relatedElementsArray:Array = [];
+            var element:StardustElement;
 			for each(element in relatedElements) {
 				relatedElementsArray.push(element);
 			}
@@ -58,14 +53,11 @@
 		}
 		
 		private static function elementTypeSorter(e1:StardustElement, e2:StardustElement):Number {
-			if (e1.getElementTypeXMLTag().name() > e2.getElementTypeXMLTag().name()) return 1;
-			else if (e1.getElementTypeXMLTag().name() < e2.getElementTypeXMLTag().name()) return -1;
-			
 			if (e1.getXMLTagName() > e2.getXMLTagName()) return 1;
 			else if (e1.getXMLTagName() < e2.getXMLTagName())  return -1;
 			
 			if (e1.name > e2.name) return 1;
-			else return -1;
+			return -1;
 		}
 		
 		private static function traverseRelatedObjects(element:StardustElement, relatedElements:Dictionary):void {
@@ -93,10 +85,6 @@
 		public function XMLBuilder() {
 			elementClasses = new Dictionary();
 			elements = new Dictionary();
-			
-			//registerClassesFromClassPackage(CommonClassPackage.getInstance());
-			//registerClassesFromClassPackage(TwoDClassPackage.getInstance());
-			//registerClassesFromClassPackage(ThreeDClassPackage.getInstance());
 		}
 		
 		/**
@@ -109,7 +97,6 @@
 		 * All default classes in the Stardust engine are already registered, 
 		 * </p>
 		 * @param	elementClass
-		 * @param	xmlTagClassName
 		 */
 		public function registerClass(elementClass:Class):void {
 			var element:StardustElement = StardustElement(new elementClass());
@@ -179,16 +166,11 @@
 		 * Reconstructs elements from XML representations.
 		 * 
 		 * <p>
-		 * After calling this method, you may extract constrcuted elements through the <code>getElementByName()</code> method.
+		 * After calling this method, you may extract constructed elements through the <code>getElementByName()</code> method.
 		 * </p>
 		 * @param	xml
 		 */
 		public function buildFromXML(xml:XML):void {
-			if (elements) {
-				for (var key:* in elements) {
-					delete elements[key];
-				}
-			}
 			elements = new Dictionary();
 			
 			var element:StardustElement;

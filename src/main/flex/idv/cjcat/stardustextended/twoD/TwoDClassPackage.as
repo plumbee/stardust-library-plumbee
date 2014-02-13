@@ -1,7 +1,8 @@
 ﻿package idv.cjcat.stardustextended.twoD {
 	import idv.cjcat.stardustextended.common.xml.ClassPackage;
 	import idv.cjcat.stardustextended.twoD.actions.Accelerate;
-	import idv.cjcat.stardustextended.twoD.actions.Collide;
+import idv.cjcat.stardustextended.twoD.actions.AnimateSpriteSheet;
+import idv.cjcat.stardustextended.twoD.actions.Collide;
 	import idv.cjcat.stardustextended.twoD.actions.Damping;
 	import idv.cjcat.stardustextended.twoD.actions.DeathZone;
 	import idv.cjcat.stardustextended.twoD.actions.Deflect;
@@ -38,13 +39,15 @@
 	import idv.cjcat.stardustextended.twoD.handlers.DisplayObjectHandler;
 	import idv.cjcat.stardustextended.twoD.handlers.PixelHandler;
 	import idv.cjcat.stardustextended.twoD.handlers.SingularBitmapHandler;
-	import idv.cjcat.stardustextended.twoD.initializers.DisplayObjectClass;
+import idv.cjcat.stardustextended.twoD.initializers.BitmapParticleInit;
+import idv.cjcat.stardustextended.twoD.initializers.DisplayObjectClass;
 	import idv.cjcat.stardustextended.twoD.initializers.DisplayObjectParent;
 	import idv.cjcat.stardustextended.twoD.initializers.LazyInitializer;
 	import idv.cjcat.stardustextended.twoD.initializers.Omega;
 	import idv.cjcat.stardustextended.twoD.initializers.PooledDisplayObjectClass;
 	import idv.cjcat.stardustextended.twoD.initializers.Position;
-	import idv.cjcat.stardustextended.twoD.initializers.Rotation;
+import idv.cjcat.stardustextended.twoD.initializers.PositionAnimated;
+import idv.cjcat.stardustextended.twoD.initializers.Rotation;
 	import idv.cjcat.stardustextended.twoD.initializers.StardustSpriteInit;
 	import idv.cjcat.stardustextended.twoD.initializers.Velocity;
 	import idv.cjcat.stardustextended.twoD.zones.BitmapZone;
@@ -99,7 +102,8 @@
 			classes.push(Spin);
 			classes.push(StardustSpriteUpdate);
 			classes.push(VelocityField);
-			
+			classes.push(AnimateSpriteSheet);
+
 			//2D action triggers
 			classes.push(DeflectorTrigger);
 			classes.push(ZoneTrigger);
@@ -129,7 +133,9 @@
 			classes.push(Rotation);
 			classes.push(StardustSpriteInit);
 			classes.push(Velocity);
-			
+			classes.push(PositionAnimated);
+			classes.push(BitmapParticleInit);
+
 			//2D particle handlers
 			classes.push(BitmapHandler);
 			classes.push(DisplayObjectHandler);
