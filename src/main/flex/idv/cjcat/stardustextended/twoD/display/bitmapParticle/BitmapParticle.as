@@ -3,6 +3,7 @@ package idv.cjcat.stardustextended.twoD.display.bitmapParticle
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.display.PixelSnapping;
 import flash.display.Sprite;
 import flash.utils.Dictionary;
 
@@ -21,6 +22,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
     public function BitmapParticle()
     {
         addChild( bmp );
+        bmp.pixelSnapping = PixelSnapping.NEVER;
     }
 
     public function initWithSingleBitmap(bitmapData : BitmapData, _smoothing : Boolean) : void

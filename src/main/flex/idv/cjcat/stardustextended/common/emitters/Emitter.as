@@ -32,7 +32,7 @@
 		//signals
 		//------------------------------------------------------------------------------------------------
 		
-		private var _onEmpty:ISignal = new Signal(Emitter);
+		private const _onEmpty:ISignal = new Signal(Emitter);
 		/**
 		 * Dispatched when the emitter is empty of particles.
 		 * <p/>

@@ -51,9 +51,23 @@
 		
 		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			if ((particle.initLife - particle.life) < inLifespan) {
-				particle.scale = _inFunction.apply(null, [particle.initLife - particle.life, inScale, particle.initScale - inScale, inLifespan].concat(_inFunctionExtraParams));
+                if (_inFunction != null)
+                {
+                    particle.scale = _inFunction.apply(null,[particle.initLife - particle.life, inScale, particle.initScale - inScale, inLifespan].concat(_inFunctionExtraParams));
+                }
+                else
+                {
+                    particle.scale = Linear.easeIn(particle.initLife - particle.life, inScale, particle.initScale - inScale, inLifespan);
+                }
 			} else if (particle.life < outLifespan) {
-				particle.scale = _outFunction.apply(null, [outLifespan - particle.life, particle.initScale, outScale - particle.initScale, outLifespan].concat(_outFunctionExtraParams));
+                if (_outFunction != null)
+                {
+                    particle.alpha = _outFunction.apply(null,[outLifespan - particle.life, particle.initScale, outScale - particle.initScale, outLifespan].concat(_outFunctionExtraParams));
+                }
+                else
+                {
+                    particle.alpha = Linear.easeOut(outLifespan - particle.life, particle.initScale, outScale - particle.initScale, outLifespan);
+                }
 			} else {
 				particle.scale = particle.initScale;
 			}
@@ -82,7 +96,6 @@
 		 */
 		public function get inFunction():Function { return _inFunction; }
 		public function set inFunction(value:Function):void {
-			if (value == null) value = Linear.easeIn;
 			_inFunction = value;
 		}
 		
@@ -91,7 +104,6 @@
 		 */
 		public function get outFunction():Function { return _outFunction; }
 		public function set outFunction(value:Function):void {
-			if (value == null) value = Linear.easeOut;
 			_outFunction = value;
 		}
 		
@@ -111,7 +123,14 @@
 			xml.@outLifespan = outLifespan;
 			xml.@inFunction = EasingFunctionType.functions[inFunction];
 			xml.@outFunction = EasingFunctionType.functions[outFunction];
-			
+            if (_inFunction != null)
+            {
+                xml.@inFunction = EasingFunctionType.functions[_inFunction];
+            }
+            if (_outFunction != null)
+            {
+                xml.@outFunction = EasingFunctionType.functions[_outFunction];
+            }
 			return xml;
 		}
 		
