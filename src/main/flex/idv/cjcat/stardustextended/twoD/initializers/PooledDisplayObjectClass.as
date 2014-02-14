@@ -1,7 +1,6 @@
 ﻿package idv.cjcat.stardustextended.twoD.initializers {
-import flash.display.BitmapData;
+
 import flash.display.DisplayObject;
-import flash.utils.ByteArray;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 

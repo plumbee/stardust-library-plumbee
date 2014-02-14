@@ -13,9 +13,12 @@ package idv.cjcat.stardustextended.common.particles {
 		internal var index:int = 0; //points at the first null element
 		
 		public var shrinkInternalArrayOnClear:Boolean;
+
+        internal var _iterator : ParticleFastArrayIterator;
 		
 		public function ParticleFastArray(shrinkInternalArrayOnClear:Boolean = true) {
 			this.shrinkInternalArrayOnClear = shrinkInternalArrayOnClear;
+            _iterator = new ParticleFastArrayIterator(this);
 		}
 		
 		/**
@@ -33,7 +36,8 @@ package idv.cjcat.stardustextended.common.particles {
 		 * @inheritDoc
 		 */
 		public final function getIterator():ParticleIterator {
-			return new ParticleFastArrayIterator(this);
+            _iterator.reset();
+			return _iterator;
 		}
 		
 		/**

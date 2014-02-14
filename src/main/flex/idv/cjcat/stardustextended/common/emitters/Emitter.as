@@ -40,7 +40,7 @@
 		 */
 		public function get onEmpty():ISignal { return _onEmpty; }
 		
-		private var _onStepBegin:ISignal = new Signal(Emitter, ParticleCollection, Number);
+		private const _onStepBegin:ISignal = new Signal(Emitter, ParticleCollection, Number);
 		/**
 		 * Dispatched at the beginning of each step.
 		 * <p/>
@@ -48,7 +48,7 @@
 		 */
 		public function get onStepBegin():ISignal { return _onStepBegin; }
 		
-		private var _onStepEnd:ISignal = new Signal(Emitter, ParticleCollection, Number);
+		private const _onStepEnd:ISignal = new Signal(Emitter, ParticleCollection, Number);
 		/**
 		 * Dispatched at the end of each step.
 		 * <p/>
@@ -104,7 +104,7 @@
 			_particleHandler = value;
 		}
 		
-		public function Emitter(clock:Clock = null, particleHandler:ParticleHandler = null,  particlesCollectionType:int = 0) {
+		public function Emitter(clock:Clock = null, particleHandler:ParticleHandler = null,  particlesCollectionType:int = 1) {
 			needsSort = false;
 			
 			this.clock = clock;

@@ -4,12 +4,9 @@
 	use namespace sd;
 	
 	/**
-	 * Linked-list implementatoin of particle collection.
+	 * Linked-list implementation of particle collection.
 	 */
 	public class ParticleList implements ParticleCollection {
-		
-		public static const TWO_D:Boolean = true;
-		public static const THREE_D:Boolean = false;
 		
 		/** @private */
 		sd var sorter:ParticleListSorter;
@@ -20,18 +17,13 @@
 		internal var head:ParticleNode;
 		/** @private */
 		internal var tail:ParticleNode;
-		
-		/**
-		 * Creates a particle linked-list.
-		 * @param	particleType Determines whether the particles contained in this list is 2D or 3D. 
-		 * Pass in <code>ParticleList.TWO_D</code> for 2D particles, and <code>ParticleList.THREE_D</code> for 3D particles. 
-		 * This value only affects the algorithm used for sorting particles. If you don't use actions that required sorted particles, 
-		 * this value does not matter at all.
-		 */
+
+        internal var _iterator : ParticleListIterator;
+
 		public function ParticleList() {
 			head = tail = null;
 			count = 0;
-			
+            _iterator = new ParticleListIterator(this);
 			sorter = ParticleListSorter.getInstance();
 		}
 		
@@ -65,7 +57,8 @@
 		}
 		
 		public final function getIterator():ParticleIterator {
-			return new ParticleListIterator(this);
+            _iterator.reset();
+			return _iterator;
 		}
 		
 		public final function get size():int {
