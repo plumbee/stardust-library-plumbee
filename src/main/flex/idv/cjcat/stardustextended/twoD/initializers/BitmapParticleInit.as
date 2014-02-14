@@ -21,6 +21,7 @@ public class BitmapParticleInit extends Initializer2D
     private var _spriteSheetSliceHeight : int;
     private var _spriteSheetAnimationSpeed : uint;
     private var _spriteSheetStartAtRandomFrame : Boolean;
+    private var _smoothing : Boolean = false;
 
     override public function initialize(particle:Particle):void
     {
@@ -29,12 +30,12 @@ public class BitmapParticleInit extends Initializer2D
         {
             if (_bitmapType == SINGLE_IMAGE)
             {
-                target.initWithSingleBitmap(_bitmapData);
+                target.initWithSingleBitmap( _bitmapData, _smoothing );
             }
             else if (_bitmapType == SPRITE_SHEET)
             {
                 target.initWithSpriteSheet(_spriteSheetSliceWidth, _spriteSheetSliceHeight,
-                                           _spriteSheetAnimationSpeed, _spriteSheetStartAtRandomFrame, _bitmapData);
+                                           _spriteSheetAnimationSpeed, _spriteSheetStartAtRandomFrame, _bitmapData, _smoothing);
             }
         }
     }
@@ -99,6 +100,16 @@ public class BitmapParticleInit extends Initializer2D
         _bitmapType = value;
     }
 
+    public function get smoothing() : Boolean
+    {
+        return _smoothing;
+    }
+
+    public function set smoothing( value : Boolean ) : void
+    {
+        _smoothing = value;
+    }
+
     //XML
     //------------------------------------------------------------------------------------------------
 
@@ -114,6 +125,7 @@ public class BitmapParticleInit extends Initializer2D
         xml.@spriteSheetSliceHeight = _spriteSheetSliceHeight;
         xml.@spriteSheetAnimationSpeed = _spriteSheetAnimationSpeed;
         xml.@spriteSheetStartAtRandomFrame = _spriteSheetStartAtRandomFrame.toString();
+        xml.@smoothing = _smoothing;
 
         return xml;
     }
@@ -126,6 +138,7 @@ public class BitmapParticleInit extends Initializer2D
         if (xml.@spriteSheetSliceHeight.length()) _spriteSheetSliceHeight = parseFloat(xml.@spriteSheetSliceHeight);
         if (xml.@spriteSheetAnimationSpeed.length()) _spriteSheetAnimationSpeed = parseInt(xml.@spriteSheetAnimationSpeed);
         if (xml.@spriteSheetStartAtRandomFrame.length()) _spriteSheetStartAtRandomFrame = (xml.@spriteSheetStartAtRandomFrame == "true");
+        if (xml.@smoothing.length()) _smoothing = (xml.@smoothing == "true");
     }
 
     //------------------------------------------------------------------------------------------------

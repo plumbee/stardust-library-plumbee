@@ -16,16 +16,18 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
     private var animSpeed : uint;
     private var isSpriteSheet : Boolean;
     private var totalFrames : uint;
+    private var smoothing : Boolean;
 
     public function BitmapParticle()
     {
         addChild( bmp );
     }
 
-    public function initWithSingleBitmap(bitmapData : BitmapData) : void
+    public function initWithSingleBitmap(bitmapData : BitmapData, _smoothing : Boolean) : void
     {
         bmp.bitmapData = bitmapData;
-        bmp.smoothing = true;
+        bmp.smoothing = _smoothing;
+        smoothing = _smoothing;
         bmp.x = - bmp.width * 0.5;
         bmp.y = - bmp.height * 0.5;
         isSpriteSheet = false;
@@ -33,7 +35,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
     }
 
     public function initWithSpriteSheet( imgWidth : int, imgHeight : int, _animSpeed : uint,
-                                         startAtRandomFrame : Boolean, bitmapData : BitmapData ) : void
+                                         startAtRandomFrame : Boolean, bitmapData : BitmapData, _smoothing : Boolean ) : void
     {
         if ( imgWidth > bitmapData.width || imgHeight > bitmapData.height )
         {
@@ -55,6 +57,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
         }
         spriteCache = slicedSpriteCache[bitmapData][sizeKey];
         animSpeed = _animSpeed;
+        smoothing = _smoothing;
         bmp.x = - imgWidth / 2;
         bmp.y = - imgHeight / 2;
         totalFrames = animSpeed * spriteCache.bds.length;
@@ -65,7 +68,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
             currFrame = Math.random() * totalFrames;
         }
         bmp.bitmapData = spriteCache.bds[Math.floor(currFrame / animSpeed)];
-        bmp.smoothing = true;
+        bmp.smoothing = smoothing;
     }
 
     public function stepSpriteSheet( stepTime : uint ) : void
@@ -78,7 +81,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
             if ( nextImageIndex != currImageIndex )
             {
                 bmp.bitmapData = spriteCache.bds[nextImageIndex];
-                bmp.smoothing = true;
+                bmp.smoothing = smoothing;
             }
             currFrame = nextFrame;
         }
