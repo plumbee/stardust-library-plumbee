@@ -1,51 +1,26 @@
 ﻿package idv.cjcat.stardustextended.twoD.geom {
-	import idv.cjcat.signals.ISignal;
-	import idv.cjcat.signals.Signal;
+
 	import idv.cjcat.stardustextended.common.math.StardustMath;
 	
 	/**
 	 * 2D Vector with common vector operations.
 	 */
 	public class Vec2D {
-		
-		
-		//signals
-		//------------------------------------------------------------------------------------------------
-		
-		private var _onChange:ISignal = new Signal(Vec2D);
-		/**
-		 * Dispatched when the vector is changed.
-		 * <p/>
-		 * Signature: (vec:Vec2D)
-		 */
-		public function get onChange():ISignal { return _onChange; }
-		
+
 		//------------------------------------------------------------------------------------------------
 		//end of signals
+
+
+        public var x:Number;
+        public var y:Number;
 		
-		
-		private var _x:Number;
-		private var _y:Number;
-		
-		public function Vec2D(x:Number = 0, y:Number = 0) {
-			_x = x;
-			_y = y;
-		}
-		
-		public function get x():Number { return _x; }
-		public function set x(value:Number):void {
-			_x = value;
-			onChange.dispatch(this)
-		}
-		
-		public function get y():Number { return _y; }
-		public function set y(value:Number):void {
-			_y = value;
-			onChange.dispatch(this)
+		public function Vec2D(_x:Number = 0, _y:Number = 0) {
+			x = _x;
+			y = _y;
 		}
 		
 		public function clone():Vec2D {
-			return new Vec2D(_x, _y);
+			return new Vec2D(x, y);
 		}
 		
 		/**
@@ -54,7 +29,7 @@
 		 * @return
 		 */
 		public function dot(vector:Vec2D):Number {
-			return (_x * vector._x) + (_y * vector._y);
+			return (x * vector.x) + (y * vector.y);
 		}
 		
 		/**
@@ -69,11 +44,11 @@
 		}
 		
 		public function projectThis(target:Vec2D):void {
-			var temp:Vec2D = Vec2DPool.get(target._x, target._y);
+			var temp:Vec2D = Vec2DPool.get(target.x, target.y);
 			temp.length = 1;
 			temp.length = dot(temp);
-			_x = temp._x;
-			_y = temp._y;
+			x = temp.x;
+			y = temp.y;
 			Vec2DPool.recycle(temp);
 		}
 		
@@ -84,7 +59,7 @@
 		 * @return The rotated clone vector.
 		 */
 		public function rotate(angle:Number, useRadian:Boolean = false):Vec2D {
-			var temp:Vec2D = new Vec2D(_x, _y);
+			var temp:Vec2D = new Vec2D(x, y);
 			temp.rotateThis(angle, useRadian);
 			return temp;
 		}
@@ -96,11 +71,9 @@
 		 */
 		public function rotateThis(angle:Number, useRadian:Boolean = false):void {
 			if (!useRadian) angle = angle * StardustMath.DEGREE_TO_RADIAN;
-			var originalX:Number = _x;
-			_x = originalX * Math.cos(angle) - _y * Math.sin(angle);
-			_y = originalX * Math.sin(angle) + _y * Math.cos(angle);
-			
-			onChange.dispatch(this)
+			var originalX:Number = x;
+			x = originalX * Math.cos(angle) - y * Math.sin(angle);
+			y = originalX * Math.sin(angle) + y * Math.cos(angle);
 		}
 		
 		/**
@@ -110,51 +83,46 @@
 		public function unitVec():Vec2D {
 			if (length == 0) return new Vec2D();
 			var length_inv:Number = 1 / length;
-			return new Vec2D(_x * length_inv, _y * length_inv);
+			return new Vec2D(x * length_inv, y * length_inv);
 		}
 		
 		/**
 		 * Vector length.
 		 */
 		public function get length():Number {
-			return Math.sqrt(_x * _x + _y * _y);
+			return Math.sqrt(x * x + y * y);
 		}
 		public function set length(value:Number):void {
-			if ((_x == 0) && (_y == 0)) return;
+			if ((x == 0) && (y == 0)) return;
 			var factor:Number = value / length;
 			
-			_x = _x * factor;
-			_y = _y * factor;
-			
-			onChange.dispatch(this)
+			x = x * factor;
+			y = y * factor;
 		}
 		
 		/**
 		 * Sets the vector's both components at once.
-		 * @param	x
-		 * @param	y
+		 * @param	_x
+		 * @param	_y
 		 */
-		public function set(x:Number, y:Number):void {
-			_x = x;
-			_y = y;
-			
-			onChange.dispatch(this)
+		public function set(_x:Number, _y:Number):void {
+			x = _x;
+			y = _y;
 		}
 		
 		/**
 		 * The angle between the vector and the positive x axis in degrees.
 		 */
-		public function get angle():Number { return Math.atan2(_y, _x) * StardustMath.RADIAN_TO_DEGREE; }
+		public function get angle():Number { return Math.atan2(y, x) * StardustMath.RADIAN_TO_DEGREE; }
 		public function set angle(value:Number):void {
 			var originalLength:Number = length;
 			var rad:Number = value * StardustMath.DEGREE_TO_RADIAN;
-			_x = originalLength * Math.cos(rad);
-			_y = originalLength * Math.sin(rad);
-			onChange.dispatch(this)
+			x = originalLength * Math.cos(rad);
+			y = originalLength * Math.sin(rad);
 		}
 		
 		public function toString():String {
-			return "[Vec2D" + " x=" + _x + " y=" + _y + "]";
+			return "[Vec2D" + " x=" + x + " y=" + y + "]";
 		}
 	}
 }

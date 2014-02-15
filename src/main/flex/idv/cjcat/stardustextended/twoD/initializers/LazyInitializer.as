@@ -1,5 +1,6 @@
 ﻿package idv.cjcat.stardustextended.twoD.initializers {
-	import idv.cjcat.stardustextended.common.initializers.Alpha;
+
+    import idv.cjcat.stardustextended.common.initializers.Alpha;
 	import idv.cjcat.stardustextended.common.initializers.CollisionRadius;
 	import idv.cjcat.stardustextended.common.initializers.CompositeInitializer;
 	import idv.cjcat.stardustextended.common.initializers.Initializer;
@@ -11,9 +12,7 @@
 	import idv.cjcat.stardustextended.common.math.UniformRandom;
 	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 	import idv.cjcat.stardustextended.sd;
-	import idv.cjcat.stardustextended.twoD.geom.Vec2D;
-	import idv.cjcat.stardustextended.twoD.zones.LazySectorZone;
-	import idv.cjcat.stardustextended.twoD.zones.SinglePoint;
+    import idv.cjcat.stardustextended.twoD.zones.SinglePoint;
 	import idv.cjcat.stardustextended.twoD.zones.Zone;
 	
 	/**
@@ -52,7 +51,7 @@
 		private var _lifeInitRand:UniformRandom;
 		
 		private var _velocityInit:Velocity;
-		private var _velocityInitSector:LazySectorZone;
+		private var _velocityInitSector:SinglePoint;
 		
 		private var _omegaInit:Omega;
 		private var _omegaInitRand:UniformRandom;
@@ -81,8 +80,7 @@
 			_lifeInitRand = new UniformRandom(50, 0);
 			_lifeInit = new Life(_lifeInitRand);
 			
-			_velocityInitSector = new LazySectorZone(3, 0);
-			_velocityInitSector.direction.set(0, -1);
+			_velocityInitSector = new SinglePoint(0, 3);
 			_velocityInit = new Velocity(_velocityInitSector);
 			
 			_omegaInitRand = new UniformRandom(0, 0);
@@ -160,35 +158,6 @@
 		public function get lifeVar():Number { return _lifeInitRand.radius; }
 		public function set lifeVar(value:Number):void {
 			_lifeInitRand.radius = value;
-		}
-		
-		/**
-		 * Average speed.
-		 */
-		public function get speed():Number { return _velocityInitSector.radius; }
-		public function set speed(value:Number):void {
-			_velocityInitSector.radius = value;
-		}
-		
-		/**
-		 * Speed variation.
-		 */
-		public function get speedVar():Number { return _velocityInitSector.radiusVar; }
-		public function set speedVar(value:Number):void {
-			_velocityInitSector.radiusVar = value;
-		}
-		
-		/**
-		 * Average direction.
-		 */
-		public function get direction():Vec2D { return _velocityInitSector.direction; }
-		
-		/**
-		 * Direction variation, in degrees.
-		 */
-		public function get directionVar():Number { return _velocityInitSector.directionVar; }
-		public function set directionVar(value:Number):void {
-			_velocityInitSector.directionVar = value;
 		}
 		
 		/**
@@ -320,10 +289,6 @@
 			xml.@rotationVar = rotationVar;
 			xml.@life = life;
 			xml.@lifeVar = lifeVar;
-			xml.@speed = speedVar;
-			xml.@speedVar = speedVar;
-			xml.@directionX = direction.x;
-			xml.@directionY = direction.y;
 			xml.@omega = omega;
 			xml.@omegaVar = omegaVar;
 			xml.@scale = scale;
@@ -355,8 +320,6 @@
 			if (xml.@rotationVar.length()) rotationVar = parseFloat(xml.@rotationVar);
 			if (xml.@life.length()) life = parseFloat(xml.@life);
 			if (xml.@lifeVar.length()) lifeVar = parseFloat(xml.@lifeVar);
-			if (xml.@directionX.length()) direction.x = parseFloat(xml.@directionX);
-			if (xml.@directionY.length()) direction.y = parseFloat(xml.@directionY);
 			if (xml.@omega.length()) omega = parseFloat(xml.@omega);
 			if (xml.@omegaVar.length()) omegaVar = parseFloat(xml.@omegaVar);
 			if (xml.@scale.length()) scale = parseFloat(xml.@scale);

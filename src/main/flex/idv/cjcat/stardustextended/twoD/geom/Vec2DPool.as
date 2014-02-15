@@ -17,8 +17,7 @@
 			}
 			_position++;
 			var obj:Vec2D = _vec[_position - 1];
-			obj.x = x;
-			obj.y = y;
+			obj.set(x, y);
 			return obj;
 		}
 		
