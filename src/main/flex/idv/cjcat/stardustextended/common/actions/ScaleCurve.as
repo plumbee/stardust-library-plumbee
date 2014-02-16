@@ -62,11 +62,11 @@
 			} else if (particle.life < outLifespan) {
                 if (_outFunction != null)
                 {
-                    particle.alpha = _outFunction.apply(null,[outLifespan - particle.life, particle.initScale, outScale - particle.initScale, outLifespan].concat(_outFunctionExtraParams));
+                    particle.scale = _outFunction.apply(null,[outLifespan - particle.life, particle.initScale, outScale - particle.initScale, outLifespan].concat(_outFunctionExtraParams));
                 }
                 else
                 {
-                    particle.alpha = Linear.easeOut(outLifespan - particle.life, particle.initScale, outScale - particle.initScale, outLifespan);
+                    particle.scale = Linear.easeOut(outLifespan - particle.life, particle.initScale, outScale - particle.initScale, outLifespan);
                 }
 			} else {
 				particle.scale = particle.initScale;
@@ -121,8 +121,6 @@
 			xml.@outScale = outScale;
 			xml.@inLifespan = inLifespan;
 			xml.@outLifespan = outLifespan;
-			xml.@inFunction = EasingFunctionType.functions[inFunction];
-			xml.@outFunction = EasingFunctionType.functions[outFunction];
             if (_inFunction != null)
             {
                 xml.@inFunction = EasingFunctionType.functions[_inFunction];
