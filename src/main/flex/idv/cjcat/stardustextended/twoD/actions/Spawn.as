@@ -6,13 +6,11 @@
 	import idv.cjcat.stardustextended.common.math.StardustMath;
 	import idv.cjcat.stardustextended.common.math.UniformRandom;
 	import idv.cjcat.stardustextended.common.particles.Particle;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
-	import idv.cjcat.stardustextended.common.particles.ParticleIterator;
 	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 	import idv.cjcat.stardustextended.sd;
 	import idv.cjcat.stardustextended.twoD.geom.Vec2D;
 	import idv.cjcat.stardustextended.twoD.geom.Vec2DPool;
-	import idv.cjcat.stardustextended.twoD.particles.Particle2D;
+    import idv.cjcat.stardustextended.twoD.particles.Particle2D;
 	import idv.cjcat.stardustextended.twoD.particles.PooledParticle2DFactory;
 	
 	/**
@@ -41,15 +39,14 @@
 		}
 		
 		private var p2D:Particle2D;
-		private var particles:ParticleCollection;
-		private var p:Particle2D;
-		private var iter:ParticleIterator;
+		private var particles:Vector.<Particle>;
 		private var v:Vec2D;
 		override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			p2D = Particle2D(particle);
 			particles = _factory.createParticles( StardustMath.randomFloor(_countRandom.random()), currentTime);
-			iter = particles.getIterator();
-			while (p = Particle2D(iter.particle())) {
+            var p:Particle2D;
+            for (var m : int = 0; m < particles.length; ++m) {
+                p = Particle2D(particles[m]);
 				p.x += p2D.x;
 				p.y += p2D.y;
 				if (inheritVelocity) {
@@ -63,7 +60,6 @@
 					p.vy = v.y;
 					Vec2DPool.recycle(v);
 				}
-				iter.next();
 			}
 			
 			emitter.addParticles(particles);

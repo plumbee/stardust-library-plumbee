@@ -73,10 +73,6 @@
 		 */
 		public var color:uint;
 		/**
-		 * The sorted index iterator.
-		 */
-		public var sortedIndexIterator:ParticleIterator;
-		/**
 		 * Dictionary for storing additional information.
 		 */
 		public var dictionary:Dictionary;
@@ -113,8 +109,6 @@
 			isDead = false;
 			collisionRadius = 0;
 			color = 0;
-			sortedIndexIterator = null;
-			//_handler = ParticleHandler.getSingleton();
 		}
 		
 		public function destroy():void {
@@ -124,5 +118,14 @@
 			for (key in recyclers) delete recyclers[key];
 			//_handler = null;
 		}
+
+        public static function compareFunction(p1 : Particle, p2 : Particle) : Number
+        {
+            if (p1["x"] < p2["x"])
+            {
+                return -1;
+            }
+            return 1;
+        }
 	}
 }

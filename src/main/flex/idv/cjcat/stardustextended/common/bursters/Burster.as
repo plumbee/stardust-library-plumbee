@@ -2,7 +2,7 @@
 	import idv.cjcat.stardustextended.common.emitters.Emitter;
 	import idv.cjcat.stardustextended.common.initializers.Initializer;
 	import idv.cjcat.stardustextended.common.initializers.InitializerCollector;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
+    import idv.cjcat.stardustextended.common.particles.Particle;
 	import idv.cjcat.stardustextended.common.particles.ParticleFactory;
 	
 	/**
@@ -39,7 +39,7 @@
 		 * Override this method to alter the particles' properties as you see fit.
 		 * @return
 		 */
-		public function createParticles(currentTime : Number):ParticleCollection {
+		public function createParticles(currentTime : Number):Vector.<Particle> {
 			//abstract method
 			return null;
 		}

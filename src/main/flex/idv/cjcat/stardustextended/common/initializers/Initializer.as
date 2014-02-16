@@ -4,8 +4,6 @@
 	import idv.cjcat.stardustextended.common.emitters.Emitter;
 	import idv.cjcat.stardustextended.common.particles.InfoRecycler;
 	import idv.cjcat.stardustextended.common.particles.Particle;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
-	import idv.cjcat.stardustextended.common.particles.ParticleIterator;
 	import idv.cjcat.stardustextended.common.StardustElement;
 	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 	
@@ -87,14 +85,13 @@
 		public function get supports3D():Boolean { return _supports3D; }
 		
 		/** @private */
-		public function doInitialize(particles:ParticleCollection, currentTime : Number):void {
+		public function doInitialize(particles:Vector.<Particle>, currentTime : Number):void {
 			if (active) {
 				var particle:Particle;
-				var iter:ParticleIterator = particles.getIterator();
-				while (particle = iter.particle()) {
+                for (var m : int = 0; m < particles.length; ++m) {
+                    particle = particles[m];
 					initialize(particle);
 					if (needsRecycle) particle.recyclers[this] = this;
-					iter.next();
 				}
 			}
 		}

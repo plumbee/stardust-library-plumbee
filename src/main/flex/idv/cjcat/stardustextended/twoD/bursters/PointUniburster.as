@@ -1,7 +1,6 @@
 ﻿package idv.cjcat.stardustextended.twoD.bursters {
 	import idv.cjcat.stardustextended.common.math.StardustMath;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
-	import idv.cjcat.stardustextended.common.particles.ParticleIterator;
+import idv.cjcat.stardustextended.common.particles.Particle;
 	import idv.cjcat.stardustextended.twoD.particles.Particle2D;
 	
 	/**
@@ -55,15 +54,15 @@
 			this.orientationOffset = orientationOffset;
 		}
 		
-		override public function createParticles(currentTime : Number):ParticleCollection {
-			var particles:ParticleCollection = factory.createParticles(count, currentTime);
-			var len:int = particles.size;
+		override public function createParticles(currentTime : Number):Vector.<Particle> {
+			var particles:Vector.<Particle> = factory.createParticles(count, currentTime);
+			var len:int = particles.length;
 			var len_inv:Number = 1 / len;
 			var angleOffset_rad:Number = angleOffset * StardustMath.DEGREE_TO_RADIAN;
 			var p:Particle2D;
-			var iter:ParticleIterator = particles.getIterator();
+            var index : int;
 			for (var i:int = 0; i < len; i++) {
-				p = Particle2D(iter.particle());
+				p = Particle2D(particles[index]);
 				p.x = x;
 				p.y = y;
 				p.vx = speed * Math.sin(StardustMath.TWO_PI * len_inv * i + angleOffset_rad);
@@ -71,8 +70,8 @@
 				if (oriented) {
 					p.rotation = 360 * len_inv * i + orientationOffset;
 				}
-				
-				iter.next();
+
+                index++;
 			}
 			
 			return particles;

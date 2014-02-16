@@ -1,6 +1,7 @@
 ﻿package idv.cjcat.stardustextended.common.events {
 	import flash.events.Event;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
+
+import idv.cjcat.stardustextended.common.particles.Particle;
 	
 	/**
 	 * Event dispatched by emitters.
@@ -25,8 +26,8 @@
 		 */
 		public static const STEPPED:String = "stardustEmitterStepped";
 		
-		private var _particles:ParticleCollection;
-		public function EmitterEvent(type:String, particles:ParticleCollection) {
+		private var _particles:Vector.<Particle>;
+		public function EmitterEvent(type:String, particles:Vector.<Particle>) {
 			super(type);
 			_particles = particles;
 		}
@@ -34,6 +35,6 @@
 		/**
 		 * The associated particles.
 		 */
-		public function get particles():ParticleCollection { return _particles; }
+		public function get particles():Vector.<Particle> { return _particles; }
 	}
 }

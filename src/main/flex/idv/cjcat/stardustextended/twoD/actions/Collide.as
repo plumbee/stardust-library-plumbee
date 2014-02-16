@@ -1,8 +1,7 @@
 ﻿package idv.cjcat.stardustextended.twoD.actions {
+
 	import idv.cjcat.stardustextended.common.emitters.Emitter;
 	import idv.cjcat.stardustextended.common.particles.Particle;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
-	import idv.cjcat.stardustextended.common.particles.ParticleIterator;
 	import idv.cjcat.stardustextended.twoD.geom.Vec2D;
 	import idv.cjcat.stardustextended.twoD.geom.Vec2DPool;
 	import idv.cjcat.stardustextended.twoD.particles.Particle2D;
@@ -34,15 +33,15 @@
 		 */
 		override public function preUpdate(emitter:Emitter, time:Number):void {
 			//find the largest two particles
-			var particles:ParticleCollection = emitter.particles;
-			if (particles.size <= 1) return;
+			if (emitter.particles.length <= 1) return;
 			
 			var max1:Number = 0;
 			var max2:Number = 0;
 			var r:Number;
 			var p:Particle;
-			var iter:ParticleIterator = particles.getIterator();
-			while (p = iter.particle()) {
+            var plen : uint = emitter.particles.length;
+            for (var m : int = 0; m < plen; ++m) {
+                p = emitter.particles[m];
 				r = p.collisionRadius * p.scale;
 				if( r > max1 ) {
 					max2 = max1;
@@ -50,8 +49,6 @@
 				} else if ( r > max2 ) {
 					max2 = r;
 				}
-				
-				iter.next();
 			}
 			maxDistance = max1 + max2;
 		}

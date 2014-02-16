@@ -1,4 +1,5 @@
 ﻿package idv.cjcat.stardustextended.common.emitters {
+
 	import idv.cjcat.signals.ISignal;
 	import idv.cjcat.signals.Signal;
 	import idv.cjcat.stardustextended.common.actions.Action;
@@ -11,11 +12,6 @@
 	import idv.cjcat.stardustextended.common.initializers.InitializerCollector;
 	import idv.cjcat.stardustextended.common.particles.InfoRecycler;
 	import idv.cjcat.stardustextended.common.particles.Particle;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollectionType;
-	import idv.cjcat.stardustextended.common.particles.ParticleFastArray;
-	import idv.cjcat.stardustextended.common.particles.ParticleIterator;
-	import idv.cjcat.stardustextended.common.particles.ParticleList;
 	import idv.cjcat.stardustextended.common.particles.PooledParticleFactory;
 	import idv.cjcat.stardustextended.common.StardustElement;
 	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
@@ -40,7 +36,7 @@
 		 */
 		public function get onEmpty():ISignal { return _onEmpty; }
 		
-		private const _onStepBegin:ISignal = new Signal(Emitter, ParticleCollection, Number);
+		private const _onStepBegin:ISignal = new Signal(Emitter, Vector.<Particle>, Number);
 		/**
 		 * Dispatched at the beginning of each step.
 		 * <p/>
@@ -48,7 +44,7 @@
 		 */
 		public function get onStepBegin():ISignal { return _onStepBegin; }
 		
-		private const _onStepEnd:ISignal = new Signal(Emitter, ParticleCollection, Number);
+		private const _onStepEnd:ISignal = new Signal(Emitter, Vector.<Particle>, Number);
 		/**
 		 * Dispatched at the end of each step.
 		 * <p/>
@@ -64,14 +60,14 @@
 		//------------------------------------------------------------------------------------------------
 		
 		/** @private */
-		sd var _particles:ParticleCollection;
+		sd var _particles:Vector.<Particle> = new Vector.<Particle>();
 		/**
 		 * Returns an array of particles for custom parameter manipulation. 
 		 * Note that the returned array is merely a copy of the internal particle array, 
 		 * so splicing particles out from this array does not remove the particles from simulation.
 		 * @return
 		 */
-		public function get particles():ParticleCollection { return _particles; }
+		public function get particles():Vector.<Particle> { return _particles; }
 		
 		//------------------------------------------------------------------------------------------------
 		//end of particle collections
@@ -93,7 +89,8 @@
 		/** @private */
 		protected var factory:PooledParticleFactory;
 		
-		private var _actionCollection:ActionCollection = new ActionCollection();
+		private const _actionCollection:ActionCollection = new ActionCollection();
+        private const activeActions : Vector.<Action> = new Vector.<Action>();
 
         public var currentTime : Number = 0;
 
@@ -104,13 +101,12 @@
 			_particleHandler = value;
 		}
 		
-		public function Emitter(clock:Clock = null, particleHandler:ParticleHandler = null,  particlesCollectionType:int = 1) {
+		public function Emitter(clock:Clock = null, particleHandler:ParticleHandler = null) {
 			needsSort = false;
 			
 			this.clock = clock;
 			this.active = true;
 			this.particleHandler = particleHandler;
-			this.particleCollectionType = particlesCollectionType;
 		}
 		
 		/**
@@ -124,7 +120,7 @@
 		
 		//main loop
 		//------------------------------------------------------------------------------------------------
-		
+
 		/**
 		 * This method is the main simulation loop of the emitter.
 		 * 
@@ -138,54 +134,43 @@
 			onStepBegin.dispatch(this, particles, time);
 			_particleHandler.stepBegin(this, particles, time);
 			
-			var i:int, len:int;
+			var i:int;
+            var len:int;
 			var action:Action;
-			var activeActions:Array;
 			var p:Particle;
 			var key:*;
-			var iter:ParticleIterator;
 			var sorted:Boolean = false;
 			
 			//query clock ticks
 			if (active) {
 				var pCount:int = clock.getTicks(time);
-				var newParticles:ParticleCollection = factory.createParticles(pCount, currentTime);
+				var newParticles:Vector.<Particle> = factory.createParticles(pCount, currentTime);
 				addParticles(newParticles);
 			}
-			
+
 			//filter out active actions
-			activeActions = [];
-			
-			for (i = 0, len = actions.length; i < len; ++i) {
+			activeActions.length = 0;
+            len = actions.length;
+			for (i = 0; i < len; ++i) {
 				action = actions[i];
 				if (action.active && action.mask) activeActions.push(action);
 			}
-			
-			
+
+
 			//sorting
-			for (i = 0, len = activeActions.length; i < len; ++i) {
+			len = activeActions.length;
+			for (i = 0; i < len; ++i) {
 				action = activeActions[i];
 				if (action.needsSortedParticles) {
 					//sort particles
-					_particles.sort();
-					
-					//set sorted index iterators
-					iter = _particles.getIterator();
-					while (p = iter.particle()) {
-						p.sortedIndexIterator = iter.clone();
-						iter.next();
-					}
+					_particles.sort(Particle.compareFunction);
 					sorted = true;
 					break;
 				}
 			}
-			
-			len = activeActions.length;
-			
 			//update the first particle + invoke action preupdates.
-			iter = _particles.getIterator();
-			p = iter.particle();
-			if (p) {
+            for (var m : int = 0; m < _particles.length; ++m) {
+                p = _particles[m];
 				for (i = 0; i < len; ++i) {
 					action = activeActions[i];
 					
@@ -204,21 +189,19 @@
 					
 					//handle removal
 					_particleHandler.particleRemoved(p);
-					//p.handler().particleRemoved(p);
 					
 					p.destroy();
 					factory.recycle(p);
-					
-					iter.remove();
+
+                    _particles.splice(m,1);
 				} else {
 					_particleHandler.readParticle(p);
-					//p.handler().readParticle(p);
-					iter.next();
 				}
 			}
 			
 			//update the remaining particles
-			while (p = iter.particle()) {
+            for (m = 0; m < _particles.length; ++m) {
+                p = _particles[m];
 				for (i = 0; i < len; ++i) {
 					action = activeActions[i];
 					
@@ -233,23 +216,19 @@
 					}
 					//invoke handler
 					_particleHandler.particleRemoved(p);
-					//p.handler().particleRemoved(p);
 					
 					p.destroy();
 					factory.recycle(p);
-					
-					iter.remove();
+
+                    _particles.splice(m,1);
 				} else {
 					_particleHandler.readParticle(p);
-					//p.handler().readParticle(p);
-					iter.next();
 				}
 			}
 			
 			//postUpdate
 			for (i = 0; i < len; ++i) {
-				action = activeActions[i];
-				action.postUpdate(this, time);
+                activeActions[i].postUpdate(this, time);
 			}
 			
 			onStepEnd.dispatch(this, particles, time);
@@ -341,7 +320,7 @@
 		 * The number of particles in the emitter.
 		 */
 		public final function get numParticles():int {
-			return _particles.size;
+			return _particles.length;
 		}
 		
 		/**
@@ -352,17 +331,14 @@
 		 * </p>
 		 * @param	particles
 		 */
-		public final function addParticles(particles:ParticleCollection):void {
-			var particle:Particle;
-			var iter:ParticleIterator = particles.getIterator();
-			while (particle = iter.particle()) {
-				_particles.add(particle);
-				
+		public final function addParticles(particles:Vector.<Particle>):void {
+            var particle:Particle;
+            const plen : uint = particles.length;
+            for (var m : int = 0; m < plen; ++m) {
+                particle = particles[m];
+				_particles.push(particle);
 				//handle adding
 				_particleHandler.particleAdded(particle);
-				//particle.handler().particleAdded(particle);
-				
-				iter.next();
 			}
 		}
 		
@@ -371,60 +347,15 @@
 		 */
 		public final function clearParticles():void {
 			var particle:Particle;
-			var iter:ParticleIterator = _particles.getIterator();
-			while (particle = iter.particle()) {
+            for (var m : int = 0; m < _particles.length; ++m) {
+                particle = _particles[m];
 				//handle removal
 				_particleHandler.particleRemoved(particle);
-				//particle.handler().particleRemoved(particle);
 				
 				particle.destroy();
 				factory.recycle(particle);
-				
-				iter.remove();
 			}
-			
-			_particles.clear();
-		}
-		
-		/**
-		 * Determines the collection used internally by the emitter. There are two options: linked-lists and arrays. 
-		 * Linked-Lists are generally faster to iterate through and remove particles from, while arrays are faster at sorting. 
-		 * By default, linked-lists are used. Switch to arrays if the particles need to be sorted.
-		 * 
-		 * <p>
-		 * There are two possible values that can assigned to this property: <code>ParticleCollectionType.LINKED_LIST</code> and <code>ParticleCollectionType.ARRAY</code>.
-		 * </p>
-		 * @see idv.cjcat.stardustextended.common.particles.ParticleCollectionType
-		 */
-		public function get particleCollectionType():int {
-			if (_particles is ParticleFastArray) return ParticleCollectionType.FAST_ARRAY;
-			else if (_particles is ParticleList) return ParticleCollectionType.LINKED_LIST;
-			return -1;
-		}
-		
-		public function set particleCollectionType(value:int):void {
-			var temp:ParticleCollection;
-			
-			switch (value) {
-				case ParticleCollectionType.FAST_ARRAY:
-					temp = new ParticleFastArray();
-					break;
-				default:
-				case ParticleCollectionType.LINKED_LIST:
-					temp = new ParticleList();
-					break;
-			}
-			
-			if (_particles) {
-				var iter:ParticleIterator = _particles.getIterator();
-				var p:Particle;
-				while (p = iter.particle()) {
-					temp.add(p);
-					iter.remove();
-				}
-			}
-			
-			_particles = temp;
+			_particles = new Vector.<Particle>();
 		}
 		
 		//------------------------------------------------------------------------------------------------

@@ -1,7 +1,6 @@
 package idv.cjcat.stardustextended.common.handlers {
 	import idv.cjcat.stardustextended.common.emitters.Emitter;
 	import idv.cjcat.stardustextended.common.particles.Particle;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
 	import idv.cjcat.stardustextended.common.StardustElement;
 	
 	/**
@@ -29,7 +28,7 @@ package idv.cjcat.stardustextended.common.handlers {
 		 * @param	particles
 		 * @param	time
 		 */
-		public function stepBegin(emitter:Emitter, particles:ParticleCollection, time:Number):void {
+		public function stepBegin(emitter:Emitter, particles:Vector.<Particle>, time:Number):void {
 			
 		}
 		
@@ -39,7 +38,7 @@ package idv.cjcat.stardustextended.common.handlers {
 		 * @param	particles
 		 * @param	time
 		 */
-		public function stepEnd(emitter:Emitter, particles:ParticleCollection, time:Number):void {
+		public function stepEnd(emitter:Emitter, particles:Vector.<Particle>, time:Number):void {
 			
 		}
 		

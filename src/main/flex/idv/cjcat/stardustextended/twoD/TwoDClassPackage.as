@@ -1,8 +1,8 @@
 ﻿package idv.cjcat.stardustextended.twoD {
 	import idv.cjcat.stardustextended.common.xml.ClassPackage;
 	import idv.cjcat.stardustextended.twoD.actions.Accelerate;
-import idv.cjcat.stardustextended.twoD.actions.AnimateSpriteSheet;
-import idv.cjcat.stardustextended.twoD.actions.Collide;
+    import idv.cjcat.stardustextended.twoD.actions.AnimateSpriteSheet;
+    import idv.cjcat.stardustextended.twoD.actions.Collide;
 	import idv.cjcat.stardustextended.twoD.actions.Damping;
 	import idv.cjcat.stardustextended.twoD.actions.DeathZone;
 	import idv.cjcat.stardustextended.twoD.actions.Deflect;
@@ -10,7 +10,6 @@ import idv.cjcat.stardustextended.twoD.actions.Collide;
 	import idv.cjcat.stardustextended.twoD.actions.FollowWaypoints;
 	import idv.cjcat.stardustextended.twoD.actions.Gravity;
 	import idv.cjcat.stardustextended.twoD.actions.Impulse;
-	import idv.cjcat.stardustextended.twoD.actions.LazyAction;
 	import idv.cjcat.stardustextended.twoD.actions.Move;
 	import idv.cjcat.stardustextended.twoD.actions.MutualGravity;
 	import idv.cjcat.stardustextended.twoD.actions.NormalDrift;
@@ -88,7 +87,6 @@ import idv.cjcat.stardustextended.twoD.initializers.Rotation;
 			classes.push(Explode);
 			classes.push(Gravity);
 			classes.push(Impulse);
-			classes.push(LazyAction);
 			classes.push(Move);
 			classes.push(MutualGravity);
 			classes.push(NormalDrift);

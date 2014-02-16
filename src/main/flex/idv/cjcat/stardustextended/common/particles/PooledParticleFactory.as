@@ -1,5 +1,4 @@
 ﻿package idv.cjcat.stardustextended.common.particles {
-	import idv.cjcat.stardustextended.common.initializers.Initializer;
 	
 	/** @private */
 	public class PooledParticleFactory extends ParticleFactory {
@@ -9,8 +8,7 @@
 		public function PooledParticleFactory() {
 			particlePool = ParticlePool.getInstance();
 		}
-		
-		private var p:Particle;
+
 		override protected final function createNewParticle():Particle {
 			return particlePool.get();
 		}

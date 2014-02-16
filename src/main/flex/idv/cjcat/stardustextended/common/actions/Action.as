@@ -3,8 +3,6 @@
 	import idv.cjcat.signals.Signal;
 	import idv.cjcat.stardustextended.common.emitters.Emitter;
 	import idv.cjcat.stardustextended.common.particles.Particle;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
-	import idv.cjcat.stardustextended.common.particles.ParticleIterator;
 	import idv.cjcat.stardustextended.common.StardustElement;
 	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 	
@@ -67,8 +65,7 @@
 		 * this action is skipped by the emitter during that emitter step.
 		 */
 		public var skipThisAction:Boolean;
-		
-		private var _mask:int;
+
 		private var _priority:int;
 		
 		/** @private */
@@ -83,7 +80,7 @@
 			priority = 0;
 			
 			active = true;
-			_mask = 1;
+			mask = 1;
 		}
 		
 		/**
@@ -96,37 +93,19 @@
 		public function get supports3D():Boolean { return _supports3D; }
 		
 		/** @private */
-		public final function doUpdate(emitter:Emitter, particles:ParticleCollection, timeDelta:Number, currentTime:Number):void {
+		public final function doUpdate(emitter:Emitter, particles:Vector.<Particle>, timeDelta:Number, currentTime:Number):void {
 			skipThisAction = false;
 			
 			if (active) {
 				var particle:Particle;
-				var iter:ParticleIterator = particles.getIterator();
-				while (particle = iter.particle()) {
+                for (var m : int = 0; m < particles.length; ++m) {
+                    particle = particles[m];
 					if (mask & particle.mask) update(emitter, particle, timeDelta, currentTime);
 					if (skipThisAction) return;
-					iter.next();
 				}
 			}
 		}
-		
-		/** @private */
-		/*
-		public function doStraightUpdate(emitter:Emitter, particles:ParticleCollection, time:Number):void {
-			skipThisAction = false;
-			
-			if (active) {
-				var particle:Particle;
-				var iter:ParticleIterator = particles.getIterator();
-				while (particle = iter.particle()) {
-					update(emitter, particle, time);
-					if (skipThisAction) return;
-					iter.next();
-				}
-			}
-		}
-		*/
-		
+
 		/**
 		 * [Template Method] This method is called once upon each <code>Emitter.step()</code> method call, 
 		 * before the <code>update()</code> calls with each particles in the emitter.
@@ -205,10 +184,7 @@
 		 * This can be used to mask out specific particles that you do not wish to be affected by an action.
 		 * </p>
 		 */
-		public function get mask():int { return _mask; }
-		public function set mask(value:int):void {
-			_mask = value;
-		}
+		public var mask : int;
 		
 		
 		//XML

@@ -13,8 +13,8 @@
 	 */
 	public class Emitter2D extends Emitter {
 		
-		public function Emitter2D(clock:Clock = null, particleHandler:ParticleHandler = null,  particlesCollectionType:int = 0) {
-			super(clock, particleHandler, particleCollectionType);
+		public function Emitter2D(clock:Clock = null, particleHandler:ParticleHandler = null) {
+			super(clock, particleHandler);
 			factory = new PooledParticle2DFactory();
 		}
 		

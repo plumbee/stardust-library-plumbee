@@ -3,8 +3,8 @@
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.geom.Matrix;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
-	import idv.cjcat.stardustextended.common.particles.ParticleIterator;
+
+    import idv.cjcat.stardustextended.common.particles.Particle;
 	import idv.cjcat.stardustextended.twoD.particles.Particle2D;
 	
 	/**
@@ -49,19 +49,19 @@
 			this.offsetY = offsetY;
 		}
 		
-		override public function createParticles(currentTime : Number):ParticleCollection {
+		override public function createParticles(currentTime : Number):Vector.<Particle> {
 			if (!bitmapData) return null;
 			
 			var rows:int = Math.ceil(bitmapData.height / cellHeight);
 			var columns:int = Math.ceil(bitmapData.width / cellWidth);
-			var particles:ParticleCollection = factory.createParticles(rows * columns, currentTime);
+			var particles:Vector.<Particle> = factory.createParticles(rows * columns, currentTime);
 			
 			var index:int = 0;
 			var matrix:Matrix = new Matrix();
 			var halfCellWidth:Number = 0.5 * cellWidth;
 			var halfCellHeight:Number = 0.5 * cellHeight;
 			var p:Particle2D;
-			var iter:ParticleIterator = particles.getIterator();
+
 			for (var j:int = 0; j < rows; j++) {
 				for (var i:int = 0; i < columns; i++) {
 					var cellBMPD:BitmapData = new BitmapData(cellWidth, cellHeight, true, 0);
@@ -74,12 +74,10 @@
 					var sprite:Sprite = new Sprite();
 					sprite.addChild(cell);
 					
-					p = Particle2D(iter.particle());
+					p = Particle2D(particles[index]);
 					p.target = sprite;
 					p.x = sprite.x = halfCellWidth + cellWidth * i + offsetX;
 					p.y = sprite.y = halfCellHeight + cellHeight * j + offsetY;
-					
-					iter.next();
 				}
 			}
 			

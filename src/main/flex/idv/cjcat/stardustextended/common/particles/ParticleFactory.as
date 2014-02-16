@@ -25,13 +25,13 @@
 		 * @param	count
 		 * @return
 		 */
-		public final function createParticles(count:int, currentTime : Number):ParticleCollection {
+		public final function createParticles(count:int, currentTime : Number):Vector.<Particle> {
 			var i:int, len:int;
-			var particles:ParticleCollection = new ParticleFastArray();
+			var particles:Vector.<Particle> = new Vector.<Particle>();
 			for (i = 0; i < count; i++) {
 				var particle:Particle = createNewParticle();
 				particle.init();
-				particles.add(particle);
+				particles.push(particle);
 			}
 			
 			var initializers:Array = initializerCollection.initializers;

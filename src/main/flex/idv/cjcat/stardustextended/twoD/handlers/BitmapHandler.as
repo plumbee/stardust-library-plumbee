@@ -3,9 +3,7 @@ package idv.cjcat.stardustextended.twoD.handlers {
 	import flash.geom.ColorTransform;
 	import flash.geom.Matrix;
 	import idv.cjcat.stardustextended.common.math.StardustMath;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
 	import flash.display.BitmapData;
-	import idv.cjcat.stardustextended.common.emitters.Emitter;
 	import idv.cjcat.stardustextended.common.handlers.ParticleHandler;
 	import idv.cjcat.stardustextended.common.particles.Particle;
 	import idv.cjcat.stardustextended.common.xml.XMLBuilder;

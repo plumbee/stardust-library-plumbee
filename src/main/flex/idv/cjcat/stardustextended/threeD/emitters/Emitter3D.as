@@ -13,10 +13,9 @@
 	 */
 	public class Emitter3D extends Emitter {
 		
-		public function Emitter3D(clock:Clock = null, particleHandler:ParticleHandler = null,  particlesCollectionType:int = 0) {
-			super(clock, particleHandler, particleCollectionType);
+		public function Emitter3D(clock:Clock = null, particleHandler:ParticleHandler = null) {
+			super(clock, particleHandler);
 			factory = new PooledParticle3DFactory();
-			Emitter
 		}
 		
 		override public final function addAction(action:Action):void {

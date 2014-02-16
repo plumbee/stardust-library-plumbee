@@ -78,8 +78,8 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
         if (isSpriteSheet)
         {
             const nextFrame : uint = (currFrame + stepTime) % totalFrames;
-            const nextImageIndex : uint = Math.floor(nextFrame / animSpeed);
-            const currImageIndex : uint = Math.floor(currFrame / animSpeed);
+            const nextImageIndex : uint = uint(nextFrame / animSpeed);
+            const currImageIndex : uint = uint(currFrame / animSpeed);
             if ( nextImageIndex != currImageIndex )
             {
                 bmp.bitmapData = spriteCache.bds[nextImageIndex];

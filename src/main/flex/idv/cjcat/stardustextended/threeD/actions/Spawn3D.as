@@ -6,13 +6,11 @@
 	import idv.cjcat.stardustextended.common.math.StardustMath;
 	import idv.cjcat.stardustextended.common.math.UniformRandom;
 	import idv.cjcat.stardustextended.common.particles.Particle;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
-	import idv.cjcat.stardustextended.common.particles.ParticleIterator;
 	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 	import idv.cjcat.stardustextended.sd;
 	import idv.cjcat.stardustextended.threeD.geom.Vec3D;
 	import idv.cjcat.stardustextended.threeD.geom.Vec3DPool;
-	import idv.cjcat.stardustextended.threeD.particles.Particle3D;
+    import idv.cjcat.stardustextended.threeD.particles.Particle3D;
 	import idv.cjcat.stardustextended.threeD.particles.Particle3DFactory;
 	
 	/**
@@ -41,15 +39,15 @@
 		}
 		
 		private var p3D:Particle3D;
-		private var particles:ParticleCollection;
+		private var particles:Vector.<Particle>;
 		private var p:Particle3D;
-		private var iter:ParticleIterator;
 		private var v:Vec3D;
 		override public final function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			p3D = Particle3D(particle);
 			particles = _factory.createParticles(StardustMath.randomFloor(_countRandom.random()), currentTime);
-			iter = particles.getIterator();
-			while (p = Particle3D(iter.particle())) {
+            const plen : uint = particles.length;
+            for (var m : int = 0; m < plen; ++m) {
+                p = Particle3D(particles[m]);
 				p.x += p3D.x;
 				p.y += p3D.y;
 				p.z += p3D.z;
@@ -69,8 +67,6 @@
 					p.vz = v.z;
 					Vec3DPool.recycle(v);
 				}
-				
-				iter.next();
 			}
 			emitter.addParticles(particles);
 		}

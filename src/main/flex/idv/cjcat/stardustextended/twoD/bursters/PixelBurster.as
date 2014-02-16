@@ -1,8 +1,8 @@
 ﻿package idv.cjcat.stardustextended.twoD.bursters {
 	import flash.display.BitmapData;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
-	import idv.cjcat.stardustextended.common.particles.ParticleIterator;
-	import idv.cjcat.stardustextended.twoD.particles.Particle2D;
+
+    import idv.cjcat.stardustextended.common.particles.Particle;
+    import idv.cjcat.stardustextended.twoD.particles.Particle2D;
 	
 	public class PixelBurster extends Burster2D {
 		
@@ -22,28 +22,27 @@
 			this.offsetY = offsetY;
 		}
 		
-		override public function createParticles(currentTime : Number):ParticleCollection {
+		override public function createParticles(currentTime : Number): Vector.<Particle> {
 			if (!bitmapData) return null;
 			
 			var rows:int = bitmapData.height;
 			var columns:int = bitmapData.width;
-			var particles:ParticleCollection = factory.createParticles(rows * columns, currentTime);
+			var particles:Vector.<Particle> = factory.createParticles(rows * columns, currentTime);
 			
 			var index:int = 0;
 			var p:Particle2D;
-			var iter:ParticleIterator = particles.getIterator();
 			var inv255:Number = 1 / 255;
 			for (var j:int = 0; j < rows; j++) {
 				for (var i:int = 0; i < columns; i++) {
-					p = Particle2D(iter.particle());
+					p = Particle2D(particles[index]);
 					var color:uint = bitmapData.getPixel32(i, j);
 					p.alpha = Number(uint(color & 0xFF000000) >> 24) * inv255;
 					if (!p.alpha) continue;
 					p.color = color & 0xFFFFFF;
 					p.x = i + offsetX;
 					p.y = j + offsetY;
-					
-					iter.next();
+
+					index++;
 				}
 			}
 			

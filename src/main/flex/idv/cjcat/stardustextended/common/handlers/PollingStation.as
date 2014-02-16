@@ -1,8 +1,7 @@
 package idv.cjcat.stardustextended.common.handlers {
+
 	import idv.cjcat.stardustextended.common.emitters.Emitter;
 	import idv.cjcat.stardustextended.common.particles.Particle;
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
-	import idv.cjcat.stardustextended.common.particles.ParticleFastArray;
 	
 	/**
 	 * This handler works as a polling station. Use it as an ordinary particle handler, 
@@ -12,14 +11,14 @@ package idv.cjcat.stardustextended.common.handlers {
 	 */
 	public final class PollingStation extends ParticleHandler {
 		
-		private var _particlesAdded:ParticleCollection = new ParticleFastArray(false);
-		public final function get particlesAdded():ParticleCollection { return _particlesAdded; }
+		private var _particlesAdded:Vector.<Particle> = new Vector.<Particle>;
+		public final function get particlesAdded():Vector.<Particle> { return _particlesAdded; }
 		
-		private var _particlesRemoved:ParticleCollection = new ParticleFastArray(false);
-		public final function get particlesRemoved():ParticleCollection { return _particlesRemoved;}
+		private var _particlesRemoved:Vector.<Particle> = new Vector.<Particle>;
+		public final function get particlesRemoved():Vector.<Particle> { return _particlesRemoved;}
 		
 		private var _emitter:Emitter;
-		public final function get particles():ParticleCollection {
+		public final function get particles():Vector.<Particle> {
 			return (Boolean(_emitter))?(_emitter.particles):(null);
 		}
 		
@@ -27,18 +26,18 @@ package idv.cjcat.stardustextended.common.handlers {
 			
 		}
 		
-		override public final function stepBegin(emitter:Emitter, particles:ParticleCollection, time:Number):void {
-			_particlesAdded.clear();
-			_particlesRemoved.clear();
+		override public final function stepBegin(emitter:Emitter, particles:Vector.<Particle>, time:Number):void {
+			_particlesAdded = new Vector.<Particle>();
+			_particlesRemoved = new Vector.<Particle>();
 			_emitter = emitter;
 		}
 		
 		override public final function particleAdded(particle:Particle):void {
-			_particlesAdded.add(particle);
+			_particlesAdded.push(particle);
 		}
 		
 		override public final function particleRemoved(particle:Particle):void {
-			_particlesRemoved.add(particle);
+			_particlesRemoved.push(particle);
 		}
 		
 		

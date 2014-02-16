@@ -6,7 +6,6 @@ import flash.net.registerClassAlias;
 import flash.utils.ByteArray;
 
 import idv.cjcat.stardustextended.common.particles.Particle;
-import idv.cjcat.stardustextended.common.particles.ParticleCollection;
 import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 import idv.cjcat.stardustextended.twoD.geom.MotionData2D;
 import idv.cjcat.stardustextended.twoD.geom.MotionData2DPool;
@@ -32,7 +31,7 @@ public class PositionAnimated extends Initializer2D
         this.zone = zone;
     }
 
-    override public function doInitialize( particles : ParticleCollection, currentTime : Number ) : void
+    override public function doInitialize( particles : Vector.<Particle>, currentTime : Number ) : void
     {
         if ( _positons )
         {

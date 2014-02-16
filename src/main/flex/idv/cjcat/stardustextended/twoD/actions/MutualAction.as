@@ -1,7 +1,7 @@
 ﻿package idv.cjcat.stardustextended.twoD.actions {
+
 	import idv.cjcat.stardustextended.common.emitters.Emitter;
 	import idv.cjcat.stardustextended.common.particles.Particle;
-	import idv.cjcat.stardustextended.common.particles.ParticleIterator;
 	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 	import idv.cjcat.stardustextended.twoD.particles.Particle2D;
 	
@@ -23,10 +23,9 @@
 		public function MutualAction() {
 			
 		}
-		
-		private var j:ParticleIterator;
+
         override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
-            var p1:Particle2D = Particle2D(particle);
+            /* TODO var p1:Particle2D = Particle2D(particle);
             var p2:Particle2D;
             var yDist:Number;
             var i:ParticleIterator = particle.sortedIndexIterator;
@@ -45,7 +44,7 @@
                     j.next();
                 }
                 i.next();
-            }
+            }  */
         }
 		
 		protected function doMutualAction(p1:Particle2D, p2:Particle2D, time:Number):void {

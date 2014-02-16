@@ -1,5 +1,5 @@
 package idv.cjcat.stardustextended.threeD.handlers {
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
+
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import idv.cjcat.stardustextended.common.emitters.Emitter;
@@ -64,13 +64,13 @@ package idv.cjcat.stardustextended.threeD.handlers {
 		private var _zdList:Array = [];
 		private var i:int, j:int;
 		
-		override final public function stepBegin(emitter:Emitter, particles:ParticleCollection, time:Number):void {
+		override final public function stepBegin(emitter:Emitter, particles:Vector.<Particle>, time:Number):void {
 			_cameraMatrix.identity();
 			_cameraMatrix.rotateY(Math.atan2(-_camera.direction.x, _camera.direction.z));
 			_cameraMatrix.rotateX(Math.atan2(_camera.direction.y, Math.sqrt(_camera.direction.x * _camera.direction.x + _camera.direction.z * _camera.direction.z)));
 			
 			_zdList.length = 0;
-			_zdList.length = particles.size;
+			_zdList.length = particles.length;
 			
 			i = 0;
 		}
@@ -94,7 +94,7 @@ package idv.cjcat.stardustextended.threeD.handlers {
 			p3D.screenVY = _cameraDiff.y;
 		}
 		
-		override final public function stepEnd(emitter:Emitter, particles:ParticleCollection, time:Number):void {
+		override final public function stepEnd(emitter:Emitter, particles:Vector.<Particle>, time:Number):void {
 			_zdList.sort(zdSorter);
 			
 			var focalLength_inv:Number = 1 / _camera.focalLength;

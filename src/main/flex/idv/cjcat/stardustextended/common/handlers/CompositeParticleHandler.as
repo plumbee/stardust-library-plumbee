@@ -1,5 +1,5 @@
 package idv.cjcat.stardustextended.common.handlers {
-	import idv.cjcat.stardustextended.common.particles.ParticleCollection;
+
 	import idv.cjcat.stardustextended.common.emitters.Emitter;
 	import idv.cjcat.stardustextended.common.particles.Particle;
 	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
@@ -11,13 +11,13 @@ package idv.cjcat.stardustextended.common.handlers {
 			handlers = [];
 		}
 		
-		override public final function stepBegin(emitter:Emitter, particles:ParticleCollection, time:Number):void {
+		override public final function stepBegin(emitter:Emitter, particles:Vector.<Particle>, time:Number):void {
 			for (i = 0, len = handlers.length; i < len; ++i) {
 				ParticleHandler(handlers[i]).stepBegin(emitter, particles, time);
 			}
 		}
 		
-		override public final function stepEnd(emitter:Emitter, particles:ParticleCollection, time:Number):void {
+		override public final function stepEnd(emitter:Emitter, particles:Vector.<Particle>, time:Number):void {
 			for (i = 0, len = handlers.length; i < len; ++i) {
 				ParticleHandler(handlers[i]).stepEnd(emitter, particles, time);
 			}
