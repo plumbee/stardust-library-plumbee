@@ -168,39 +168,13 @@
 					break;
 				}
 			}
-			//update the first particle + invoke action preupdates.
-            for (var m : int = 0; m < _particles.length; ++m) {
-                p = _particles[m];
-				for (i = 0; i < len; ++i) {
-					action = activeActions[i];
-					
-					//preUpdate
-					action.preUpdate(this, time);
-					
-					//update particle
-					if (action.mask & p.mask) action.update(this, p, time, currentTime);
-				}
-				
-				if (p.isDead) {
-					//handle dead particle
-					for (key in p.recyclers) {
-						InfoRecycler(key).recycleInfo(p);
-					}
-					
-					//handle removal
-					_particleHandler.particleRemoved(p);
-					
-					p.destroy();
-					factory.recycle(p);
+			//invoke action preupdates.
+            for (i = 0; i < len; ++i) {
+                activeActions[i].preUpdate(this, time);
+            }
 
-                    _particles.splice(m,1);
-				} else {
-					_particleHandler.readParticle(p);
-				}
-			}
-			
 			//update the remaining particles
-            for (m = 0; m < _particles.length; ++m) {
+            for (var m : int = 0; m < _particles.length; ++m) {
                 p = _particles[m];
 				for (i = 0; i < len; ++i) {
 					action = activeActions[i];
