@@ -23,8 +23,9 @@
 		override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
 			var p2D:Particle2D = Particle2D(particle);
 			var v:Vec2D = Vec2DPool.get(p2D.vx, p2D.vy);
-			if (v.length > 0) {
-				v.length += acceleration * timeDelta;
+            const vecLength : Number = v.length;
+			if (vecLength > 0) {
+				v.length = vecLength + acceleration * timeDelta;
 				p2D.vx = v.x;
 				p2D.vy = v.y;
 			}

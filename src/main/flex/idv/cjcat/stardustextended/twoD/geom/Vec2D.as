@@ -1,27 +1,29 @@
 ﻿package idv.cjcat.stardustextended.twoD.geom {
 
-	import idv.cjcat.stardustextended.common.math.StardustMath;
+import flash.geom.Point;
+
+import idv.cjcat.stardustextended.common.math.StardustMath;
 	
 	/**
 	 * 2D Vector with common vector operations.
 	 */
-	public class Vec2D {
-
-		//------------------------------------------------------------------------------------------------
-		//end of signals
-
-
-        public var x:Number;
-        public var y:Number;
+	public class Vec2D extends Point{
 		
 		public function Vec2D(_x:Number = 0, _y:Number = 0) {
 			x = _x;
 			y = _y;
 		}
-		
-		public function clone():Vec2D {
-			return new Vec2D(x, y);
-		}
+
+        override public function clone():Point{
+            return new Vec2D(x,y);
+        }
+
+        public function set length(value:Number):void {
+            if ((x == 0) && (y == 0)) return;
+            var factor:Number = value / length;
+            x = x * factor;
+            y = y * factor;
+        }
 		
 		/**
 		 * Dot product.
@@ -38,13 +40,13 @@
 		 * @return
 		 */
 		public function project(target:Vec2D):Vec2D {
-			var temp:Vec2D = clone();
+			const temp : Vec2D = Vec2D(clone());
 			temp.projectThis(target);
 			return temp;
 		}
 		
 		public function projectThis(target:Vec2D):void {
-			var temp:Vec2D = Vec2DPool.get(target.x, target.y);
+            const temp:Vec2D = Vec2DPool.get(target.x, target.y);
 			temp.length = 1;
 			temp.length = dot(temp);
 			x = temp.x;
@@ -77,40 +79,6 @@
 		}
 		
 		/**
-		 * Unit vector.
-		 * @return
-		 */
-		public function unitVec():Vec2D {
-			if (length == 0) return new Vec2D();
-			var length_inv:Number = 1 / length;
-			return new Vec2D(x * length_inv, y * length_inv);
-		}
-		
-		/**
-		 * Vector length.
-		 */
-		public function get length():Number {
-			return Math.sqrt(x * x + y * y);
-		}
-		public function set length(value:Number):void {
-			if ((x == 0) && (y == 0)) return;
-			var factor:Number = value / length;
-			
-			x = x * factor;
-			y = y * factor;
-		}
-		
-		/**
-		 * Sets the vector's both components at once.
-		 * @param	_x
-		 * @param	_y
-		 */
-		public function set(_x:Number, _y:Number):void {
-			x = _x;
-			y = _y;
-		}
-		
-		/**
 		 * The angle between the vector and the positive x axis in degrees.
 		 */
 		public function get angle():Number { return Math.atan2(y, x) * StardustMath.RADIAN_TO_DEGREE; }
@@ -119,10 +87,6 @@
 			var rad:Number = value * StardustMath.DEGREE_TO_RADIAN;
 			x = originalLength * Math.cos(rad);
 			y = originalLength * Math.sin(rad);
-		}
-		
-		public function toString():String {
-			return "[Vec2D" + " x=" + x + " y=" + y + "]";
 		}
 	}
 }

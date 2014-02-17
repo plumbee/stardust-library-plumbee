@@ -69,7 +69,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
         {
             currFrame = Math.random() * totalFrames;
         }
-        bmp.bitmapData = spriteCache.bds[Math.floor(currFrame / animSpeed)];
+        bmp.bitmapData = spriteCache.bds[uint(currFrame / animSpeed)];
         bmp.smoothing = smoothing;
     }
 
