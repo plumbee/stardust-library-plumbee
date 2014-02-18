@@ -134,7 +134,10 @@
 		public function get needsRecycle():Boolean {
 			return false;
 		}
-		
+
+        public function reset():void {
+            //override if needed
+        }
 		
 		//XML
 		//------------------------------------------------------------------------------------------------

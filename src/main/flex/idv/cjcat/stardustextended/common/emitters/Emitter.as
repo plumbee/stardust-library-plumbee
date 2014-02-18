@@ -8,7 +8,7 @@
 	import idv.cjcat.stardustextended.common.clocks.Clock;
 	import idv.cjcat.stardustextended.common.clocks.SteadyClock;
 	import idv.cjcat.stardustextended.common.handlers.ParticleHandler;
-	import idv.cjcat.stardustextended.common.initializers.Initializer;
+    import idv.cjcat.stardustextended.common.initializers.Initializer;
 	import idv.cjcat.stardustextended.common.initializers.InitializerCollector;
 	import idv.cjcat.stardustextended.common.particles.InfoRecycler;
 	import idv.cjcat.stardustextended.common.particles.Particle;
@@ -285,7 +285,22 @@
 		}
 		//------------------------------------------------------------------------------------------------
 		//end of actions & initializers
-		
+
+        /**
+         * Resets all properties to their default values and removes all particles.
+         */
+        public function reset() : void
+        {
+            currentTime = 0;
+            clearParticles();
+            for (var i:int = 0; i < initializers.length; ++i) {
+                Initializer(initializers[i]).reset();
+            }
+            for (i = 0; i < actions.length; ++i) {
+                Action(actions[i]).reset();
+            }
+            clock.reset();
+        }
 		
 		//particles
 		//------------------------------------------------------------------------------------------------

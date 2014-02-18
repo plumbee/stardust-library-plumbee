@@ -58,6 +58,12 @@
 			}
 			return ticks;
 		}
+
+        override public function reset() : void
+        {
+            _discharged = true;
+            _dischargeCount = 0;
+        }
 		
 		
 		//XML

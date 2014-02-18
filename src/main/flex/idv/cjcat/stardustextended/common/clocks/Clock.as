@@ -24,6 +24,11 @@
 		public function getTicks(time:Number):int {
 			return 0;
 		}
+
+        public function reset() : void
+        {
+            // override it if needed
+        }
 		
 		
 		//XML
