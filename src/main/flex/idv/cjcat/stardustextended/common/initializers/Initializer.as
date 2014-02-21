@@ -1,11 +1,12 @@
 ﻿package idv.cjcat.stardustextended.common.initializers {
-	import idv.cjcat.signals.ISignal;
-	import idv.cjcat.signals.Signal;
-	import idv.cjcat.stardustextended.common.emitters.Emitter;
-	import idv.cjcat.stardustextended.common.particles.InfoRecycler;
-	import idv.cjcat.stardustextended.common.particles.Particle;
-	import idv.cjcat.stardustextended.common.StardustElement;
-	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
+
+    import idv.cjcat.stardustextended.cjsignals.ISignal;
+    import idv.cjcat.stardustextended.cjsignals.Signal;
+    import idv.cjcat.stardustextended.common.emitters.Emitter;
+    import idv.cjcat.stardustextended.common.particles.InfoRecycler;
+    import idv.cjcat.stardustextended.common.particles.Particle;
+    import idv.cjcat.stardustextended.common.StardustElement;
+    import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 	
 	/**
 	 * An initializer is used to alter just once (i.e. initialize) a particle's properties upon the particle's birth.

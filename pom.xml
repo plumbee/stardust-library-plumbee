@@ -90,25 +90,12 @@
 	</build>
 
     <dependencies>
+
         <dependency>
             <groupId>com.adobe.flex.framework</groupId>
             <artifactId>flex-framework</artifactId>
             <version>${flex.version}</version>
             <type>pom</type>
-        </dependency>
-		
-		<dependency>
-			<groupId>idv.cjcat.signals</groupId>
-			<artifactId>cjsignals</artifactId>
-			<version>1.0.32</version>
-			<type>swc</type>
-		</dependency>
-
-        <dependency>
-            <groupId>idv.cjcat.zedbox</groupId>
-            <artifactId>zedbox-fp9</artifactId>
-            <version>1.1</version>
-            <type>swc</type>
         </dependency>
 
     </dependencies>

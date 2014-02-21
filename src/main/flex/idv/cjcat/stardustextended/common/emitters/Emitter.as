@@ -1,21 +1,21 @@
 ﻿package idv.cjcat.stardustextended.common.emitters {
 
-	import idv.cjcat.signals.ISignal;
-	import idv.cjcat.signals.Signal;
-	import idv.cjcat.stardustextended.common.actions.Action;
-	import idv.cjcat.stardustextended.common.actions.ActionCollection;
-	import idv.cjcat.stardustextended.common.actions.ActionCollector;
-	import idv.cjcat.stardustextended.common.clocks.Clock;
-	import idv.cjcat.stardustextended.common.clocks.SteadyClock;
-	import idv.cjcat.stardustextended.common.handlers.ParticleHandler;
+    import idv.cjcat.stardustextended.cjsignals.ISignal;
+    import idv.cjcat.stardustextended.cjsignals.Signal;
+    import idv.cjcat.stardustextended.common.actions.Action;
+    import idv.cjcat.stardustextended.common.actions.ActionCollection;
+    import idv.cjcat.stardustextended.common.actions.ActionCollector;
+    import idv.cjcat.stardustextended.common.clocks.Clock;
+    import idv.cjcat.stardustextended.common.clocks.SteadyClock;
+    import idv.cjcat.stardustextended.common.handlers.ParticleHandler;
     import idv.cjcat.stardustextended.common.initializers.Initializer;
-	import idv.cjcat.stardustextended.common.initializers.InitializerCollector;
-	import idv.cjcat.stardustextended.common.particles.InfoRecycler;
-	import idv.cjcat.stardustextended.common.particles.Particle;
-	import idv.cjcat.stardustextended.common.particles.PooledParticleFactory;
-	import idv.cjcat.stardustextended.common.StardustElement;
-	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
-	import idv.cjcat.stardustextended.sd;
+    import idv.cjcat.stardustextended.common.initializers.InitializerCollector;
+    import idv.cjcat.stardustextended.common.particles.InfoRecycler;
+    import idv.cjcat.stardustextended.common.particles.Particle;
+    import idv.cjcat.stardustextended.common.particles.PooledParticleFactory;
+    import idv.cjcat.stardustextended.common.StardustElement;
+    import idv.cjcat.stardustextended.common.xml.XMLBuilder;
+    import idv.cjcat.stardustextended.sd;
 	
 	use namespace sd;
 	

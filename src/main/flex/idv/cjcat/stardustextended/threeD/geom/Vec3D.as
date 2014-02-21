@@ -1,7 +1,8 @@
 ﻿package idv.cjcat.stardustextended.threeD.geom {
-	import idv.cjcat.signals.ISignal;
-	import idv.cjcat.signals.Signal;
-	import idv.cjcat.stardustextended.common.math.StardustMath;
+
+import idv.cjcat.stardustextended.cjsignals.ISignal;
+import idv.cjcat.stardustextended.cjsignals.Signal;
+import idv.cjcat.stardustextended.common.math.StardustMath;
 	
 	/**
 	 * 3D Vector with common vector operations.

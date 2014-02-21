@@ -1,7 +1,8 @@
 ﻿package idv.cjcat.stardustextended.common.actions {
-	import idv.cjcat.signals.ISignal;
-	import idv.cjcat.signals.Signal;
-	import idv.cjcat.stardustextended.common.emitters.Emitter;
+
+    import idv.cjcat.stardustextended.cjsignals.ISignal;
+    import idv.cjcat.stardustextended.cjsignals.Signal;
+    import idv.cjcat.stardustextended.common.emitters.Emitter;
 	import idv.cjcat.stardustextended.common.particles.Particle;
 	import idv.cjcat.stardustextended.common.StardustElement;
 	import idv.cjcat.stardustextended.common.xml.XMLBuilder;

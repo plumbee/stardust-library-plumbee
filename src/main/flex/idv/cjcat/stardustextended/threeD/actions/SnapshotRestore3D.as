@@ -1,7 +1,8 @@
 ﻿package idv.cjcat.stardustextended.threeD.actions  {
-	import idv.cjcat.signals.ISignal;
-	import idv.cjcat.signals.Signal;
-	import idv.cjcat.stardustextended.common.easing.EasingFunctionType;
+
+    import idv.cjcat.stardustextended.cjsignals.ISignal;
+    import idv.cjcat.stardustextended.cjsignals.Signal;
+    import idv.cjcat.stardustextended.common.easing.EasingFunctionType;
 	import idv.cjcat.stardustextended.common.easing.Linear;
 	import idv.cjcat.stardustextended.common.emitters.Emitter;
 	import idv.cjcat.stardustextended.common.math.Random;
@@ -9,7 +10,6 @@
 	import idv.cjcat.stardustextended.common.math.UniformRandom;
 	import idv.cjcat.stardustextended.common.particles.Particle;
 	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
-	import idv.cjcat.stardustextended.threeD.actions.Action3D;
 	import idv.cjcat.stardustextended.threeD.particles.Particle3D;
 	
 	/**
