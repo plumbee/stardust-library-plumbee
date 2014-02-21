@@ -65,7 +65,6 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
         totalFrames = animSpeed * spriteCache.bds.length;
         currFrame = 0;
         if ( startAtRandomFrame )
-
         {
             currFrame = Math.random() * totalFrames;
         }

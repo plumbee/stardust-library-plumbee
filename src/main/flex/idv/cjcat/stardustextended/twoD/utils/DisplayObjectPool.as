@@ -1,10 +1,11 @@
 ﻿package idv.cjcat.stardustextended.twoD.utils {
+
 	import flash.display.DisplayObject;
 	import idv.cjcat.stardustextended.common.utils.construct;
 	
 	public class DisplayObjectPool {
 		
-		private static var DEFAULT_SIZE:int = 32;
+		private static const DEFAULT_SIZE:int = 32;
 		
 		private var _class:Class;
 		private var _params:Array;
@@ -20,13 +21,12 @@
 				_vec[i] = construct(_class, _params); 
 			}
 		}
-		
-		private var i:int = 0;
+
 		public function get():DisplayObject {
 			if (_position == _vec.length) {
 				_vec.length <<= 1;
 				
-				//trace("DisiplayObjectPool expanded");
+				//trace("DisplayObjectPool expanded. New size:", _vec.length);
 				
 				for (var i:int = _position; i < _vec.length; i++) {
 					_vec[i] = construct(_class, _params);
@@ -44,11 +44,11 @@
 			_position--;
 			if (_position < 0) _position = 0;
 			
-			if (_vec.length >= 16) {
+			if (_vec.length > DEFAULT_SIZE * 2) {
 				
 				if (_position < (_vec.length >> 4)) {
-					
-					//trace("DisiplayObjectPool contracted");
+
+                    //trace("DisplayObjectPool contracted. New size:", _vec.length);
 					
 					_vec.length >>= 1;
 				}

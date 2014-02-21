@@ -22,12 +22,12 @@
 	public class Gravity extends Action2D {
 		
 		/** @private */
-		sd var fields:Array;
+		sd var fields : Vector.<Field>;
 		
 		public function Gravity() {
 			priority = -3;
 			
-			fields = [];
+			fields = new Vector.<Field>();
 		}
 		
 		/**
@@ -51,16 +51,14 @@
 		 * Removes all gravity fields from the simulation.
 		 */
 		public function clearFields():void {
-			fields = [];
+			fields = new Vector.<Field>();
 		}
-		
-		private var p2D:Particle2D;
-		private var md2D:MotionData2D;
-		private var field:Field;
+
 		override public function update(emitter:Emitter, particle:Particle, timeDelta:Number, currentTime:Number):void {
-			p2D = Particle2D(particle);
-			for each (field in fields) {
-				md2D = field.getMotionData2D(p2D);
+			const p2D : Particle2D = Particle2D(particle);
+            var md2D : MotionData2D;
+			for (var i : int = 0; i < fields.length; i++) {
+				md2D = fields[i].getMotionData2D(p2D);
 				if (md2D) {
 					p2D.vx += md2D.x * timeDelta;
 					p2D.vy += md2D.y * timeDelta;
@@ -73,7 +71,11 @@
 		//------------------------------------------------------------------------------------------------
 		
 		override public function getRelatedObjects():Array {
-			return fields;
+            const result:Array = [];
+            for(var i : int = 0; i < fields.length; i++) {
+                result[result.length] = fields[i];
+            }
+			return result;
 		}
 		
 		override public function getXMLTagName():String {
