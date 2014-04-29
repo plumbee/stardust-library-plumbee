@@ -30,6 +30,8 @@
 		<flex.version>4.6.0.23201</flex.version>
         <swf.version>17</swf.version>
         <flash.player.version>11.4</flash.player.version>
+
+        <includeProperties />
 	</properties>
 
     <!-- Change this part to your own repository details -->
