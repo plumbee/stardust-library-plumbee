@@ -10,26 +10,11 @@
 	<name>Stardust library</name>
 	<description>Stardust library - Plumbee version with bugfixes and extra features</description>
 
-    <repositories>
-        <repository>
-            <id>flex-mojos-repository</id>
-            <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
-        </repository>
-
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>flex-mojos-plugin-repository</id>
-            <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
-        </pluginRepository>
-    </pluginRepositories>
-
 	<properties>
 		<flexmojos.version>6.0.1</flexmojos.version>
-		<flex.version>4.6.0.23201</flex.version>
-        <swf.version>17</swf.version>
-        <flash.player.version>11.4</flash.player.version>
+		<flex.sdk.version>4.6.0.23201</flex.sdk.version>
+        <swf.version>18</swf.version>
+        <flash.player.version>11.7</flash.player.version>
 
         <includeProperties />
 	</properties>
@@ -46,6 +31,21 @@
         </snapshotRepository>
     </distributionManagement>
 
+    <repositories>
+        <repository>
+            <id>flex-mojos-repository</id>
+            <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+        </repository>
+
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>flex-mojos-plugin-repository</id>
+            <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
 	<build>
 
         <extensions>
@@ -59,6 +59,7 @@
 		<sourceDirectory>src/main/flex</sourceDirectory>
 		<testSourceDirectory>src/test/flex</testSourceDirectory>
 		<plugins>
+
 			<plugin>
 				<groupId>net.flexmojos.oss</groupId>
 				<artifactId>flexmojos-maven-plugin</artifactId>
@@ -72,15 +73,18 @@
 					<windowTitle>Stardust library API documentation</windowTitle>
 					<targetPlayer>${flash.player.version}</targetPlayer>
 					<swfVersion>${swf.version}</swfVersion>
+                    <compilerWarnings>
+                        <warn-no-constructor>false</warn-no-constructor>
+                    </compilerWarnings>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>com.adobe.flex</groupId>
-						<artifactId>compiler</artifactId>
-						<version>${flex.version}</version>
-						<type>pom</type>
-					</dependency>
-				</dependencies>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.adobe.flex</groupId>
+                        <artifactId>compiler</artifactId>
+                        <version>${flex.sdk.version}</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
 			</plugin>
 
             <plugin>
@@ -88,15 +92,17 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.2.1</version>
             </plugin>
+
 		</plugins>
 	</build>
 
     <dependencies>
 
+        <!-- Flex needs to be excluded here, otherwise will compile for FP 10 for some reason -->
         <dependency>
             <groupId>com.adobe.flex.framework</groupId>
             <artifactId>flex-framework</artifactId>
-            <version>${flex.version}</version>
+            <version>${flex.sdk.version}</version>
             <type>pom</type>
         </dependency>
 
