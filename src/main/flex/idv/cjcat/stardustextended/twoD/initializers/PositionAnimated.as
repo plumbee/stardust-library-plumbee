@@ -139,7 +139,9 @@ public class PositionAnimated extends Initializer2D
             registerClassAlias( "String", String );
             registerClassAlias( "Point", Point );
             registerClassAlias( "VecPoint", Vector.<Point> as Class );
-            _positons = Base64.decode( xml.@positions).readObject();
+            const ba : ByteArray = Base64.decode(xml.@positions);
+            ba.position = 0;
+            _positons = ba.readObject();
         }
         if ( xml.@inheritVelocity.length() )
         {
