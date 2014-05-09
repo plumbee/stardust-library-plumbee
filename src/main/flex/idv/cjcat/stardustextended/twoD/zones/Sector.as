@@ -8,7 +8,7 @@
 	/**
 	 * Sector-shaped zone.
 	 */
-	public class SectorZone extends Zone {
+	public class Sector extends Zone {
 		
 		/**
 		 * The X coordinate of the center of the sector.
@@ -18,8 +18,7 @@
 		 * The Y coordinate of the center of the sector.
 		 */
 		public var y:Number;
-		
-		//private var _randomR:Random;
+
 		private var _randomT:Random;
 		private var _minRadius:Number;
 		private var _maxRadius:Number;
@@ -27,10 +26,8 @@
 		private var _maxAngle:Number;
 		private var _minAngleRad:Number;
 		private var _maxAngleRad:Number;
-		private var _r1SQ:Number;
-		private var _r2SQ:Number;
 		
-		public function SectorZone(x:Number = 0, y:Number = 0, minRadius:Number = 0, maxRadius:Number = 100, minAngle:Number = 0, maxAngle:Number = 360) {
+		public function Sector(x:Number = 0, y:Number = 0, minRadius:Number = 0, maxRadius:Number = 100, minAngle:Number = 0, maxAngle:Number = 360) {
 			_randomT = new UniformRandom();
 			
 			this.x = x;
@@ -39,7 +36,6 @@
 			this._maxRadius = maxRadius;
 			this._minAngle = minAngle;
 			this._maxAngle = maxAngle;
-			//this.randomR = randomR;
 			
 			updateArea();
 		}
@@ -80,16 +76,9 @@
 			updateArea();
 		}
 		
-		//public function get randomR():Random { return _randomR; }
-		//public function set randomR(value:Random):void {
-			//if (!value) value = new UniformRandom();
-			//_randomR = value;
-		//}
-		
 		override public function calculateMotionData2D():MotionData2D {
 			if (_maxRadius == 0) return new MotionData2D(x, y);
-			
-			//_randomR.setRange(_minRadius, _maxRadius);
+
 			_randomT.setRange(_minAngleRad, _maxAngleRad);
 			var theta:Number = _randomT.random();
 			var r:Number = StardustMath.interpolate(0, _minRadius, 1, _maxRadius, Math.sqrt(Math.random()));
@@ -102,10 +91,8 @@
 			_minAngleRad = _minAngle * StardustMath.DEGREE_TO_RADIAN;
 			_maxAngleRad = _maxAngle * StardustMath.DEGREE_TO_RADIAN;
 			var dT:Number = _maxAngleRad - _minAngleRad;
-			
-			_r1SQ = _minRadius * _minRadius;
-			_r2SQ = _maxRadius * _maxRadius;
-			var dRSQ:Number = _r2SQ - _r1SQ;
+
+			var dRSQ:Number = _minRadius * _minRadius - _maxRadius * _maxRadius;
 			
 			area = Math.abs(dRSQ * dT);
 		}
@@ -120,11 +107,10 @@
 		
 		override public function getRelatedObjects():Array {
 			return [];
-			//return [_randomR];
 		}
 		
 		override public function getXMLTagName():String {
-			return "SectorZone";
+			return "Sector";
 		}
 		
 		override public function toXML():XML {
@@ -136,7 +122,6 @@
 			xml.@maxRadius = maxRadius;
 			xml.@minAngle = minAngle;
 			xml.@maxAngle = maxAngle;
-			//xml.@randomR = randomR.name;
 			
 			return xml;
 		}

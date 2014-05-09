@@ -56,7 +56,7 @@ import idv.cjcat.stardustextended.twoD.initializers.Rotation;
 	import idv.cjcat.stardustextended.twoD.zones.Line;
 	import idv.cjcat.stardustextended.twoD.zones.RectContour;
 	import idv.cjcat.stardustextended.twoD.zones.RectZone;
-	import idv.cjcat.stardustextended.twoD.zones.SectorZone;
+	import idv.cjcat.stardustextended.twoD.zones.Sector;
 	import idv.cjcat.stardustextended.twoD.zones.SinglePoint;
 	
 	/**
@@ -147,7 +147,7 @@ import idv.cjcat.stardustextended.twoD.initializers.Rotation;
 			classes.push(Line);
 			classes.push(RectContour);
 			classes.push(RectZone);
-			classes.push(SectorZone);
+			classes.push(Sector);
 			classes.push(SinglePoint);
 
 			classes.push(FollowWaypoints);
