@@ -87,9 +87,16 @@
 		}
 		
 		override protected function updateArea():void {
-			
 			_minAngleRad = _minAngle * StardustMath.DEGREE_TO_RADIAN;
 			_maxAngleRad = _maxAngle * StardustMath.DEGREE_TO_RADIAN;
+            if (Math.abs(_minAngleRad) > StardustMath.TWO_PI)
+            {
+                _minAngleRad = _minAngleRad % StardustMath.TWO_PI;
+            }
+            if (Math.abs(_maxAngleRad) > StardustMath.TWO_PI)
+            {
+                _maxAngleRad = _maxAngleRad % StardustMath.TWO_PI;
+            }
 			var dT:Number = _maxAngleRad - _minAngleRad;
 
 			var dRSQ:Number = _minRadius * _minRadius - _maxRadius * _maxRadius;
@@ -98,7 +105,25 @@
 		}
 		
 		override public function contains(x:Number, y:Number):Boolean {
-			return false;
+            const dx:Number = this.x - x;
+            const dy:Number = this.y - y;
+            const isInsideOuterCircle : Boolean = ((dx * dx + dy * dy) <= _maxRadius * _maxRadius);
+            if ( !isInsideOuterCircle )
+            {
+                return false;
+            }
+            const isInsideInnerCircle : Boolean = ((dx * dx + dy * dy) <= _minRadius * _minRadius);
+            if ( isInsideInnerCircle )
+            {
+                return false;
+            }
+            const angle : Number = Math.atan2(dy, dx) + Math.PI;
+            // TODO: does not work for edge cases, e.g. when minAngle = -20 and maxAngle = 20
+            if (angle > _maxAngleRad || angle < _minAngleRad)
+            {
+                return false;
+            }
+			return true;
 		}
 		
 		
@@ -135,7 +160,6 @@
 			if (xml.@maxRadius.length()) maxRadius = parseFloat(xml.@maxRadius);
 			if (xml.@minAngle.length()) minAngle = parseFloat(xml.@minAngle);
 			if (xml.@maxAngle.length()) maxAngle = parseFloat(xml.@maxAngle);
-			//randomR = builder.getElementByName(xml.@randomR) as Random;
 		}
 		
 		//------------------------------------------------------------------------------------------------

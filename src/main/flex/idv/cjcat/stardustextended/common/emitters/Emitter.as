@@ -156,7 +156,6 @@
 				if (action.active && action.mask) activeActions.push(action);
 			}
 
-
 			//sorting
 			len = activeActions.length;
 			for (i = 0; i < len; ++i) {
@@ -182,7 +181,7 @@
 					//update particle
 					if (p.mask & action.mask) action.update(this, p, time, currentTime);
 				}
-				
+
 				if (p.isDead) {
 					//handle dead particle
 					for (key in p.recyclers) {
@@ -194,7 +193,8 @@
 					p.destroy();
 					factory.recycle(p);
 
-                    _particles.splice(m,1);
+                    _particles.splice(m, 1);
+                    m--;
 				} else {
 					_particleHandler.readParticle(p);
 				}
