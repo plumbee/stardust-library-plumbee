@@ -10,25 +10,28 @@
 	 * These points are more likely to be situated in zones with bigger area.
 	 * </p>
 	 */
-	public class CompositeZone extends Zone {
+	public class Composite extends Zone {
 		
-		private var _zones:Array;
+		private var _zones:Vector.<Zone>;
 		
-		public function CompositeZone() {
-			_zones = [];
+		public function Composite() {
+			_zones = new Vector.<Zone>();
 		}
 		
 		override public function calculateMotionData2D():MotionData2D {
-			var position:Number = Math.random() * getArea();
-			var sum:Number = 0;;
-			for (var i:int = 0; i < _zones.length; i++) {
-				sum += Zone(_zones[i]).getArea();
-				if (position < sum) {
+            var sumArea : Number = 0;
+            var areas : Array = [];
+            for (var i:int = 0; i < _zones.length; i++) {
+                sumArea += Zone(_zones[i]).getArea();
+                areas.push(sumArea);
+            }
+			var position:Number = Math.random() * sumArea;
+			for (i = 0; i < areas.length; i++) {
+				if (position <= areas[i]) {
 					return Zone(_zones[i]).calculateMotionData2D();
 				}
 			}
-			
-			return new MotionData2D();
+            return new MotionData2D(); // this should not happen
 		}
 		
 		override public function contains(x:Number, y:Number):Boolean {
@@ -40,7 +43,6 @@
 		
 		public final function addZone(zone:Zone):void {
 			_zones.push(zone);
-			updateArea()
 		}
 		
 		public final function removeZone(zone:Zone):void {
@@ -48,27 +50,32 @@
 			while ((index = _zones.indexOf(zone)) >= 0) {
 				_zones.splice(index, 1);
 			}
-			updateArea()
 		}
 		
 		public final function clearZones():void {
-			_zones = [];
-			updateArea()
+			_zones = new Vector.<Zone>();
 		}
+
+        public function get zones():Vector.<Zone> {
+            return _zones;
+        }
 		
 		override protected function updateArea():void {
-			area = 0;
-			for each (var zone:Zone in _zones) {
-				area += zone.getArea();
-			}
+			// this can not be calculated here properly because
+            // changes is subzones are not detected
 		}
-		
-		
+
 		//XML
 		//------------------------------------------------------------------------------------------------
 		
 		override public function getRelatedObjects():Array {
-			return _zones;
+            var len:int = _zones.length;
+            var ret:Array = new Array(len);
+            for (var i:int = 0; i < len; ++i)
+            {
+                ret[i] = _zones[i];
+            }
+            return ret;
 		}
 		
 		override public function getXMLTagName():String {
