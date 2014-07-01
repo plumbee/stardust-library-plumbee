@@ -19,8 +19,8 @@
             return _x1;
         }
         public function set x1(value:Number):void {
-            updateArea();
             _x1 = value;
+            updateArea();
         }
 		/**
 		 * The Y coordinate of one end of the line.
@@ -122,6 +122,7 @@
 			if (xml.@y1.length()) _y1 = parseFloat(xml.@y1);
 			if (xml.@x2.length()) _x2 = parseFloat(xml.@x2);
 			if (xml.@y2.length()) _y2 = parseFloat(xml.@y2);
+            updateArea();
 		}
 		
 		//------------------------------------------------------------------------------------------------

@@ -4,7 +4,7 @@
 	/**
 	 * Rectangular contour.
 	 */
-	public class RectContour extends CompositeZone {
+	public class RectContour extends Composite {
 		
 		private var _virtualThickness:Number;
 		
@@ -32,7 +32,7 @@
 			virtualThickness = 1;
 			
 			this.x = x;
-			this.y = y
+			this.y = y;
 			this.width = width;
 			this.height = height;
 		}
@@ -96,7 +96,13 @@
 			_line4.x2 = x + width;
 			_line4.y2 = y + height;
 		}
-		
+
+        override protected function updateArea():void {
+            area = 0;
+            for each (var line:Line in zones) {
+                area += line.getArea();
+            }
+        }
 		
 		//XML
 		//------------------------------------------------------------------------------------------------
