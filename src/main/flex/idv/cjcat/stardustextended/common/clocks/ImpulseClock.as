@@ -5,7 +5,11 @@
 	 * The impulse clock causes the emitter to create a single burst of particles right after the <code>impulse()</code> method is called.
 	 */
 	public class ImpulseClock extends Clock {
-		
+
+		/**
+		 * The time between bursts. You have to implement this functionality, Stardust is not using this property.
+		 */
+		public var burstInterval:int = 33;
 		/**
 		 * How many particles to burst out after each <code>impulse()</code> call.
 		 */
@@ -78,6 +82,7 @@
 			
 			xml.@impulseCount = impulseCount;
 			xml.@repeatCount = repeatCount;
+			xml.@burstInterval = burstInterval;
 			
 			return xml;
 		}
@@ -87,6 +92,7 @@
 			
 			if (xml.@impulseCount.length()) impulseCount = parseInt(xml.@impulseCount);
 			if (xml.@repeatCount.length()) repeatCount = parseInt(xml.@repeatCount);
+			if (xml.@burstInterval.length()) burstInterval = parseInt(xml.@burstInterval);
 		}
 		
 		//------------------------------------------------------------------------------------------------
