@@ -6,6 +6,7 @@
 	import idv.cjcat.stardustextended.twoD.particles.Particle2D;
 	
 	/**
+	 * TODO: get it working
 	 * [Abstract Class] This is an abstract class for mutual actions such as collision and mutual gravity.
 	 * 
 	 * <p>
