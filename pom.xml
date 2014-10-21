@@ -18,7 +18,7 @@
 
 	<properties>
         <flexmojos.version>4.1-beta</flexmojos.version>
-		<flex.sdk.version>4.6.b.23201</flex.sdk.version>
+		<flex.sdk.version>4.6.0.23201</flex.sdk.version>
         <swf.version>18</swf.version>
         <flash.player.version>11.7</flash.player.version>
         <client.unit.testing.version>1.83</client.unit.testing.version>
