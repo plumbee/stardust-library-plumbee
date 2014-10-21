@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.plumbee</groupId>
-	<artifactId>stardust-library</artifactId>
-	<version>2.38</version>
-	<packaging>swc</packaging>
+    <groupId>com.plumbee</groupId>
+    <artifactId>stardust-library</artifactId>
+    <version>2.38</version>
+    <packaging>swc</packaging>
 
-    <parent>
-        <groupId>com.plumbee</groupId>
-        <artifactId>BasePom</artifactId>
-        <version>2.10</version>
-    </parent>
+    <name>Stardust library</name>
+    <description>Stardust library - Plumbee version with bugfixes and extra features</description>
 
-	<name>Stardust library</name>
-	<description>Stardust library - Plumbee version with bugfixes and extra features</description>
-
-	<properties>
-        <flexmojos.version>5.1-beta-QP</flexmojos.version>
-		<flex.sdk.version>4.6.b.23201</flex.sdk.version>
+    <properties>
+        <flexmojos.version>6.0.1</flexmojos.version>
+        <flex.sdk.version>4.6.0.23201</flex.sdk.version>
         <swf.version>18</swf.version>
         <flash.player.version>11.7</flash.player.version>
-        <client.unit.testing.version>1.83</client.unit.testing.version>
-        <includeProperties>client.unit.testing.version</includeProperties>
-	</properties>
+
+        <includeProperties />
+    </properties>
 
     <!-- Change this part to your own repository details -->
     <distributionManagement>
@@ -52,7 +46,7 @@
         </pluginRepository>
     </pluginRepositories>
 
-	<build>
+    <build>
 
         <extensions>
             <extension>
@@ -62,29 +56,27 @@
             </extension>
         </extensions>
 
-		<sourceDirectory>src/main/flex</sourceDirectory>
-		<!--<testSourceDirectory>src/test/flex</testSourceDirectory>-->
-		<plugins>
+        <sourceDirectory>src/main/flex</sourceDirectory>
+        <testSourceDirectory>src/test/flex</testSourceDirectory>
+        <plugins>
 
-			<plugin>
-                <!--<groupId>org.sonatype.flexmojos</groupId>-->
+            <plugin>
                 <groupId>net.flexmojos.oss</groupId>
                 <artifactId>flexmojos-maven-plugin</artifactId>
-				<version>${flexmojos.version}</version>
-				<extensions>true</extensions>
-				<configuration>
-                    <storepass/>
-					<testTimeout>200000</testTimeout>
-					<footer>Stardust library. Plumbee ltd.</footer>
-					<leftFramesetWidth>320</leftFramesetWidth>
-					<mainTitle>Stardust library API documentation</mainTitle>
-					<windowTitle>Stardust library API documentation</windowTitle>
-					<targetPlayer>${flash.player.version}</targetPlayer>
-					<swfVersion>${swf.version}</swfVersion>
+                <version>${flexmojos.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <testTimeout>200000</testTimeout>
+                    <footer>Stardust library. Plumbee ltd.</footer>
+                    <leftFramesetWidth>320</leftFramesetWidth>
+                    <mainTitle>Stardust library API documentation</mainTitle>
+                    <windowTitle>Stardust library API documentation</windowTitle>
+                    <targetPlayer>${flash.player.version}</targetPlayer>
+                    <swfVersion>${swf.version}</swfVersion>
                     <compilerWarnings>
                         <warn-no-constructor>false</warn-no-constructor>
                     </compilerWarnings>
-				</configuration>
+                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>com.adobe.flex</groupId>
@@ -93,7 +85,7 @@
                         <type>pom</type>
                     </dependency>
                 </dependencies>
-			</plugin>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -101,24 +93,17 @@
                 <version>2.2.1</version>
             </plugin>
 
-		</plugins>
-	</build>
+        </plugins>
+    </build>
 
     <dependencies>
+
         <!-- Flex needs to be excluded here, otherwise will compile for FP 10 for some reason -->
         <dependency>
             <groupId>com.adobe.flex.framework</groupId>
             <artifactId>flex-framework</artifactId>
             <version>${flex.sdk.version}</version>
             <type>pom</type>
-        </dependency>
-
-        <dependency>
-            <groupId>com.plumbee</groupId>
-            <artifactId>client-unit-testing</artifactId>
-            <version>${client.unit.testing.version}</version>
-            <type>swc</type>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>
