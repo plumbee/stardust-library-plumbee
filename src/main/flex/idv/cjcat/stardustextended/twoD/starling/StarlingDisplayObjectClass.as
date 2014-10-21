@@ -11,8 +11,8 @@ import idv.cjcat.stardustextended.twoD.initializers.Initializer2D;
 
 public class StarlingDisplayObjectClass extends Initializer2D
 {
-    public var displayObjectClass:Class;
-    public var constructorParams:Array;
+    protected var displayObjectClass:Class;
+	protected var constructorParams:Array;
 
     public function StarlingDisplayObjectClass(displayObjectClass:Class = null, constructorParams:Array = null)
     {
@@ -23,11 +23,16 @@ public class StarlingDisplayObjectClass extends Initializer2D
     override public function initialize(particle:Particle):void
     {
         // starling.display.DisplayObject
-        var displayObject : * = construct(displayObjectClass, constructorParams);
+        var displayObject : * = createParticleDisplayObject(displayObjectClass,constructorParams);
         displayObject.pivotX = 0.5 * displayObject.width;
         displayObject.pivotY = 0.5 * displayObject.height;
         particle.target = displayObject;
     }
+
+	protected function createParticleDisplayObject(displayObjectClass:Class, constructorParams:Array) : *
+	{
+		return construct(displayObjectClass,constructorParams);
+	}
 
     //XML
     //------------------------------------------------------------------------------------------------
