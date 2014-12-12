@@ -19,6 +19,15 @@ public class PooledStarlingDisplayObjectClass extends StarlingDisplayObjectClass
 		return true;
 	}
 
+	override public function initialize(particle : Particle) : void
+	{
+		super.initialize(particle);
+		if (particle.target is IStardustSprite)
+		{
+			IStardustSprite(particle.target).init(particle);
+		}
+	}
+
 	override protected function createParticleDisplayObject(displayObjectClass : Class, constructorParams : Array) : *
 	{
 		return pool.get();
