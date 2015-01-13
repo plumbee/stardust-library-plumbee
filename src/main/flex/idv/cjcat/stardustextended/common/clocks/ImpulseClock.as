@@ -6,10 +6,14 @@
 	 */
 	public class ImpulseClock extends Clock {
 
+		public static const DEFAULT_BURST_INTERVAL : Number = 33;
+
 		/**
 		 * The time between bursts. You have to implement this functionality, Stardust is not using this property.
 		 */
-		public var burstInterval:int = 33;
+		private var _burstInterval:Number;
+		private var _nextBurstTime:Number;
+
 		/**
 		 * How many particles to burst out after each <code>impulse()</code> call.
 		 */
@@ -21,9 +25,11 @@
 		public function ImpulseClock(impulseCount:int = 0, repeatCount:int = 1) {
 			this.impulseCount = impulseCount;
 			this.repeatCount = repeatCount;
+			this.burstInterval = DEFAULT_BURST_INTERVAL;
+
 			_discharged = true;
 		}
-		
+
 		/**
 		 * The repetition count of bursting.
 		 * 
@@ -38,13 +44,32 @@
 			if (value < 1) value = 1;
 			_repeatCount = value;
 		}
-		
+
+		public function get burstInterval() : int {
+			return _burstInterval;
+		}
+
+		public function set burstInterval(value : int) : void
+		{
+			_burstInterval = value;
+			_nextBurstTime = 0;
+		}
+
+		public function get nextBurstTime() : Number {
+			return _nextBurstTime;
+		}
+
 		/**
 		 * The emitter step after the <code>impulse()</code> call creates a burst of particles.
+		 *
+		 * @param currentTime Current time used as a reference point for setting next discharge time.
+		 * (Note: This parameter is now needed since when time accumulated by the emmiter is not an integer there is
+		 * no way to tell whether impulse should be triggered based on emmiter.currentTime % burstInterval, as it used to be done.)
 		 */
-		public function impulse():void {
+		public function impulse(currentTime : Number):void {
 			_dischargeCount = 0;
 			_discharged = false;
+			_nextBurstTime = currentTime + _burstInterval;
 		}
 		
 		override public final function getTicks(time:Number):int {
@@ -67,9 +92,9 @@
         {
             _discharged = true;
             _dischargeCount = 0;
+	        _nextBurstTime = 0;
         }
-		
-		
+
 		//XML
 		//------------------------------------------------------------------------------------------------
 		
