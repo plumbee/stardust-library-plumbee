@@ -15,8 +15,8 @@
         <flex.sdk.version>4.6.0.23201</flex.sdk.version>
         <swf.version>18</swf.version>
         <flash.player.version>11.7</flash.player.version>
-
-        <includeProperties />
+        <client.unit.testing.version>1.87</client.unit.testing.version>
+        <includeProperties>client.unit.testing.version</includeProperties>
     </properties>
 
     <!-- Change this part to your own repository details -->
@@ -66,6 +66,7 @@
                 <version>${flexmojos.version}</version>
                 <extensions>true</extensions>
                 <configuration>
+                    <storepass/>
                     <testTimeout>200000</testTimeout>
                     <footer>Stardust library. Plumbee ltd.</footer>
                     <leftFramesetWidth>320</leftFramesetWidth>
@@ -104,6 +105,14 @@
             <artifactId>flex-framework</artifactId>
             <version>${flex.sdk.version}</version>
             <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.plumbee</groupId>
+            <artifactId>client-unit-testing</artifactId>
+            <version>${client.unit.testing.version}</version>
+            <scope>test</scope>
+            <type>swc</type>
         </dependency>
 
     </dependencies>
