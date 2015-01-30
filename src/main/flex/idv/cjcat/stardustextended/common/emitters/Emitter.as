@@ -417,7 +417,7 @@ use namespace sd;
 			}
 		}
 
-		protected function getInitializersByClass(initializerClazz : Class) : Vector.<Initializer>
+		public function getInitializersByClass(initializerClazz : Class) : Vector.<Initializer>
 		{
 			return Vector.<Initializer>(initializers.filter(function(element:Initializer, index:int, arr:Array):Boolean{
 				return element is initializerClazz;
