@@ -11,7 +11,8 @@
     <description>Stardust library - Plumbee version with bugfixes and extra features</description>
 
     <properties>
-        <flexmojos.version>6.0.1</flexmojos.version>
+        <!--<flexmojos.version>6.0.1</flexmojos.version>-->
+        <flexmojos.version>5.1-beta-QP</flexmojos.version>
         <flex.sdk.version>4.6.0.23201</flex.sdk.version>
         <swf.version>18</swf.version>
         <flash.player.version>11.7</flash.player.version>
@@ -105,6 +106,13 @@
             <artifactId>flex-framework</artifactId>
             <version>${flex.sdk.version}</version>
             <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.flex.framework</groupId>
+            <artifactId>playerglobal</artifactId>
+            <version>11.7</version>
+            <type>swc</type>
         </dependency>
 
         <dependency>
