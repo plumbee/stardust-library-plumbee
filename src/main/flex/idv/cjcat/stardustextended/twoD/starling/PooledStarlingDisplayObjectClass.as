@@ -43,7 +43,7 @@ public class PooledStarlingDisplayObjectClass extends StarlingDisplayObjectClass
 			{
 				IStardustSprite(obj).disable();
 			}
-			if (obj is displayObjectClass)
+			if (obj is super.displayObjectClass)
 			{
 				pool.recycle(obj);
 			}
