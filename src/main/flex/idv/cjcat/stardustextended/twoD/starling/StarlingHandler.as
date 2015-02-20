@@ -1,24 +1,23 @@
 package idv.cjcat.stardustextended.twoD.starling
 {
 
-import idv.cjcat.stardustextended.common.handlers.ParticleHandler;
 import idv.cjcat.stardustextended.common.particles.Particle;
 import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 import idv.cjcat.stardustextended.twoD.display.AddChildMode;
+import idv.cjcat.stardustextended.twoD.handlers.BlendModeHandler;
 import idv.cjcat.stardustextended.twoD.particles.Particle2D;
 
-public class StarlingHandler extends ParticleHandler
+public class StarlingHandler extends BlendModeHandler
 {
 	public function StarlingHandler(container : * = null, blendMode : String = "normal", addChildMode : int = 0)
 	{
 		this.container = container;
-		this.blendMode = blendMode;
 		this.addChildMode = addChildMode;
+		starlingBlendMode = blendMode;
 	}
 
 	public var addChildMode : int; // starling.display.DisplayObjectContainer
 	public var container : Object;
-	public var blendMode : String;
 
 	override public function particleAdded(particle : Particle) : void
 	{
@@ -86,7 +85,7 @@ public class StarlingHandler extends ParticleHandler
 		}
 		if (xml.@blendMode.length())
 		{
-			blendMode = (xml.@blendMode);
+			starlingBlendMode = (xml.@blendMode);
 		}
 	}
 

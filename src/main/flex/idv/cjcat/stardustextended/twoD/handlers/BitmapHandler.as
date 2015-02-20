@@ -12,20 +12,16 @@ package idv.cjcat.stardustextended.twoD.handlers {
 	/**
 	 * This handler draws display object particles into a bitmap.
 	 */
-	public class BitmapHandler extends ParticleHandler {
+	public class BitmapHandler extends BlendModeHandler {
 		
 		/**
 		 * The target bitmap to draw display object into.
 		 */
 		public var targetBitmapData:BitmapData;
-		/**
-		 * The blend mode for drawing.
-		 */
-		public var blendMode:String;
 		
 		public function BitmapHandler(targetBitmapData:BitmapData = null, blendMode:String = "normal") {
 			this.targetBitmapData = targetBitmapData;
-			this.blendMode = blendMode;
+			displayListBlendMode = blendMode;
 		}
 		
 		private var p2D:Particle2D;
@@ -66,7 +62,7 @@ package idv.cjcat.stardustextended.twoD.handlers {
 		override public function parseXML(xml:XML, builder:XMLBuilder = null):void {
 			super.parseXML(xml, builder);
 			
-			if (xml.@blendMode.length()) blendMode = xml.@blendMode;
+			if (xml.@blendMode.length()) displayListBlendMode = xml.@blendMode;
 		}
 		
 		//------------------------------------------------------------------------------------------------

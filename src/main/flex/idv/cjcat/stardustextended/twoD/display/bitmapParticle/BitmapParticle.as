@@ -96,5 +96,9 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
         }
     }
 
+	public function set animationSpeed(value : uint) : void
+	{
+		animSpeed = value;
+	}
 }
 }
