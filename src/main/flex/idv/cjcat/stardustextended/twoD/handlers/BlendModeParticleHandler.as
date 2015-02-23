@@ -3,12 +3,14 @@
  */
 package idv.cjcat.stardustextended.twoD.handlers
 {
+import flash.display.BlendMode;
+
 import idv.cjcat.stardustextended.common.handlers.ParticleHandler;
 
 public class BlendModeParticleHandler extends ParticleHandler
 {
 	private var _supportedBlendModes : Vector.<String>;
-	private var _blendMode : String;
+	private var _blendMode : String = BlendMode.NORMAL;
 
 	public function BlendModeParticleHandler(supportedBlendModes : Vector.<String>)
 	{
