@@ -12,7 +12,7 @@ package idv.cjcat.stardustextended.twoD.handlers {
 	/**
 	 * This handler draws display object particles into a bitmap.
 	 */
-	public class BitmapHandler extends BlendModeHandler {
+	public class BitmapHandler extends BlendModeParticleHandler {
 		
 		/**
 		 * The target bitmap to draw display object into.

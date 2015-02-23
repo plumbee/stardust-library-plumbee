@@ -4,10 +4,10 @@ package idv.cjcat.stardustextended.twoD.starling
 import idv.cjcat.stardustextended.common.particles.Particle;
 import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 import idv.cjcat.stardustextended.twoD.display.AddChildMode;
-import idv.cjcat.stardustextended.twoD.handlers.BlendModeHandler;
+import idv.cjcat.stardustextended.twoD.handlers.BlendModeParticleHandler;
 import idv.cjcat.stardustextended.twoD.particles.Particle2D;
 
-public class StarlingHandler extends BlendModeHandler
+public class StarlingHandler extends BlendModeParticleHandler
 {
 	public function StarlingHandler(container : * = null, blendMode : String = "normal", addChildMode : int = 0)
 	{

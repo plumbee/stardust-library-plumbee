@@ -7,7 +7,7 @@ import flash.display.BlendMode;
 
 import idv.cjcat.stardustextended.common.handlers.ParticleHandler;
 
-public class BlendModeHandler extends ParticleHandler
+public class BlendModeParticleHandler extends ParticleHandler
 {
 	private static const STARLING_BLEND_MODES : Vector.<String> = new <String>[
 		BlendMode.NORMAL,
