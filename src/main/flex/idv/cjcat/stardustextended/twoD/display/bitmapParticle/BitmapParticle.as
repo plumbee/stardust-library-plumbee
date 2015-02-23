@@ -100,5 +100,17 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
 	{
 		animSpeed = value;
 	}
+
+	public function set startFromRandomFrame(value : Boolean) : void
+	{
+		if(value)
+		{
+			currFrame = Math.random() * totalFrames;
+		}
+		else
+		{
+			currFrame = 0;
+		}
+	}
 }
 }

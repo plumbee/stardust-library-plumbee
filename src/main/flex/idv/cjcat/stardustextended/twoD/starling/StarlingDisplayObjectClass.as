@@ -12,7 +12,11 @@ import idv.cjcat.stardustextended.twoD.initializers.Initializer2D;
 
 public class StarlingDisplayObjectClass extends Initializer2D
 {
+	private static const LENGTH_WITH_ANIM_SPEED : uint = 3;
+	private static const LENGTH_WITH_RANDOM_START : uint = 2;
+
 	private var _animationSpeed : uint = 1;
+	private var _startAtRandomFrame : Boolean = false;
 
     protected var displayObjectClass:Class;
 	protected var constructorParams:Array;
@@ -21,9 +25,14 @@ public class StarlingDisplayObjectClass extends Initializer2D
     {
         this.displayObjectClass = displayObjectClass;
 
-	    if(constructorParams != null && constructorParams.length == 3)
+	    if(constructorParams != null && constructorParams.length == LENGTH_WITH_ANIM_SPEED)
 	    {
 		    _animationSpeed = constructorParams.pop();
+	    }
+
+	    if(constructorParams != null && constructorParams.length == LENGTH_WITH_RANDOM_START)
+	    {
+		    _startAtRandomFrame = constructorParams.pop();
 	    }
 
         this.constructorParams = constructorParams;
@@ -37,9 +46,11 @@ public class StarlingDisplayObjectClass extends Initializer2D
         displayObject.pivotY = 0.5 * displayObject.height;
         particle.target = displayObject;
 
-	    if(particle.target is IAnimatedParticle)
+	    var animatedParticle : IAnimatedParticle = particle.target as IAnimatedParticle;
+	    if(animatedParticle != null)
 	    {
-		    IAnimatedParticle(particle.target).animationSpeed = _animationSpeed;
+		    animatedParticle.animationSpeed = _animationSpeed;
+		    animatedParticle.startFromRandomFrame = _startAtRandomFrame;
 	    }
     }
 
