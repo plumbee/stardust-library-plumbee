@@ -1,5 +1,6 @@
 package idv.cjcat.stardustextended.twoD.handlers {
-	import flash.display.DisplayObject;
+import flash.display.BlendMode;
+import flash.display.DisplayObject;
 	import flash.geom.ColorTransform;
 	import flash.geom.Matrix;
 	import idv.cjcat.stardustextended.common.math.StardustMath;
@@ -17,11 +18,30 @@ package idv.cjcat.stardustextended.twoD.handlers {
 		/**
 		 * The target bitmap to draw display object into.
 		 */
+
+		private static const DISPLAY_LIST_BLEND_MODES : Vector.<String> = new <String>[
+			BlendMode.NORMAL,
+			BlendMode.LAYER,
+			BlendMode.MULTIPLY,
+			BlendMode.SCREEN,
+			BlendMode.LIGHTEN,
+			BlendMode.DARKEN,
+			BlendMode.ADD,
+			BlendMode.SUBTRACT,
+			BlendMode.DIFFERENCE,
+			BlendMode.INVERT,
+			BlendMode.OVERLAY,
+			BlendMode.HARDLIGHT,
+			BlendMode.ALPHA,
+			BlendMode.ERASE
+		];
+
 		public var targetBitmapData:BitmapData;
 		
 		public function BitmapHandler(targetBitmapData:BitmapData = null, blendMode:String = "normal") {
+			super(DISPLAY_LIST_BLEND_MODES);
 			this.targetBitmapData = targetBitmapData;
-			displayListBlendMode = blendMode;
+			this.blendMode = blendMode;
 		}
 		
 		private var p2D:Particle2D;
@@ -62,7 +82,7 @@ package idv.cjcat.stardustextended.twoD.handlers {
 		override public function parseXML(xml:XML, builder:XMLBuilder = null):void {
 			super.parseXML(xml, builder);
 			
-			if (xml.@blendMode.length()) displayListBlendMode = xml.@blendMode;
+			if (xml.@blendMode.length()) blendMode = xml.@blendMode;
 		}
 		
 		//------------------------------------------------------------------------------------------------

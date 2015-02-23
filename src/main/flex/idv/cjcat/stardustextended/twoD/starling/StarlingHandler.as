@@ -1,6 +1,8 @@
 package idv.cjcat.stardustextended.twoD.starling
 {
 
+import flash.display.BlendMode;
+
 import idv.cjcat.stardustextended.common.particles.Particle;
 import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 import idv.cjcat.stardustextended.twoD.display.AddChildMode;
@@ -9,11 +11,21 @@ import idv.cjcat.stardustextended.twoD.particles.Particle2D;
 
 public class StarlingHandler extends BlendModeParticleHandler
 {
+	private static const STARLING_BLEND_MODES : Vector.<String> = new <String>[
+		BlendMode.NORMAL,
+		BlendMode.MULTIPLY,
+		BlendMode.SCREEN,
+		BlendMode.ADD,
+		BlendMode.ERASE
+	];
+
 	public function StarlingHandler(container : * = null, blendMode : String = "normal", addChildMode : int = 0)
 	{
+		super(STARLING_BLEND_MODES);
+
 		this.container = container;
 		this.addChildMode = addChildMode;
-		starlingBlendMode = blendMode;
+		this.blendMode = blendMode;
 	}
 
 	public var addChildMode : int; // starling.display.DisplayObjectContainer
@@ -85,7 +97,7 @@ public class StarlingHandler extends BlendModeParticleHandler
 		}
 		if (xml.@blendMode.length())
 		{
-			starlingBlendMode = (xml.@blendMode);
+			blendMode = (xml.@blendMode);
 		}
 	}
 
