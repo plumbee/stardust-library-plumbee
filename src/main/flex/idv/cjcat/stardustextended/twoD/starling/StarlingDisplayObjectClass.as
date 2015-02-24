@@ -12,30 +12,16 @@ import idv.cjcat.stardustextended.twoD.initializers.Initializer2D;
 
 public class StarlingDisplayObjectClass extends Initializer2D
 {
-	private static const LENGTH_WITH_ANIM_SPEED : uint = 3;
-	private static const LENGTH_WITH_RANDOM_START : uint = 2;
-
-	private var _animationSpeed : uint = 1;
-	private var _startAtRandomFrame : Boolean = false;
+	private var _particleConfig : ParticleConfig;
 
     protected var displayObjectClass:Class;
 	protected var constructorParams:Array;
 
-    public function StarlingDisplayObjectClass(displayObjectClass:Class = null, constructorParams:Array = null)
+    public function StarlingDisplayObjectClass(displayObjectClass:Class = null, constructorParams:Array = null, particleConfig : ParticleConfig = null)
     {
         this.displayObjectClass = displayObjectClass;
-
-	    if(constructorParams != null && constructorParams.length == LENGTH_WITH_ANIM_SPEED)
-	    {
-		    _animationSpeed = constructorParams.pop();
-	    }
-
-	    if(constructorParams != null && constructorParams.length == LENGTH_WITH_RANDOM_START)
-	    {
-		    _startAtRandomFrame = constructorParams.pop();
-	    }
-
         this.constructorParams = constructorParams;
+	    _particleConfig = particleConfig;
     }
 
     override public function initialize(particle:Particle):void
@@ -47,10 +33,10 @@ public class StarlingDisplayObjectClass extends Initializer2D
         particle.target = displayObject;
 
 	    var animatedParticle : IAnimatedParticle = particle.target as IAnimatedParticle;
-	    if(animatedParticle != null)
+	    if(animatedParticle != null && _particleConfig != null)
 	    {
-		    animatedParticle.animationSpeed = _animationSpeed;
-		    animatedParticle.startFromRandomFrame = _startAtRandomFrame;
+		    animatedParticle.animationSpeed = _particleConfig.animationSpeed;
+		    animatedParticle.startFromRandomFrame = _particleConfig.startFromRandomFrame;
 	    }
     }
 

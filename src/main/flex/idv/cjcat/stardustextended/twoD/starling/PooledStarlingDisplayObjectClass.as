@@ -6,9 +6,9 @@ import idv.cjcat.stardustextended.twoD.utils.GenericObjectPool;
 
 public class PooledStarlingDisplayObjectClass extends StarlingDisplayObjectClass
 {
-	public function PooledStarlingDisplayObjectClass(displayObjectClass : Class = null, constructorParams : Array = null)
+	public function PooledStarlingDisplayObjectClass(displayObjectClass : Class = null, constructorParams : Array = null, particleConfig : ParticleConfig = null)
 	{
-		super(displayObjectClass, constructorParams);
+		super(displayObjectClass, constructorParams, particleConfig);
 		setupPool(displayObjectClass, constructorParams);
 	}
 

@@ -63,11 +63,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
         bmp.x = - imgWidth / 2;
         bmp.y = - imgHeight / 2;
         totalFrames = animSpeed * spriteCache.bds.length;
-        currFrame = 0;
-        if ( startAtRandomFrame )
-        {
-            currFrame = Math.random() * totalFrames;
-        }
+	    startFromRandomFrame = startAtRandomFrame;
         bmp.bitmapData = spriteCache.bds[uint(currFrame / animSpeed)];
         bmp.smoothing = smoothing;
     }
@@ -98,7 +94,8 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
 
 	public function set animationSpeed(value : uint) : void
 	{
-		animSpeed = value;
+		animSpeed = value > 0 ? value : 1;
+		totalFrames = spriteCache.length * animSpeed;
 	}
 
 	public function set startFromRandomFrame(value : Boolean) : void
