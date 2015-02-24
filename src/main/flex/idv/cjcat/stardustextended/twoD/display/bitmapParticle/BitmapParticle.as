@@ -95,7 +95,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
 	public function set animationSpeed(value : uint) : void
 	{
 		animSpeed = value > 0 ? value : 1;
-		totalFrames = spriteCache.length * animSpeed;
+		totalFrames = spriteCache.bds.length * animSpeed;
 	}
 
 	public function set startFromRandomFrame(value : Boolean) : void
