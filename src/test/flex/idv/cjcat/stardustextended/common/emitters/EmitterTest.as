@@ -1,5 +1,6 @@
 package idv.cjcat.stardustextended.common.emitters
 {
+import idv.cjcat.stardustextended.common.actions.Action;
 import idv.cjcat.stardustextended.common.initializers.Initializer;
 import idv.cjcat.stardustextended.common.particles.PooledParticleFactory;
 import idv.cjcat.stardustextended.sd;
@@ -8,6 +9,7 @@ import org.flexunit.asserts.assertEquals;
 import org.flexunit.asserts.assertNotNull;
 import org.flexunit.asserts.assertStrictlyEquals;
 import org.hamcrest.assertThat;
+import org.hamcrest.number.greaterThanOrEqualTo;
 import org.hamcrest.object.equalTo;
 
 use namespace sd;
@@ -52,6 +54,24 @@ public class EmitterTest extends Emitter
 		assertStrictlyEquals(initializer, result[0]);
 	}
 
+	[Test(description=" getActionsByClass returns only desired type of actions")]
+	public function getActionsByClass_returnsNewVectorContainingTheExistingActions_OnlyOfDesiredType(): void
+	{
+		const DESIRED_ACTION_1: DummyAction1 = new DummyAction1();
+		const DESIRED_ACTION_2: DummyAction1 = new DummyAction1();
+		const UNDESIRED_ACTION: DummyAction2 = new DummyAction2();
+
+		addAction(DESIRED_ACTION_1);
+		addAction(DESIRED_ACTION_2);
+		addAction(UNDESIRED_ACTION);
+
+		const result: Vector.<Action> = getActionsByClass(DummyAction1);
+		assertThat(result.indexOf(DESIRED_ACTION_1), greaterThanOrEqualTo(0));
+		assertThat(result.indexOf(DESIRED_ACTION_2), greaterThanOrEqualTo(0));
+		assertThat(result.length, equalTo(2));
+		assertThat(result.indexOf(UNDESIRED_ACTION), equalTo(-1));
+	}
+
 	[Test]
 	public function removingInitializersFromVector_doesntAffectInitializers() : void
 	{
@@ -83,6 +103,7 @@ public class EmitterTest extends Emitter
 }
 }
 
+import idv.cjcat.stardustextended.common.actions.Action;
 import idv.cjcat.stardustextended.common.initializers.Initializer;
 
 class DummyInitializer1 extends Initializer
@@ -91,6 +112,16 @@ class DummyInitializer1 extends Initializer
 }
 
 class DummyInitializer2 extends Initializer
+{
+
+}
+
+class DummyAction1 extends Action
+{
+
+}
+
+class DummyAction2 extends Action
 {
 
 }

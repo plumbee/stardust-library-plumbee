@@ -424,6 +424,13 @@ use namespace sd;
 			}));
 		}
 
+		public function getActionsByClass(actionClazz: Class): Vector.<Action>
+		{
+			return Vector.<Action>(actions.filter(function(element: Action, index:int, arr:Array): Boolean{
+				return element is actionClazz;
+			}));
+		}
+
 		/** @private */
 		sd final function get actions():Array { return _actionCollection.sd::actions; }
 
