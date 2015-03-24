@@ -6,9 +6,9 @@ public class GenericObjectPool {
 
 	private static const DEFAULT_SIZE:int = 32;
 
+	protected var _vec :Array = [];
 	private var _class:Class;
 	private var _params:Array;
-	private var _vec:Array = [];
 	private var _position:int = 0;
 
 	public function reset(c:Class, params:Array):void {

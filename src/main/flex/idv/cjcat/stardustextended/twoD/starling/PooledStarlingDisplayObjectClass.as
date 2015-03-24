@@ -10,6 +10,7 @@ public class PooledStarlingDisplayObjectClass extends StarlingDisplayObjectClass
 	{
 		super(displayObjectClass, constructorParams, particleConfig);
 		setupPool(displayObjectClass, constructorParams);
+		onRemove.add(dispose);
 	}
 
 	protected var pool : GenericObjectPool;
@@ -52,13 +53,18 @@ public class PooledStarlingDisplayObjectClass extends StarlingDisplayObjectClass
 
 	protected function createPool() : GenericObjectPool
 	{
-		return new GenericObjectPool();
+		return new StarlingDisplayObjectPool();
 	}
 
 	private function setupPool(displayObjectClass : Class, constructorParams : Array) : void
 	{
 		pool = createPool();
 		pool.reset(displayObjectClass, constructorParams);
+	}
+
+	private function dispose(valueObjectA: *, valueObjectB:*): void
+	{
+		(pool as StarlingDisplayObjectPool).dispose();
 	}
 }
 }
