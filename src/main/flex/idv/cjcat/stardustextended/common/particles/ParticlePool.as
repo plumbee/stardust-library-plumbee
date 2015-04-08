@@ -40,7 +40,7 @@
 			if (_position == _array.length) {
 				_array.length <<= 1;
 				
-				//trace("ParticlePool expanded");
+				trace("\nParticlePool expanded: size is now {0}", _array.length);
 				
 				for (var i:int = _position; i < _array.length; i++) {
 					_array[i] = createNewParticle();
@@ -51,19 +51,24 @@
 			return _array[_position - 1];
 		}
 		
-		public final function recycle(particle:Particle):void {
+		public final function recycle(particle:Particle):void
+		{
 			if (_position == 0) return;
 			_array[_position - 1] = particle;
 			if (_position) _position--;
-			
-			//if (_array.length >= 16) {
-				//if (_position < (_array.length >> 4)) {
-					
-					//trace("ParticlePool contracted");
-					
-					//_array.length >>= 1;
-				//}
-			//}
+			shrinkPool();
+		}
+
+		private function shrinkPool(): void
+		{
+			if (_array.length >= 16)
+			{
+				if (_position < (_array.length >> 4))
+				{
+					_array.length >>= 2;
+					trace("\nParticlePool contracted: size is now {0}", _array.length);
+				}
+			}
 		}
 	}
 }

@@ -34,6 +34,8 @@ use namespace sd;
 		private const _actionCollection:ActionCollection = new ActionCollection();
         private const activeActions : Vector.<Action> = new Vector.<Action>();
 
+		private var _blendMode: String = "normal";
+
 		public function Emitter(clock:Clock = null, particleHandler:ParticleHandler = null) {
 			needsSort = false;
 
@@ -439,5 +441,15 @@ use namespace sd;
 
 		//------------------------------------------------------------------------------------------------
 		//end of XML
+
+		public function get blendMode() : String
+		{
+			return _blendMode;
+		}
+
+		public function set blendMode(value : String) : void
+		{
+			_blendMode = value;
+		}
 	}
 }

@@ -145,6 +145,8 @@
 		 * @param	name
 		 * @return
 		 */
+
+
 		public function getElementByName(name:String):StardustElement {
 			if (elements[name] == undefined) {
 				throw new IllegalOperationError("Element not found: " + name);
@@ -170,6 +172,7 @@
 		 * </p>
 		 * @param	xml
 		 */
+
 		public function buildFromXML(xml:XML):void {
 			elements = new Dictionary();
 			
