@@ -43,11 +43,7 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
         {
             return;
         }
-        isSpriteSheet = true;
-        if ( _animSpeed == 0 )
-        {
-            _animSpeed = 1;
-        }
+        setupSpriteSheetType(animSpeed);
         if ( ! slicedSpriteCache[bitmapData] )
         {
             slicedSpriteCache[bitmapData] = new Dictionary();
@@ -58,7 +54,6 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
             slicedSpriteCache[bitmapData][sizeKey] = new SpriteSheetBitmapSlicedCache( bitmapData, imgWidth, imgHeight );
         }
         spriteCache = slicedSpriteCache[bitmapData][sizeKey];
-        animSpeed = _animSpeed;
         smoothing = _smoothing;
         bmp.x = - imgWidth / 2;
         bmp.y = - imgHeight / 2;
@@ -67,6 +62,16 @@ public class BitmapParticle extends Sprite implements IBitmapParticle
         bmp.bitmapData = spriteCache.bds[uint(currFrame / animSpeed)];
         bmp.smoothing = smoothing;
     }
+
+	private function setupSpriteSheetType(_animSpeed: uint) : void
+	{
+		isSpriteSheet = true;
+		if (_animSpeed == 0 )
+		{
+			isSpriteSheet = false;
+			animSpeed = 1;
+		}
+	}
 
     public function stepSpriteSheet( stepTime : uint ) : void
     {
