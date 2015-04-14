@@ -8,28 +8,35 @@ import idv.cjcat.stardustextended.common.xml.XMLBuilder;
 import idv.cjcat.stardustextended.twoD.display.AddChildMode;
 import idv.cjcat.stardustextended.twoD.handlers.BlendModeParticleHandler;
 import idv.cjcat.stardustextended.twoD.particles.Particle2D;
+import idv.cjcat.stardustextended.twoD.utils.BlendModeSets;
 
 public class StarlingHandler extends BlendModeParticleHandler
 {
-	private static const STARLING_BLEND_MODES : Vector.<String> = new <String>[
-		BlendMode.NORMAL,
-		BlendMode.MULTIPLY,
-		BlendMode.SCREEN,
-		BlendMode.ADD,
-		BlendMode.ERASE
-	];
+	public var addChildMode : int; // starling.display.DisplayObjectContainer
+	public var container : Object;
+	private var atfMode: Boolean;
 
-	public function StarlingHandler(container : * = null, blendMode : String = "normal", addChildMode : int = 0)
+	public function StarlingHandler(container : * = null, blendMode : String = "normal", addChildMode : int = 0, enableATFMode: Boolean = false)
 	{
-		super(STARLING_BLEND_MODES);
-
+		super(enableATFMode ? BlendModeSets.STARLING_ATF_BLEND_MODES : BlendModeSets.STARLING_REGULAR_BLEND_MODES);
+		atfMode = enableATFMode;
 		this.container = container;
 		this.addChildMode = addChildMode;
 		this.blendMode = blendMode;
 	}
 
-	public var addChildMode : int; // starling.display.DisplayObjectContainer
-	public var container : Object;
+	override public function set blendMode(value: String): void
+	{
+		//Aware that this creates a loose dependency on the ATF_ADD blendmode present in Flump.
+		//Future plans are to remove the ATF_ADD along with other graphics features from that library.
+		if(atfMode && value == BlendMode.ADD)
+		{
+			super.blendMode = BlendModeSets.ATF_ADD_ID;
+		}
+		else{
+			super.blendMode = value;
+		}
+	}
 
 	override public function particleAdded(particle : Particle) : void
 	{
