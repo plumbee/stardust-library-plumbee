@@ -18,7 +18,7 @@ public class StarlingHandler extends BlendModeParticleHandler
 
 	public function StarlingHandler(container : * = null, blendMode : String = "normal", addChildMode : int = 0, enableATFMode: Boolean = false)
 	{
-		super(enableATFMode ? BlendModeSets.STARLING_ATF_BLEND_MODES : BlendModeSets.STARLING_REGULAR_BLEND_MODES);
+		super(getBlendModeSet(enableATFMode));
 		atfMode = enableATFMode;
 		this.container = container;
 		this.addChildMode = addChildMode;
@@ -27,15 +27,7 @@ public class StarlingHandler extends BlendModeParticleHandler
 
 	override public function set blendMode(value: String): void
 	{
-		//Aware that this creates a loose dependency on the ATF_ADD blendmode present in Flump.
-		//Future plans are to remove the ATF_ADD along with other graphics features from that library.
-		if(atfMode && value == BlendMode.ADD)
-		{
-			super.blendMode = BlendModeSets.ATF_ADD_ID;
-		}
-		else{
-			super.blendMode = value;
-		}
+		super.blendMode = getLegalBlendMode(value);
 	}
 
 	override public function particleAdded(particle : Particle) : void
@@ -74,6 +66,16 @@ public class StarlingHandler extends BlendModeParticleHandler
 		IStardustStarlingParticle(particle.target).updateFromModel(
 				p2D.x, p2D.y, p2D.rotation, p2D.scale, p2D.alpha
 		);
+	}
+
+	private function getLegalBlendMode(blendMode: String): String
+	{
+		return atfMode && (blendMode == BlendMode.ADD) ? BlendModeSets.ATF_ADD_ID : blendMode;
+	}
+
+	private function getBlendModeSet(atfMode: Boolean): Vector.<String>
+	{
+		return atfMode ? BlendModeSets.STARLING_ATF_BLEND_MODES : BlendModeSets.STARLING_REGULAR_BLEND_MODES;
 	}
 
 	//XML
