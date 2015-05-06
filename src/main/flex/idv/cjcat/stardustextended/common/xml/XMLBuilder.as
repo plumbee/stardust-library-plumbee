@@ -179,7 +179,8 @@
 			var element:StardustElement;
 			var node:XML;
 			for each (node in xml.*.*) {
-				element = StardustElement(new elementClasses[node.name()]());
+				var clazz: Class = elementClasses[node.name().localName];
+				element = new clazz() as StardustElement;
 				if (elements[node.@name] != undefined) {
 					throw new DuplicateElementNameError("Duplicate element name: " + node.@name, node.@name, elements[node.@name], element);
 				}
