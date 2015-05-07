@@ -40,7 +40,7 @@
 			if (_position == _array.length) {
 				_array.length <<= 1;
 				
-				trace("\nParticlePool expanded: size is now {0}", _array.length);
+				//trace("\nParticlePool expanded: size is now {0}", _array.length);
 				
 				for (var i:int = _position; i < _array.length; i++) {
 					_array[i] = createNewParticle();
@@ -66,7 +66,7 @@
 				if (_position < (_array.length >> 4))
 				{
 					_array.length >>= 2;
-					trace("\nParticlePool contracted: size is now {0}", _array.length);
+					//trace("\nParticlePool contracted: size is now {0}", _array.length);
 				}
 			}
 		}
