@@ -7,6 +7,7 @@ import idv.cjcat.stardustextended.common.actions.Action;
 import idv.cjcat.stardustextended.common.actions.ActionCollection;
 import idv.cjcat.stardustextended.common.actions.ActionCollector;
 import idv.cjcat.stardustextended.common.clocks.Clock;
+import idv.cjcat.stardustextended.common.clocks.ImpulseClock;
 import idv.cjcat.stardustextended.common.clocks.SteadyClock;
 import idv.cjcat.stardustextended.common.handlers.ParticleHandler;
 import idv.cjcat.stardustextended.common.initializers.Initializer;
@@ -204,7 +205,26 @@ use namespace sd;
 		 * </p>
 		 * @param	time The time interval of a single step of simulation. For instance, doubling this parameter causes the simulation to go twice as fast.
 		 */
-		public final function step(time:Number = 1):void {
+		public final function step(time:Number = 1):void
+		{
+			stepEmitter(time);
+			stepClock();
+		}
+
+		private function stepClock() : void
+		{
+			if(_clock is ImpulseClock)
+			{
+				const impulseClock : ImpulseClock = ImpulseClock(_clock);
+				if (this.currentTime >= impulseClock.nextBurstTime)
+				{
+					ImpulseClock(_clock).impulse(currentTime);
+				}
+			}
+
+		}
+
+		public final function stepEmitter(time:Number = 1):void {
 			onStepBegin.dispatch(this, particles, time);
 			_particleHandler.stepBegin(this, particles, time);
 
