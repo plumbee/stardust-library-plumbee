@@ -205,7 +205,7 @@ use namespace sd;
 		 * </p>
 		 * @param	time The time interval of a single step of simulation. For instance, doubling this parameter causes the simulation to go twice as fast.
 		 */
-		public final function step(time:Number = 1):void
+		public function step(time:Number = 1):void
 		{
 			stepEmitter(time);
 			stepClock();
@@ -224,7 +224,7 @@ use namespace sd;
 
 		}
 
-		public final function stepEmitter(time:Number = 1):void {
+		public function stepEmitter(time:Number = 1):void {
 			onStepBegin.dispatch(this, particles, time);
 			_particleHandler.stepBegin(this, particles, time);
 
