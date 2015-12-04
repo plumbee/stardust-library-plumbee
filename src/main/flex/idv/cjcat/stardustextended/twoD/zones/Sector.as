@@ -125,9 +125,14 @@
             }
 			return true;
 		}
-		
-		
-		//XML
+
+
+		override public function clone() : Zone
+		{
+			return new Sector(x,y,_minRadius,_maxRadius,_minAngle,_maxAngle);
+		}
+
+//XML
 		//------------------------------------------------------------------------------------------------
 		
 		override public function getRelatedObjects():Array {

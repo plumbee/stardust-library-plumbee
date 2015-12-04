@@ -80,9 +80,14 @@
 			var index:int = int(coordLength * Math.random());
 			return MotionData2DPool.get(xCoords[index] * scaleX + x, yCoords[index] * scaleY + y);
 		}
-		
-		
-		//XML
+
+
+		override public function clone() : Zone
+		{
+			return new BitmapZone(bmpd.clone(),x,y,scaleX,scaleY);
+		}
+
+//XML
 		//------------------------------------------------------------------------------------------------
 		
 		override public function getXMLTagName():String {

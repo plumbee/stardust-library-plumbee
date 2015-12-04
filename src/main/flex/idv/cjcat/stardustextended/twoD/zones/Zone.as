@@ -73,7 +73,12 @@
 		public final function getArea():Number {
 			return area;
 		}
-		
+
+		public function clone(): Zone
+		{
+			return new Zone();
+		}
+
 		//XML
 		//------------------------------------------------------------------------------------------------
 		

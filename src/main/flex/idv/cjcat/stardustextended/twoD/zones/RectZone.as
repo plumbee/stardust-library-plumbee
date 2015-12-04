@@ -67,9 +67,14 @@
 			else if ((y < this.y) || (y > (this.y + height))) return false;
 			return true;
 		}
-		
-		
-		//XML
+
+
+		override public function clone() : Zone
+		{
+			return new RectZone(x,y,_width,_height,_randomX,_randomY);
+		}
+
+//XML
 		//------------------------------------------------------------------------------------------------
 		
 		override public function getRelatedObjects():Array {

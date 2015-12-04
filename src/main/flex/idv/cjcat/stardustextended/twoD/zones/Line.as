@@ -95,9 +95,16 @@
 			var dy:Number = _y1 - _y2;
 			area = Math.sqrt(dx * dx + dy * dy) * virtualThickness;
 		}
-		
-		
-		//XML
+
+
+		override public function clone() : Zone
+		{
+			const clone: Line = new Line(_x1,_y1, _x2, _y2, _random);
+			clone.virtualThickness = this.virtualThickness;
+			return clone;
+		}
+
+//XML
 		//------------------------------------------------------------------------------------------------
 		
 		override public function getXMLTagName():String {

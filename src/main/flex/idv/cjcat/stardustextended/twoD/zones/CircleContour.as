@@ -70,9 +70,14 @@
 			var theta:Number = StardustMath.TWO_PI * Math.random();
 			return new MotionData2D(_radius * Math.cos(theta) + x, _radius * Math.sin(theta) + y);
 		}
-		
-		
-		//XML
+
+
+		override public function clone() : Zone
+		{
+			return new CircleContour(x,y,_radius);
+		}
+
+//XML
 		//------------------------------------------------------------------------------------------------
 		
 		override public function getRelatedObjects():Array {

@@ -65,7 +65,18 @@
             // changes is subzones are not detected
 		}
 
-		//XML
+
+		override public function clone() : Zone
+		{
+			const clone: Composite = new Composite();
+			for each (var zone: Zone in _zones)
+			{
+				clone.addZone(zone.clone());
+			}
+			return clone;
+		}
+
+//XML
 		//------------------------------------------------------------------------------------------------
 		
 		override public function getRelatedObjects():Array {

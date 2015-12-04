@@ -28,9 +28,13 @@
 		override protected function updateArea():void {
 			area = virtualThickness * virtualThickness * Math.PI;
 		}
-		
-		
-		//XML
+
+		override public function clone() : Zone
+		{
+			return new SinglePoint(x,y);
+		}
+
+//XML
 		//------------------------------------------------------------------------------------------------
 
 		override public function getXMLTagName():String {

@@ -62,9 +62,14 @@
 		override protected function updateArea():void {
 			area = _radiusSQ * Math.PI;
 		}
-		
-		
-		//XML
+
+
+		override public function clone() : Zone
+		{
+			return new CircleZone(x,y,radius);
+		}
+
+//XML
 		//------------------------------------------------------------------------------------------------
 		
 		override public function getRelatedObjects():Array {

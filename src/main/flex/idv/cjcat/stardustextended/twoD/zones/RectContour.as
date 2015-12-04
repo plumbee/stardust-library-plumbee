@@ -103,8 +103,13 @@
                 area += line.getArea();
             }
         }
-		
-		//XML
+
+		override public function clone() : Zone
+		{
+			return new RectContour(_x,_y,_width,_height);
+		}
+
+//XML
 		//------------------------------------------------------------------------------------------------
 		
 		override public function getRelatedObjects():Array {

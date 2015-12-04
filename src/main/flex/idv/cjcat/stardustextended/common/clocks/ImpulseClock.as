@@ -1,12 +1,15 @@
 ﻿package idv.cjcat.stardustextended.common.clocks {
-	import idv.cjcat.stardustextended.common.xml.XMLBuilder;
-	
-	/**
+import idv.cjcat.stardustextended.cjsignals.Signal;
+import idv.cjcat.stardustextended.common.xml.XMLBuilder;
+
+/**
 	 * The impulse clock causes the emitter to create a single burst of particles right after the <code>impulse()</code> method is called.
 	 */
 	public class ImpulseClock extends Clock {
 
 		public static const DEFAULT_BURST_INTERVAL : Number = 33;
+
+		private const DISCHARGE_COMPLETE: Signal = new Signal();
 
 		/**
 		 * The time between bursts. You have to implement this functionality, Stardust is not using this property.
@@ -21,6 +24,9 @@
 		private var _repeatCount:int;
 		private var _dischargeCount:int;
 		private var _discharged:Boolean;
+		private var _dischargeLimit: int;
+		private var _cumulativeDischarges: uint;
+
 		
 		public function ImpulseClock(impulseCount:int = 0, repeatCount:int = 1) {
 			this.impulseCount = impulseCount;
@@ -28,6 +34,8 @@
 			this.burstInterval = DEFAULT_BURST_INTERVAL;
 
 			_discharged = true;
+			_dischargeLimit = -1;
+			_cumulativeDischarges = 0;
 		}
 
 		/**
@@ -59,6 +67,11 @@
 			return _nextBurstTime;
 		}
 
+		public function get dischargeComplete() : Signal
+		{
+			return DISCHARGE_COMPLETE;
+		}
+
 		/**
 		 * The emitter step after the <code>impulse()</code> call creates a burst of particles.
 		 *
@@ -67,6 +80,10 @@
 		 * no way to tell whether impulse should be triggered based on emmiter.currentTime % burstInterval, as it used to be done.)
 		 */
 		public function impulse(currentTime : Number):void {
+			if(_cumulativeDischarges>=_dischargeLimit && !isInfinite())
+			{
+				return;
+			}
 			_dischargeCount = 0;
 			_discharged = false;
 			_nextBurstTime = currentTime + _burstInterval;
@@ -78,6 +95,8 @@
 				if (_dischargeCount >= repeatCount) {
 					_discharged = true;
 					ticks = 0;
+					_cumulativeDischarges++
+					DISCHARGE_COMPLETE.dispatch();
 				} else {
 					ticks = impulseCount;
 					_dischargeCount++;
@@ -86,6 +105,21 @@
 				ticks = 0;
 			}
 			return ticks;
+		}
+
+		private function isInfinite() : Boolean
+		{
+			return _dischargeLimit<=0;
+		}
+
+		public function get dischargeLimit() : int
+		{
+			return _dischargeLimit;
+		}
+
+		public function set dischargeLimit(value : int) : void
+		{
+			_dischargeLimit = value;
 		}
 
         override public function reset() : void
@@ -122,5 +156,6 @@
 		
 		//------------------------------------------------------------------------------------------------
 		//end of XML
-	}
+
+}
 }
