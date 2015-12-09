@@ -68,12 +68,6 @@
 			return true;
 		}
 
-
-		override public function clone() : Zone
-		{
-			return new RectZone(x,y,_width,_height,_randomX,_randomY);
-		}
-
 //XML
 		//------------------------------------------------------------------------------------------------
 		

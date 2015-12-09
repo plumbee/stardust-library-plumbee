@@ -96,14 +96,6 @@
 			area = Math.sqrt(dx * dx + dy * dy) * virtualThickness;
 		}
 
-
-		override public function clone() : Zone
-		{
-			const clone: Line = new Line(_x1,_y1, _x2, _y2, _random);
-			clone.virtualThickness = this.virtualThickness;
-			return clone;
-		}
-
 //XML
 		//------------------------------------------------------------------------------------------------
 		

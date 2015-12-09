@@ -21,7 +21,7 @@ public class Emitter2D extends Emitter
 		factory = new PooledParticle2DFactory();
 	}
 
-	override public final function addAction(action : Action) : void
+	override public function addAction(action : Action) : void
 	{
 		if (!action.supports2D)
 		{
@@ -30,7 +30,7 @@ public class Emitter2D extends Emitter
 		super.addAction(action);
 	}
 
-	override public final function addInitializer(initializer : Initializer) : void
+	override public function addInitializer(initializer : Initializer) : void
 	{
 		if (!initializer.supports2D)
 		{

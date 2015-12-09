@@ -65,17 +65,6 @@
             // changes is subzones are not detected
 		}
 
-
-		override public function clone() : Zone
-		{
-			const clone: Composite = new Composite();
-			for each (var zone: Zone in _zones)
-			{
-				clone.addZone(zone.clone());
-			}
-			return clone;
-		}
-
 //XML
 		//------------------------------------------------------------------------------------------------
 		

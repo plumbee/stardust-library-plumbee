@@ -63,12 +63,6 @@
 			area = _radiusSQ * Math.PI;
 		}
 
-
-		override public function clone() : Zone
-		{
-			return new CircleZone(x,y,radius);
-		}
-
 //XML
 		//------------------------------------------------------------------------------------------------
 		

@@ -29,11 +29,6 @@
 			area = virtualThickness * virtualThickness * Math.PI;
 		}
 
-		override public function clone() : Zone
-		{
-			return new SinglePoint(x,y);
-		}
-
 //XML
 		//------------------------------------------------------------------------------------------------
 

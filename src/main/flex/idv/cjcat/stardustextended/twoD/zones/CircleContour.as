@@ -71,12 +71,6 @@
 			return new MotionData2D(_radius * Math.cos(theta) + x, _radius * Math.sin(theta) + y);
 		}
 
-
-		override public function clone() : Zone
-		{
-			return new CircleContour(x,y,_radius);
-		}
-
 //XML
 		//------------------------------------------------------------------------------------------------
 		

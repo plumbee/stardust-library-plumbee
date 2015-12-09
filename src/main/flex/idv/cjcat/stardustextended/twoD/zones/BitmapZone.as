@@ -40,7 +40,7 @@
 			update(bitmapData);
 		}
 		
-		private var bmpd:BitmapData;
+		protected var bmpd:BitmapData;
 		private var coordLength:int;
 		public function update(bitmapData:BitmapData = null):void {
 			if (!bitmapData) bitmapData = new BitmapData(1, 1, true, 0xFF808080);
@@ -79,12 +79,6 @@
 			if (xCoords.length == 0) return MotionData2DPool.get(x, y);
 			var index:int = int(coordLength * Math.random());
 			return MotionData2DPool.get(xCoords[index] * scaleX + x, yCoords[index] * scaleY + y);
-		}
-
-
-		override public function clone() : Zone
-		{
-			return new BitmapZone(bmpd.clone(),x,y,scaleX,scaleY);
 		}
 
 //XML
