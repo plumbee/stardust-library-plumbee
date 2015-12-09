@@ -127,6 +127,7 @@ import idv.cjcat.stardustextended.common.xml.XMLBuilder;
             _discharged = true;
             _dischargeCount = 0;
 	        _nextBurstTime = 0;
+	        _cumulativeDischarges = 0;
         }
 
 		//XML
