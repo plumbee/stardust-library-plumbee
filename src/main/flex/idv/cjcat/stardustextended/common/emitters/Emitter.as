@@ -29,6 +29,7 @@ use namespace sd;
 		//signals
 		//------------------------------------------------------------------------------------------------
 
+		private const _onDischargeComplete: ISignal = new Signal();
 		private const _onEmpty:ISignal = new Signal(Emitter);
 		private const _onStepBegin:ISignal = new Signal(Emitter, Vector.<Particle>, Number);
 		private const _onStepEnd:ISignal = new Signal(Emitter, Vector.<Particle>, Number);
@@ -77,6 +78,15 @@ use namespace sd;
 		public function get onEmpty():ISignal { return _onEmpty; }
 
 		/**
+		* Dispatched if the clock is an ImpulseClock and the clock
+		 * completes a single discharge and any repeats it my have
+		 * to do
+		 * <p/>
+		 * Signature: ()
+		* */
+		public function get onDischargeComplete() : ISignal	{ return _onDischargeComplete; }
+
+		/**
 		 * Dispatched at the beginning of each step.
 		 * <p/>
 		 * Signature: (emitter:Emitter, particles:ParticleCollection, time:Number)
@@ -111,6 +121,7 @@ use namespace sd;
 		public function set clock(value:Clock):void {
 			if (!value) value = new SteadyClock(0);
 			_clock = value;
+			setupDischargeSignal();
 		}
 
 		private var _particleHandler:ParticleHandler;
@@ -393,6 +404,22 @@ use namespace sd;
             }
             clock.reset();
         }
+
+		public function set maxDischarges(dischargeLimit : int) : void
+		{
+			if(clock is ImpulseClock)
+			{
+				(clock as ImpulseClock).dischargeLimit = dischargeLimit;
+			}
+		}
+
+		private function setupDischargeSignal() : void
+		{
+			if(clock is ImpulseClock)
+			{
+				(clock as ImpulseClock).dischargeComplete.add(_onDischargeComplete.dispatch);
+			}
+		}
 
 		/**
 		 * This method is used to manually add existing particles to the emitter's simulation.
