@@ -1,5 +1,7 @@
 ﻿package idv.cjcat.stardustextended.common.emitters {
 
+import flash.crypto.generateRandomBytes;
+
 import idv.cjcat.stardustextended.cjsignals.ISignal;
 import idv.cjcat.stardustextended.cjsignals.Signal;
 import idv.cjcat.stardustextended.common.StardustElement;
@@ -122,6 +124,27 @@ use namespace sd;
 			if (!value) value = new SteadyClock(0);
 			_clock = value;
 			setupDischargeSignal();
+		}
+
+		public function set ticksPerCall(value : Number) : void
+		{
+			if(clock is SteadyClock)
+			{
+				SteadyClock(clock).ticksPerCall = value
+			}
+		}
+
+		public function get ticksPerCall() : Number
+		{
+			if(clock is SteadyClock)
+			{
+				return SteadyClock(clock).ticksPerCall;
+			}
+			else
+			{
+				return 0;
+			}
+
 		}
 
 		private var _particleHandler:ParticleHandler;

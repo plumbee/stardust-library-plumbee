@@ -14,7 +14,7 @@
 		 * If less than one, it's the probability of an emitter to create a single particle in each step.
 		 * </p>
 		 */
-		public var ticksPerCall:Number;
+		private var _ticksPerCall:Number;
 		
 		public function SteadyClock(ticksPerCall:Number = 0) {
 			this.ticksPerCall = ticksPerCall;
@@ -22,6 +22,16 @@
 		
 		override public final function getTicks(time:Number):int {
 			return StardustMath.randomFloor(ticksPerCall * time);
+		}
+
+		public function get ticksPerCall() : Number
+		{
+			return _ticksPerCall
+		}
+
+		public function set ticksPerCall(value : Number) : void
+		{
+			_ticksPerCall = value;
 		}
 		
 		//XML
