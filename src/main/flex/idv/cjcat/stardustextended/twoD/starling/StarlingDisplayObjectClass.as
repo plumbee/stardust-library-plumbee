@@ -1,6 +1,9 @@
 package idv.cjcat.stardustextended.twoD.starling
 {
 
+import com.plumbee.stardustplayer.emitter.StarlingBitmapParticle;
+
+import flash.system.ApplicationDomain;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 
@@ -16,6 +19,12 @@ public class StarlingDisplayObjectClass extends Initializer2D
 
     protected var displayObjectClass:Class;
 	protected var constructorParams:Array;
+
+	//HACK: This is a hack to fix the cross-domain dynamic instantiation of stardust objects when run in web-slots-wrapper. The starling bitmap particle here is a copy-paste of the one present in starling-stardust-sim-loader.
+	//In web-slots-wrapper this code appears to be being run in the parent application domain, where its definition doesn't exist and therefore cannot be instantiated.
+	// To get around this, the definition of StarlingBitmapParticle (including package structure)has been copy-pasted into starling-library
+	// so that a definition of it can be accessible in this domain.
+	StarlingBitmapParticle;
 
     public function StarlingDisplayObjectClass(displayObjectClass:Class = null, constructorParams:Array = null, particleConfig : ParticleConfig = null)
     {
@@ -75,7 +84,47 @@ public class StarlingDisplayObjectClass extends Initializer2D
             constructorParams = String(xml.@constructorParameters ).split(",");
         }
         if (xml.@displayObjectClass.length()) {
-            displayObjectClass = getDefinitionByName( xml.@displayObjectClass ) as Class;
+	        trace("The type of object we get from the xml is a: "+ getQualifiedClassName(xml.@displayObjectClass));
+	        if(ApplicationDomain.currentDomain.hasDefinition(xml.@displayObjectClass))
+	        {
+		        trace("StarlingBitmapParticle exists in app domain");
+	        }
+	        else
+	        {
+		        trace("StarlingBitmapParticle IS NOT in app domain");
+	        }
+	        if(ApplicationDomain.currentDomain.hasDefinition("com.plumbee.stardustplayer.emitter::StarlingBitmapParticle"))
+	        {
+		        trace("StarlingBitmapParticle exists in app domain, when searched for as string");
+	        }
+	        else
+	        {
+		        trace("StarlingBitmapParticle IS NOT in app domain, when searched for as string");
+	        }
+	        if(ApplicationDomain.currentDomain.parentDomain)
+	        {
+		        var parentDom: ApplicationDomain = ApplicationDomain.currentDomain.parentDomain;
+		        if(parentDom.hasDefinition(xml.@displayObjectClass))
+		        {
+			        trace("StarlingBitmapParticle exists in parent domain");
+		        }
+		        else
+		        {
+			        trace("StarlingBitmapParticle IS NOT in parent domain");
+		        }
+		        if(parentDom.hasDefinition("com.plumbee.stardustplayer.emitter::StarlingBitmapParticle"))
+		        {
+			        trace("StarlingBitmapParticle exists in parent domain, when searched for as string");
+		        }
+		        else
+		        {
+			        trace("StarlingBitmapParticle IS NOT in parent domain, when searched for as string");
+		        }
+	        }
+	        else{
+		        trace("there is no parent domain")
+	        }
+	        displayObjectClass = getDefinitionByName( xml.@displayObjectClass ) as Class;
         }
     }
 
