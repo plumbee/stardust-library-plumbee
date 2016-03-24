@@ -84,46 +84,6 @@ public class StarlingDisplayObjectClass extends Initializer2D
             constructorParams = String(xml.@constructorParameters ).split(",");
         }
         if (xml.@displayObjectClass.length()) {
-	        trace("The type of object we get from the xml is a: "+ getQualifiedClassName(xml.@displayObjectClass));
-	        if(ApplicationDomain.currentDomain.hasDefinition(xml.@displayObjectClass))
-	        {
-		        trace("StarlingBitmapParticle exists in app domain");
-	        }
-	        else
-	        {
-		        trace("StarlingBitmapParticle IS NOT in app domain");
-	        }
-	        if(ApplicationDomain.currentDomain.hasDefinition("com.plumbee.stardustplayer.emitter::StarlingBitmapParticle"))
-	        {
-		        trace("StarlingBitmapParticle exists in app domain, when searched for as string");
-	        }
-	        else
-	        {
-		        trace("StarlingBitmapParticle IS NOT in app domain, when searched for as string");
-	        }
-	        if(ApplicationDomain.currentDomain.parentDomain)
-	        {
-		        var parentDom: ApplicationDomain = ApplicationDomain.currentDomain.parentDomain;
-		        if(parentDom.hasDefinition(xml.@displayObjectClass))
-		        {
-			        trace("StarlingBitmapParticle exists in parent domain");
-		        }
-		        else
-		        {
-			        trace("StarlingBitmapParticle IS NOT in parent domain");
-		        }
-		        if(parentDom.hasDefinition("com.plumbee.stardustplayer.emitter::StarlingBitmapParticle"))
-		        {
-			        trace("StarlingBitmapParticle exists in parent domain, when searched for as string");
-		        }
-		        else
-		        {
-			        trace("StarlingBitmapParticle IS NOT in parent domain, when searched for as string");
-		        }
-	        }
-	        else{
-		        trace("there is no parent domain")
-	        }
 	        displayObjectClass = getDefinitionByName( xml.@displayObjectClass ) as Class;
         }
     }
